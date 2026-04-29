@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    /* Subtle warm paper texture via overlapping fine noise + paper tone. */
+    background-color: #faf7f2;
+  }
+
+  body {
+    /* Base reading rhythm. */
+    font-feature-settings: "ss01", "ss02", "cv11", "calt";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Display utility-overrides — opt into more dramatic display behaviors. */
+  .display-tight {
+    font-feature-settings: "ss01", "ss02", "cv11";
+    font-optical-sizing: auto;
+  }
+
+  /* Hairline rule used as section dividers. Paper dust color. */
+  .rule {
+    border-color: #d9d2c4;
+  }
+
+  /* Editorial label: small, all caps, wide tracking, persimmon. */
+  .label {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #c73a14;
+  }
+
+  .label-ink {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1f1d1a;
+  }
+
+  /* Drop cap for editorial body sections. */
+  .dropcap::first-letter {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 4.25rem;
+    line-height: 0.85;
+    float: left;
+    margin: 0.35rem 0.6rem 0 0;
+    color: #0f0e0c;
+  }
+}
+
+@layer components {
+  /* Primary CTA — the only loud thing on the page. */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-ink text-paper px-6 py-3.5 text-[0.9375rem] font-medium tracking-tight transition-all duration-200 hover:bg-persimmon hover:translate-y-[-1px];
+  }
+
+  .btn-primary .arrow {
+    @apply inline-block transition-transform duration-300;
+  }
+
+  .btn-primary:hover .arrow {
+    @apply translate-x-1;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-ink-soft border-b border-ink-soft pb-0.5 hover:text-persimmon hover:border-persimmon transition-colors;
+  }
+
+  /* Stagger helpers for hero-on-load reveal. */
+  .reveal {
+    opacity: 0;
+    animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  }
+  .reveal-1 { animation-delay: 0.05s; }
+  .reveal-2 { animation-delay: 0.18s; }
+  .reveal-3 { animation-delay: 0.32s; }
+  .reveal-4 { animation-delay: 0.46s; }
+  .reveal-5 { animation-delay: 0.6s; }
+
+  /* The narrative-mock card — feels like a printed memo. */
+  .memo {
+    background:
+      linear-gradient(180deg, rgba(255, 252, 246, 1) 0%, rgba(248, 244, 234, 1) 100%);
+    box-shadow:
+      0 1px 0 rgba(31, 29, 26, 0.06),
+      0 18px 40px -22px rgba(31, 29, 26, 0.18),
+      0 2px 6px -1px rgba(31, 29, 26, 0.05);
+    border: 1px solid #e6decd;
+  }
+
+  /* A subtle hatched corner for editorial flair on the memo. */
+  .memo-corner {
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        rgba(15, 14, 12, 0.55) 0,
+        rgba(15, 14, 12, 0.55) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+  }
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduce motion for users who prefer. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; }
+  .btn-primary { transition: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
