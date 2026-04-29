@@ -1,0 +1,21 @@
+# CEO agent: weekly priorities + cross-pod alignment.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: weekly_sunday_evening
+output_kinds:
+  - weekly_priorities
+
+# Inputs the CEO agent reads:
+inputs:
+  - TRACKER.md (full file)
+  - last 7 days of proposals from all agents (not yet implemented)
+  - last 7 days of run stats (not yet implemented)
+
+# What good output looks like:
+output_quality_bar:
+  - The 3 priorities are testable: each names an owner pod, a KR, and a deadline.
+  - Risks are surfaced from §9 of TRACKER.md or from new evidence — not invented.
+  - Decisions-needed list is short (≤3) and the operator can answer each in <60 seconds.
+  - Confidence is honest, not aspirational. <0.5 if information is missing.

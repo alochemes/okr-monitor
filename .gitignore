@@ -1,0 +1,14 @@
+.env
+data/*.db
+data/*.db-journal
+data/audit/*.jsonl
+reports/*.md
+reports/*.html
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store

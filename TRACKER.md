@@ -1,0 +1,264 @@
+# OKR Monitor — Build Log & OKRs
+
+> The single source of truth for the OKR Monitor venture. This file is also our **first dogfood**: every agent, every KR, and every weekly narrative we ship will be ingestible by the product we are building. If the product can't make sense of this file, the product isn't good enough yet.
+
+- **Cycle:** 2026-04-28 → 2026-08-28 (4 months)
+- **Founder/Operator:** andrew@skinmap.com
+- **Repo root:** `C:/Users/aloch/okr-monitor/`
+- **Last updated:** 2026-04-29
+
+---
+
+## 1. Mission & Wedge
+
+**Mission.** Make every company's OKRs honest in real time by connecting goals to the actual work happening in code, tickets, and conversations.
+
+**Wedge (the one sentence on the landing page).** "Every Friday, get a one-page exec summary of which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle."
+
+**ICP for pilots.** Series A–C SaaS, 50–500 employees, OKRs in Notion / Asana / Mooncamp, day-to-day work in GitHub + Linear/Jira + Slack. Buyer is the **Chief of Staff** or **Head of Ops** (not the CEO directly — they are the user who weaponizes it for the CEO).
+
+**Anti-ICP (do not pursue in pilot phase).** Pre-seed (no real OKRs), 1,000+ employees (procurement cycle longer than our runway), non-software companies (we don't have the integrations).
+
+---
+
+## 2. Company OKRs (2026-04-28 → 2026-08-28)
+
+### O1 — Ship a magical MVP that makes "OKR drift" visible in <30 minutes
+| KR | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|
+| 1.1 | MVP deployed to production | live on Vercel | not started | Engineering | 2026-05-12 | 🔴 Not started |
+| 1.2 | Active design partners (logged in ≥3×/week) | 5 | 0 | Customer/Ops | 2026-05-19 | 🔴 Not started |
+| 1.3 | OKR-Mapper precision @ recall on 200-event eval set | ≥85% P @ ≥70% R | n/a | AI/Data | 2026-05-12 | 🔴 Not started |
+| 1.4 | Time-to-first-narrative for new accounts (p90) | ≤30 min | n/a | Product/Design | 2026-05-19 | 🔴 Not started |
+| 1.5 | Design-partner NPS | ≥50 | n/a | Customer/Ops | 2026-05-26 | 🔴 Not started |
+
+### O2 — Prove repeatable acquisition by landing 300 pilots in 4 months
+| KR | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|
+| 2.1 | Cumulative pilot accounts | 300 | 0 | GTM | 2026-08-28 | 🔴 Not started |
+| 2.2 | Pilot activation rate (read ≥1 weekly narrative) | ≥60% | n/a | Customer/Ops | 2026-08-28 | 🔴 Not started |
+| 2.3 | Pilot → paid intent at end of pilot | ≥25% | n/a | GTM | 2026-08-28 | 🔴 Not started |
+| 2.4 | Acquisition channels each producing ≥30 pilots/mo | 3 | 0 | GTM | 2026-08-28 | 🔴 Not started |
+| 2.5 | CAC payback on first paying cohort | ≤6 months | n/a | Strategy | 2026-08-28 | 🔴 Not started |
+
+### O3 — Become the most credible voice on OKR execution on the internet
+| KR | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|
+| 3.1 | Published "State of OKR Execution" benchmark posts | 12 | 0 | GTM | 2026-08-28 | 🔴 Not started |
+| 3.2 | Combined LinkedIn followers (founder + brand) | 5,000 | tbd | GTM | 2026-08-28 | 🔴 Not started |
+| 3.3 | Podcast appearances (cumulative from M2) | 12 | 0 | GTM | 2026-08-28 | 🔴 Not started |
+| 3.4 | Product Hunt launch result | Top 5 of day | n/a | GTM | 2026-06-15 | 🔴 Not started |
+
+### O4 — Build the company on the company's own product (dogfood)
+| KR | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 4/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy pod live) |
+| 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 0 | AI/Data | 2026-05-19 | 🔴 Not started |
+| 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
+
+---
+
+## 3. Pod-Level OKRs
+
+### Strategy Pod (CEO, CPO, CTO, CFO agents)
+- **O:** Keep the company aimed at the right thing each week.
+- KR: Weekly priorities doc updated by Sunday 8pm — **0/17 weeks**
+- KR: ≤2 reversed major decisions per cycle — **0**
+
+### Product & Design Pod (PM, UX-R, UX-D, UI-D, Copywriter)
+- **O:** Customers feel the product is "obviously useful in the first 30 minutes."
+- KR: 10 discovery interviews completed by 2026-05-05 — **0/10**
+- KR: Design system components shipped — **0/24**
+- KR: Onboarding completion rate ≥80% — **n/a**
+
+### Engineering Pod (Backend-Arch, FE-Lead, Integrations, Data-Pipe, AI-Eng, Platform, Security)
+- **O:** Ship the MVP in 14 days without building anything we'll throw away in 60.
+- KR: Integrations live (GitHub, Linear, Jira, Slack, Notion) — **0/5**
+- KR: p95 ingestion latency for new event ≤2 min — **n/a**
+- KR: SOC2-readiness checklist items closed — **0/45**
+
+### AI/Data Pod (OKR-Mapper, Signals-Analyst, Forecasting, Narrative)
+- **O:** The "magic moment" — the auto-narrative — feels written by the smartest analyst the customer has ever met.
+- KR: OKR-Mapper precision ≥85% @ recall ≥70% on eval — **n/a**
+- KR: Forecasting calibration error (Brier) ≤0.15 — **n/a**
+- KR: Narrative human-rated ≥4/5 by ≥80% of design partners — **n/a**
+
+### GTM Pod (Growth, Content, Demand-Gen, Sales-Eng, Founder-Sales, Community/PR)
+- **O:** Build a pilot pipeline that scales past founder hustle by Month 2.
+- KR: Outbound touches per business day — **0 / target 600**
+- KR: Demos booked per week — **0 / target 15 by M2**
+- KR: Inbound pilots from content / community — **0 / target ≥30/mo by M3**
+
+### Customer & Ops Pod (Onboarding, Support, Pilot-PM, Analytics-Ops)
+- **O:** Every pilot reaches "first value" and we know exactly why each one converts or doesn't.
+- KR: Pilot kickoff → first narrative ≤7 days, p90 — **n/a**
+- KR: Pilot exit interview completion rate ≥90% — **n/a**
+- KR: Bug → backlog ticket SLA ≤24h — **n/a**
+
+---
+
+## 4. The 30-Agent Roster
+
+> Status legend: 🔴 not scaffolded · 🟡 scaffolded, no real prompt · 🟢 prompt + first run · ✅ shipping useful output
+
+| # | Agent | Pod | Status | Path |
+|---|---|---|---|---|
+| 1 | ceo | Strategy | 🟢 | `agents/ceo/` |
+| 2 | cpo | Strategy | 🟢 | `agents/cpo/` |
+| 3 | cto | Strategy | 🟢 | `agents/cto/` |
+| 4 | cfo | Strategy | 🟢 | `agents/cfo/` |
+| 5 | pm | Product & Design | 🔴 | `agents/pm/` |
+| 6 | ux_researcher | Product & Design | 🔴 | `agents/ux_researcher/` |
+| 7 | ux_designer | Product & Design | 🔴 | `agents/ux_designer/` |
+| 8 | ui_designer | Product & Design | 🔴 | `agents/ui_designer/` |
+| 9 | copywriter | Product & Design | 🔴 | `agents/copywriter/` |
+| 10 | backend_architect | Engineering | 🔴 | `agents/backend_architect/` |
+| 11 | frontend_lead | Engineering | 🔴 | `agents/frontend_lead/` |
+| 12 | integrations_engineer | Engineering | 🔴 | `agents/integrations_engineer/` |
+| 13 | data_pipeline | Engineering | 🔴 | `agents/data_pipeline/` |
+| 14 | ai_engineer | Engineering | 🔴 | `agents/ai_engineer/` |
+| 15 | platform | Engineering | 🔴 | `agents/platform/` |
+| 16 | security | Engineering | 🔴 | `agents/security/` |
+| 17 | okr_mapper | AI/Data | 🔴 | `agents/okr_mapper/` |
+| 18 | signals_analyst | AI/Data | 🔴 | `agents/signals_analyst/` |
+| 19 | forecasting | AI/Data | 🔴 | `agents/forecasting/` |
+| 20 | narrative | AI/Data | 🔴 | `agents/narrative/` |
+| 21 | growth_hacker | GTM | 🔴 | `agents/growth_hacker/` |
+| 22 | content | GTM | 🔴 | `agents/content/` |
+| 23 | demand_gen | GTM | 🔴 | `agents/demand_gen/` |
+| 24 | sales_engineer | GTM | 🔴 | `agents/sales_engineer/` |
+| 25 | founder_sales | GTM | 🔴 | `agents/founder_sales/` |
+| 26 | community_pr | GTM | 🔴 | `agents/community_pr/` |
+| 27 | onboarding | Customer & Ops | 🔴 | `agents/onboarding/` |
+| 28 | support | Customer & Ops | 🔴 | `agents/support/` |
+| 29 | pilot_pm | Customer & Ops | 🔴 | `agents/pilot_pm/` |
+| 30 | analytics_ops | Customer & Ops | 🔴 | `agents/analytics_ops/` |
+
+---
+
+## 5. Milestone Calendar
+
+| Date | Milestone | Owner |
+|---|---|---|
+| 2026-04-28 | Tracker + OKRs locked, scaffolding begins | Strategy |
+| 2026-05-05 | 10 discovery calls done; ICP locked; OKR-Mapper eval set built | UX-R + AI-Eng |
+| 2026-05-12 | **MVP live**, internal dogfood begins | Engineering |
+| 2026-05-19 | 5 design partners onboarded; agents ingested as work-units (KR4.1) | Customer/Ops |
+| 2026-05-26 | First case study published; NPS measured (KR1.5) | Content + CS |
+| 2026-06-09 | 25 pilots cumulative (M1 target) | GTM |
+| 2026-06-15 | Product Hunt launch | Community/PR |
+| 2026-07-09 | 75 pilots cumulative (M2 target) | GTM |
+| 2026-08-09 | 175 pilots cumulative (M3 target) | GTM |
+| 2026-08-28 | **300 pilots cumulative; cycle review** | All |
+
+---
+
+## 6. Sprint Log (2-week cadence)
+
+### Sprint 0 — 2026-04-28 → 2026-05-12 — "MVP or die"
+- Sprint goal: ship the MVP, get 5 design partners signed.
+- Entry checklist:
+  - [ ] Domain registered, Vercel + Supabase + Inngest projects created
+  - [ ] Anthropic API key, prompt-caching baseline confirmed
+  - [ ] Nango account or direct OAuth apps for GitHub/Linear/Jira/Slack/Notion
+  - [ ] Linear workspace for our own work (we are the first dogfood account)
+- Daily standup: company narrative auto-generated by `narrative` agent from Linear + Git activity. (Once it works, it replaces this section.)
+
+#### Day 1 (2026-04-28 → 2026-04-29) — what shipped
+- Project scaffolded at `C:/Users/aloch/okr-monitor/` following skinmap-style conventions (`core/`, `agents/`, `config/`, `scripts/`, `cli/`).
+- Strategy pod (4 agents) shipped end-to-end and smoke-tested in dry-run:
+  - `ceo` — weekly priorities proposal
+  - `cpo` — roadmap pressure test
+  - `cto` — architecture review with severity-ranked risks
+  - `cfo` — pricing model v0 proposal
+- Operator surface: `cli/review.py` for approve/edit/reject/defer with edit-distance telemetry.
+- Dogfood live: every run snapshots TRACKER.md into `tracker_snapshots`, so any proposal is replayable against the exact tracker state it reasoned over.
+- Run order of operations:
+  1. `python scripts/init_db.py` — once
+  2. `OKR_MONITOR_DRY_RUN=true python scripts/run_strategy_pod.py` — safe
+  3. `python -m cli.review` — operator reviews the queue
+  4. Flip `OKR_MONITOR_DRY_RUN=false` once an `ANTHROPIC_API_KEY` is in `.env`
+- KR4.1 progress: **4/30 agents** now tracked as work-units (the pod itself).
+- Sunday-evening wrapper `scripts/sunday_evening.py` shipped and smoke-tested:
+  - Runs the pod, fetches each proposal back from the DB, writes one markdown file per agent under `proposals/YYYY-MM-DD/`, and a one-page `MONDAY_BRIEF.md`.
+  - Git-agnostic — the caller commits/pushes. (Remote routine prompt handles git.)
+  - Auto-flips to dry-run + banners the brief if `ANTHROPIC_API_KEY` is missing.
+
+#### Day 2 (2026-04-29) — what shipped
+- **Daily LLM circuit breaker** (`core/limits.py`): caps spend per UTC day, refuses calls past cap, audit-alerts on trip. Default $50 Sprint 0–1, $100 Sprint 2+. Tested across 5 scenarios (empty / under-cap / over-cap / env-override / today's date in Sprint 0 window) — all pass.
+- **CFO budget overview proposal** (`proposals/2026-04-29/cfo_budget_overview.md`) — hand-prepared as planning-team stand-in. Recommended cycle budget $30K; LLM <7% of total, GTM 71%, infra 6%, contingency 17%.
+- **API key sanity test** — key authenticates, but Anthropic account balance is $0. Real strategy-pod runs blocked on operator billing top-up.
+- **Operator decisions captured (2026-04-29):** ✅ API key activation, ✅ daily LLM circuit breaker, ✅ git repo init. ⏸️ Budget + GTM deferred until product signal exists.
+- KR4.1 progress unchanged (4/30 agents). KR1.1 progress: ~5% (scaffolding + dogfood loop, no MVP web app yet).
+
+### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
+- Sprint goal: 5 design partners using product weekly, NPS measured.
+
+*(Subsequent sprints added as we go.)*
+
+---
+
+## 7. Decision Log
+
+> One row per non-trivial decision. Reversals get a new row, not an edit.
+
+| Date | Decision | Rationale | Reversed? |
+|---|---|---|---|
+| 2026-04-28 | Lead with GitHub + Linear/Jira + Slack + Notion integrations. Defer Salesforce/Gong to post-pilot. | These 4 cover ~80% of ICP and let us ship in 2 weeks. Salesforce alone is a 2-week project. | — |
+| 2026-04-28 | Buyer persona = Chief of Staff / Head of Ops, not CEO. | They feel the pain (chasing status), they have budget authority for tools <$25k, and they will weaponize it upward to the CEO. | — |
+| 2026-04-28 | Build OKR Monitor as a separate project at `C:/Users/aloch/okr-monitor/`, not inside `skinmap_agents/`. | Different company, different operator-in-the-loop posture (B2B SaaS, not regulated medical). | — |
+| 2026-04-28 | Dogfood from day 1: this TRACKER.md is the first ingested document. | Forces the product to handle messy real-world inputs, not toy data. | — |
+| 2026-04-29 | Strategy pod (CEO/CPO/CTO/CFO) shipped first. Each agent is one LLM call producing one structured proposal; operator reviews via `cli/review.py`. | Operator wants strategy partners online before building agents come up — they can direct the building. Same operator-in-the-loop posture as `skinmap_agents`. | — |
+| 2026-04-29 | Default model = `claude-sonnet-4-6` for all four. System prompt = role + `company.yaml` + full `TRACKER.md`, cached. User message varies per call. | Identical system block across the pod means a single `run_strategy_pod.py` invocation pays the system tokens once, gets ~10% pricing on the next 3 calls (prompt cache TTL ~5 min). | — |
+| 2026-04-29 | Sunday-evening planning pass scheduled as a remote Claude Code routine (Sun 6pm Pacific = Mon 1am UTC). Run output is committed to git as `proposals/YYYY-MM-DD/MONDAY_BRIEF.md` + four agent proposal files. | Local cron only fires when the laptop is on; remote routine is durable. The proposals committed to git become the persistent dogfood record (the SQLite DB in the cloud sandbox is ephemeral). | — |
+| 2026-04-29 | Push `okr-monitor/` to a **private** GitHub repo so the remote routine can clone it. Wrapper (`scripts/sunday_evening.py`) is git-agnostic; the routine prompt handles add/commit/push. | Private repo because TRACKER.md contains pricing math, ICP detail, and risks that aren't public-ready. The wrapper stays git-agnostic so it's also runnable locally without a repo. | — |
+| 2026-04-29 | If `ANTHROPIC_API_KEY` is unavailable in the sandbox, the wrapper auto-flips to dry-run and stamps a banner on MONDAY_BRIEF.md. | Better to ship a stub brief on schedule than crash silently. The banner makes the operator's first read tell them to fix the secret. | — |
+| 2026-04-29 | Daily LLM cost circuit breaker shipped (`core/limits.py`): $50/day Sprint 0–1, $100/day Sprint 2+. Override via `OKR_MONITOR_DAILY_LLM_CAP_USD`. Trip = call refused, audit emits `*.circuit_breaker_open` alert. | Operator approval to enable the API key was contingent on a hard cap. Better to refuse a call and alert than to discover overspend in a billing email. Cap is intentionally per-day (UTC), not per-month — daily granularity catches runaway loops within hours, not weeks. | — |
+| 2026-04-29 | API-key smoke test surfaced: key authenticates but Anthropic account has \$0 balance. Pipeline wiring confirmed correct; real LLM calls blocked by billing, not code. | Operator needs to top up at `console.anthropic.com → Plans & Billing` before any real strategy-pod run. Sprint 0 forecast \$40/14d → recommend loading \$50–\$100 to start. | — |
+| 2026-04-29 | Budget approval and GTM allocation deferred until "the product is further along" (operator). Only API-key activation, daily circuit breaker, and git repo init are in-scope right now. | Disciplined: operator wants real product signal (design partners using the MVP) before approving the GTM elephant ($20.9K of $30K plan). Smart call — paid acquisition with no product signal is just expensive learning. | — |
+
+---
+
+## 8. Customer Pipeline
+
+### Design partners (target: 5 by 2026-05-19)
+| Company | Contact | Status | Integrations they use | Notes |
+|---|---|---|---|---|
+| _tbd_ | | | | |
+
+### Pilots (target: 300 by 2026-08-28)
+*(Tracked in CRM once we have one. For Sprint 0, just a Notion list.)*
+
+---
+
+## 9. Risks & Open Questions
+
+| Risk / Question | Severity | Owner | Mitigation / Next step |
+|---|---|---|---|
+| OKR-Mapper precision is the whole product. If <85% on eval, the narrative reads like nonsense. | High | AI-Eng | Build the 200-event labeled eval set in week 1 before any UI work. |
+| 300 pilots in 4 months requires ~600 outbound touches/business day. Can a single founder + agents sustain that without spam-tier reply rates? | High | GTM | Hold demand-gen agents in "draft for human review" until reply rate ≥3%. |
+| Integration breakage (GitHub/Slack OAuth scope changes) silently corrupts ingestion. | Med | Integrations | Per-source health check + pager on stale-data >2h. |
+| Pricing not yet decided. Pilots free of charge, but "pilot → paid intent" KR is fuzzy without a price. | Med | CFO | Lock pricing model by 2026-05-19 (end of Sprint 0). |
+| Are we comfortable Slack-ingesting customer conversations re: privacy? | High | Security | Default: only public channels + opt-in private channels. DPA template by 2026-05-12. |
+| `ANTHROPIC_API_KEY` for the remote Sunday routine — no obvious secret-injection mechanism in the routine config. | Med | Strategy | V1: routine runs in dry-run (stub brief still useful). V2: store key in a GitHub Actions secret and have the routine call a workflow. Or move scheduling to GitHub Actions entirely. |
+| Anthropic account currently at $0 balance — no real LLM calls succeed even with valid key. | High (blocks all live agent runs) | Strategy | Operator action: top up at console.anthropic.com → Plans & Billing. Recommend $50–$100 to start (Sprint 0 forecast $40/14d). Until then, all runs forced to dry-run. |
+
+---
+
+## 10. Dogfooding Notes
+
+We are simultaneously the **first customer** and the **builder**. Rules:
+
+1. Every agent's output is a "work event" in our own database, tagged to one or more company KRs.
+2. The Friday narrative for *our company* is generated by our own `narrative` agent from our own Linear + commit data — not hand-written. If the narrative is bad, that is a P0 bug.
+3. Anything we feel "I wish the product did X for me right now" goes straight into the backlog with the `dogfood` label, within 24h (KR4.3).
+4. We do not show the product to a design partner until *we* have read our own auto-narrative for two consecutive Fridays and found it useful. That is the launch gate.
+
+---
+
+## 11. How to update this file
+
+- **OKR status changes:** edit the table, bump `Last updated` at the top.
+- **New decision:** append a row to §7. Never edit history.
+- **Sprint close:** append a "Retro" sub-section to that sprint with what shipped, what slipped, what we learned.
+- **New risk:** append to §9. When mitigated, strike through but keep.

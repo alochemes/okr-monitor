@@ -1,0 +1,19 @@
+# CPO agent: roadmap pressure test + scope changes.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: weekly_thursday
+output_kinds:
+  - roadmap_review
+
+inputs:
+  - TRACKER.md (full file)
+  - design partner feedback (not yet wired)
+  - sprint progress (not yet wired)
+
+output_quality_bar:
+  - Every scope change names what's being added/cut/deferred AND why.
+  - Cuts are preferred over additions. The default is "this isn't on the demo critical path."
+  - References specific KRs from TRACKER.md by ID (e.g. "KR1.4").
+  - Flags whether the change requires operator decision now or can wait.

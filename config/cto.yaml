@@ -1,0 +1,18 @@
+# CTO agent: architecture risk + tech-debt budget.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: weekly_wednesday
+output_kinds:
+  - architecture_review
+
+inputs:
+  - TRACKER.md (full file, esp. §7 Decision Log and §9 Risks)
+  - recent commits and PRs (not yet wired)
+
+output_quality_bar:
+  - Risks are concrete (named area, named failure mode, named mitigation).
+  - Mitigations cost-bounded: each fits in ≤2 days of engineering work or is flagged as a tech-debt entry.
+  - Calls out anything in §7 that creates lock-in or hard-to-reverse cost.
+  - No abstract advice. No "consider scalability." Specific or silent.

@@ -1,0 +1,21 @@
+# CFO agent: pricing, unit economics, runway sanity.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: biweekly_friday
+output_kinds:
+  - pricing_model
+  - unit_economics
+
+inputs:
+  - TRACKER.md (full file, esp. KR2.3 / KR2.5 / O2)
+  - pilot funnel data (not yet wired)
+
+output_quality_bar:
+  - Tier proposals include price, what-it-includes, and the buyer persona it targets.
+  - Always state CAC payback assumption explicitly. If <6 months, justify it.
+  - Distinguish between "what we should charge" and "what we should LIST" — many
+    pilots will negotiate.
+  - Confidence below 0.6 if pricing is being set without willingness-to-pay signal
+    from discovery calls.
