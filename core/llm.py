@@ -224,6 +224,62 @@ def _default_mock(action: str) -> str:
             "confidence": 0.1,
             "reasoning": "DRY_RUN."
         })
+    if "daily_status" in action:
+        return json.dumps({
+            "title": "DRY_RUN: daily status stub",
+            "summary": "DRY_RUN — fall-through summary; activate real LLM for actual synopsis.",
+            "accomplished_today": ["DRY_RUN entry"],
+            "expected_today_per_sprint_plan": ["DRY_RUN entry"],
+            "gap_analysis": "DRY_RUN.", "blockers_today": [],
+            "spend_today_usd": 0.0,
+            "verdict_on_next_milestone": "drifting",
+            "verdict_one_liner": "DRY_RUN — verdict requires real model.",
+            "confidence": 0.1, "reasoning": "DRY_RUN."
+        })
+    if "product_roadmap_report" in action:
+        return json.dumps({
+            "title": "DRY_RUN: product roadmap stub",
+            "summary": "DRY_RUN — roadmap report stub.",
+            "current_state": {"agents_live_count": 0, "agents_total": 30,
+                              "mvp_completion_pct_estimate": 0,
+                              "active_sprint": "Sprint 0",
+                              "sprint_window": "2026-04-28 → 2026-05-12"},
+            "features_shipped_this_week": ["DRY_RUN feature"],
+            "features_in_progress": [],
+            "features_blocked": [],
+            "next_2_weeks_milestones": [],
+            "scope_recommendation": "DRY_RUN.",
+            "confidence": 0.1, "reasoning": "DRY_RUN."
+        })
+    if "cost_projection" in action:
+        return json.dumps({
+            "title": "DRY_RUN: cost projection stub",
+            "summary": "DRY_RUN — projection stub; no live cost data.",
+            "today_spend_usd": 0.0, "last_7d_avg_daily_usd": 0.0,
+            "last_14d_total_usd": 0.0, "projected_next_14d_usd": 0.0,
+            "projected_next_30d_usd": 0.0,
+            "spend_by_agent_last_14d": [],
+            "dominant_cost_driver": "none yet",
+            "circuit_breaker_status": "under_cap",
+            "budget_status_vs_cycle_plan": "under",
+            "recommended_action": "DRY_RUN: enable live LLM and re-run.",
+            "confidence": 0.1, "reasoning": "DRY_RUN."
+        })
+    if "growth_metrics" in action:
+        return json.dumps({
+            "title": "DRY_RUN: growth metrics stub",
+            "summary": "DRY_RUN — pre-launch state, no growth data.",
+            "stage": "pre_launch",
+            "pilots_total": 0, "pilots_active": 0, "pilots_new_today": 0,
+            "pilots_converting": 0, "growth_spend_ytd_usd": 0.0,
+            "growth_spend_today_usd": 0.0, "cac_blended_usd": None,
+            "cac_by_channel": [],
+            "outreach_today": {"emails_sent": 0, "linkedin_touches": 0,
+                               "replies": 0, "meetings_booked": 0},
+            "flagged_issues": [],
+            "recommended_action": "No action — pre-launch.",
+            "confidence": 0.5, "reasoning": "DRY_RUN."
+        })
     if "user_stories" in action:
         return json.dumps({
             "title": "DRY_RUN: Sprint 0 stories — top 5 stub",

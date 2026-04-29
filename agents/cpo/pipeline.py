@@ -13,6 +13,7 @@ from core import audit, config, llm, store
 _AGENT = "cpo"
 _KIND = "roadmap_review"
 _PROMPT = (Path(__file__).parent / "prompts" / "roadmap_review.md").read_text(encoding="utf-8")
+_ROADMAP_REPORT_PROMPT = (Path(__file__).parent / "prompts" / "product_roadmap_report.md").read_text(encoding="utf-8")
 
 
 def _user_message(today: date) -> str:
@@ -108,3 +109,76 @@ def run(*, today: date | None = None) -> dict[str, Any]:
         audit.emit(run_id=run_id, agent=_AGENT, action=f"{_KIND}.exception",
                    severity="error", payload={"error": str(exc)})
         raise
+
+
+# --- Daily 7pm product roadmap report ------------------------------------
+
+def _roadmap_report_user_message(today: date, *, activity: dict[str, Any] | None = None) -> str:
+    a = activity or {}
+    return (
+        f"Today is {today.isoformat()}.\n\n"
+        "## Today's activity\n"
+        f"- Events: {a.get('events_today', 0)} · Mappings: {a.get('mappings_today', 0)} "
+        f"· Proposals: {a.get('proposals_today', 0)}\n\n"
+        "Generate the product roadmap report. Reply with ONLY the JSON object specified in the schema."
+    )
+
+
+def _format_roadmap_report_body_md(parsed: dict[str, Any], raw_text: str) -> str:
+    if not parsed:
+        return f"_(unparsed)_\n\n```\n{raw_text}\n```"
+    lines = [f"# {parsed.get('title', '(no title)')}", "",
+             parsed.get("summary", "").strip(), ""]
+    if cs := parsed.get("current_state"):
+        lines.append("## Current state")
+        lines.append(
+            f"- Agents live: **{cs.get('agents_live_count', 0)} / {cs.get('agents_total', 30)}**\n"
+            f"- MVP completion estimate: **{cs.get('mvp_completion_pct_estimate', 0)}%**\n"
+            f"- Active sprint: {cs.get('active_sprint', '?')} (`{cs.get('sprint_window', '?')}`)"
+        )
+        lines.append("")
+    if shipped := parsed.get("features_shipped_this_week"):
+        lines.append("## Shipped this week")
+        lines.extend(f"- {s}" for s in shipped)
+        lines.append("")
+    if inprog := parsed.get("features_in_progress"):
+        lines.append("## In progress")
+        for f in inprog:
+            blk = f.get("blocker_if_any")
+            blk_s = f" — _blocker:_ {blk}" if blk else ""
+            lines.append(f"- **{f.get('feature', '')}** (`{f.get('owner_pod', '?')}`){blk_s}")
+        lines.append("")
+    if blocked := parsed.get("features_blocked"):
+        lines.append("## Blocked")
+        for f in blocked:
+            lines.append(f"- **{f.get('feature', '')}** — _blocker:_ {f.get('blocker', '')}\n  _Unblock:_ {f.get('unblock_action', '')}")
+        lines.append("")
+    if ms := parsed.get("next_2_weeks_milestones"):
+        lines.append("## Next 2 weeks")
+        for m in ms:
+            risk = " ⚠️" if m.get("at_risk") else ""
+            why = f" _({m.get('why_at_risk', '')})_" if m.get("at_risk") else ""
+            lines.append(f"- **{m.get('date', '?')}** — {m.get('milestone', '')}{risk}{why}")
+        lines.append("")
+    if rec := parsed.get("scope_recommendation"):
+        lines.append("## Scope recommendation")
+        lines.append(rec)
+        lines.append("")
+    if (conf := parsed.get("confidence")) is not None:
+        lines.append(f"_Confidence: {conf:.2f}_")
+    if parsed.get("reasoning"):
+        lines.append(f"_Reasoning: {parsed['reasoning']}_")
+    return "\n".join(lines)
+
+
+def run_product_roadmap_report(*, today: date | None = None,
+                               activity: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Run the daily product_roadmap_report. Called by scripts/daily_evening.py."""
+    from agents._proposal import run_proposal
+    return run_proposal(
+        agent=_AGENT, kind="product_roadmap_report",
+        prompt=_ROADMAP_REPORT_PROMPT,
+        user_message_fn=lambda t: _roadmap_report_user_message(t, activity=activity),
+        body_md_fn=_format_roadmap_report_body_md,
+        today=today,
+    )

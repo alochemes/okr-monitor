@@ -52,7 +52,7 @@
 ### O4 — Build the company on the company's own product (dogfood)
 | KR | Target | Current | Owner pod | Due | Status |
 |---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 16/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + AI/Data + 8 more shipped) |
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 17/30 | AI/Data | 2026-05-19 | 🟡 In progress (17 live: 4 strategy + 4 AI/Data + 3 P/D + 3 GTM + 3 C/Ops) |
 | 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
 | 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
 
@@ -132,7 +132,7 @@
 | 27 | onboarding | Customer & Ops | 🟢 | `agents/onboarding/` |
 | 28 | support | Customer & Ops | 🔴 | `agents/support/` |
 | 29 | pilot_pm | Customer & Ops | 🟢 | `agents/pilot_pm/` |
-| 30 | analytics_ops | Customer & Ops | 🔴 | `agents/analytics_ops/` |
+| 30 | analytics_ops | Customer & Ops | 🟢 | `agents/analytics_ops/` |
 
 ---
 
@@ -223,6 +223,23 @@
   - **`onboarding`** (Customer & Ops) — `onboarding_playbook`: 60-day pilot kickoff with timeboxed agenda + Day-7 milestones.
 - KR4.1 progress: **16/30 agents** — Strategy (4) + AI/Data (4) + Product/Design partial (3 of 5) + GTM partial (3 of 6) + Customer/Ops partial (2 of 4). Just over half the org online.
 
+#### Day 3 (2026-04-29 evening) — what shipped (api unblocked + daily report + docs)
+- **API workspace alignment unblocked.** Root cause: shell `ANTHROPIC_API_KEY` from Max-plan auth was shadowing the funded `.env` key (`load_dotenv` default is `override=False`). Patched 18 scripts with `override=True`. **First real LLM call shipped:** CEO `weekly_priorities` proposal, $0.017, confidence 0.82 — proposal correctly identified the unmitigated High risks from TRACKER.md as the top priorities.
+- **DEV DEFAULT flipped to `OKR_MONITOR_DRY_RUN=true`.** Most work happens free on Max; explicit override needed for real spend. Cloud routines have their own env.
+- **Daily 7pm OWNER/FINANCE report pipeline shipped:**
+  - **CEO `daily_status`** — today vs expected, blockers, next-milestone verdict.
+  - **CPO `product_roadmap_report`** — agent count, MVP %, shipped/in-progress/blocked, 2-week roadmap.
+  - **CFO `cost_projection`** — 14-day spend forecast, per-agent cost breakdown, circuit-breaker status.
+  - **analytics_ops** (new agent) `growth_metrics` — pilots, CAC by channel, growth spend, outreach counts. Pre-launch state shows zeros honestly.
+  - **`core/dashboard.py`** renders the KR scoreboard as markdown for inclusion at top of every report.
+  - **`core/mailer.py`** SMTP sender (graceful no-op if `SMTP_HOST` unset). User configures Gmail app password etc. in `.env`.
+  - **`scripts/daily_evening.py`** orchestrator — refresh signals → gather activity → run 4 reporters → render dashboard → assemble report → email + commit.
+  - **Routine scheduled:** `trig_01BMMoRNTGDwuVshakfmapS6` daily at `0 23 * * *` UTC (7pm Pacific EDT). First fire: tonight.
+- **Documentation:**
+  - **`README.md`** — what is this, who built it, who runs it, repo layout, quick start, where-to-look-for-what.
+  - **`RUNBOOK.md`** — daily/weekly ops, the 5 most-used commands, troubleshooting (balance-too-low, circuit breaker tripped, YAML colon gotcha, SMTP failures), command cheat sheet, what's persistent vs ephemeral.
+- KR4.1 progress: **17/30 agents** (analytics_ops added). KR4.2 narrative loop active in dry-run; awaiting cloud secret injection for real output.
+
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.
 
@@ -256,6 +273,10 @@
 | 2026-04-29 | Test infrastructure shipped: `tests/test_signals_math.py` validates 9 scenarios across signals + forecasting using a separate `okr_monitor_test.db`. Runnable via `python -m tests.test_signals_math`. | Math is the load-bearing IP for the verdict system. Catching a regression in window boundaries or target parsing matters more than catching a typo in a prompt. The test DB is patched at import time so tests never touch production data. | — |
 | 2026-04-29 | 8 more agents scaffolded (pm, ux_researcher, copywriter, founder_sales, demand_gen, content, pilot_pm, onboarding) using new shared `agents/_proposal.py` helper. Each is ~30-line pipeline + tailored prompt + per-output body_md formatter. All 8 dry-run smoke-tested green. | Same operator-in-the-loop pattern as the strategy pod. Helper extracts the canonical "snapshot tracker → call LLM → parse JSON → write proposal → audit" boilerplate so new agents stay focused on their prompt + output shape. Strategy pod's 4 unchanged (kept their inline implementations to avoid touching working code). | — |
 | 2026-04-29 | YAML config gotcha discovered: unquoted colons inside list-string items break parsing (`"At risk": who calls...` interpreted as mapping). Fix: wrap in single quotes `'...'` or rephrase to use em-dash. Three configs (pm, pilot_pm, onboarding) hit this. | Tooling-level lesson worth capturing — anyone writing future YAML configs in this repo will hit this. The fix is mechanical but not obvious from the error message. | — |
+| 2026-04-29 | Root cause for "balance too low" identified: shell `ANTHROPIC_API_KEY` (Max account, $0 API balance) was shadowing the funded `.env` key because `load_dotenv()` defaults to `override=False`. Fix: `override=True` in all 18 run scripts. | The Max-plan key is for Claude Code CLI subscription auth, not API billing. The Anthropic Python SDK has no "subscription mode"; it requires API credits. Six failed calls were all the wrong key reaching Anthropic. Lesson: always `override=True` when a project loads its own .env in a context where the user may have global API key envs set. | — |
+| 2026-04-29 | DEV DEFAULT flipped to `OKR_MONITOR_DRY_RUN=true` in `.env`. Real runs now require explicit override (`OKR_MONITOR_DRY_RUN=false python scripts/X.py`). Cloud routines set their own env. | Operator instruction: most work happens on Max (free); only autonomous and explicit operator-triggered runs hit the API budget. Protects the $100 from accidental script invocations during development. | — |
+| 2026-04-29 | Daily 7pm OWNER/FINANCE report shipped: CEO `daily_status`, CPO `product_roadmap_report`, CFO `cost_projection`, analytics_ops `growth_metrics`, KPI dashboard markdown render at the top. SMTP send via `core/mailer.py` (no-op fallback if SMTP_HOST unset). New remote routine `trig_01BMMoRNTGDwuVshakfmapS6` fires daily at `0 23 * * *` UTC = 7pm Pacific (EDT). | Operator wants end-of-day visibility into accomplishment vs expectation, projected spend, roadmap progress, and growth pipeline — accompanied by the live KPI dashboard. The four reporters reuse the existing strategy pod for CEO/CPO/CFO (added `run_<kind>` functions alongside the existing `run()` so weekly behavior is unchanged); analytics_ops is a new agent. Email is best-effort; the report file is committed regardless. | — |
+| 2026-04-29 | Documentation shipped: `README.md` (what is this, who built it, quick start, repo layout) and `RUNBOOK.md` (daily/weekly ops, troubleshooting, command cheat sheet, what's persistent vs ephemeral). | Operator-requested natural-language documentation alongside the code. Future-you (or a teammate brought in) needs to be able to pick this up cold without reading every prompt and every pipeline. | — |
 
 ---
 

@@ -17,6 +17,7 @@ from core import audit, config, llm, store
 _AGENT = "ceo"
 _KIND = "weekly_priorities"
 _PROMPT = (Path(__file__).parent / "prompts" / "weekly_priorities.md").read_text(encoding="utf-8")
+_DAILY_PROMPT = (Path(__file__).parent / "prompts" / "daily_status.md").read_text(encoding="utf-8")
 
 
 def _user_message(today: date) -> str:
@@ -133,3 +134,74 @@ def run(*, today: date | None = None) -> dict[str, Any]:
             severity="error", payload={"error": str(exc)},
         )
         raise
+
+
+# --- Daily 7pm OWNER/FINANCE status ---------------------------------------
+
+def _daily_user_message(today: date, *, today_activity: dict[str, Any] | None = None) -> str:
+    a = today_activity or {}
+    titles = a.get("event_titles") or []
+    proposals = a.get("proposal_titles") or []
+    titles_block = "\n".join(f"- {t}" for t in titles) if titles else "_(none)_"
+    proposals_block = "\n".join(f"- {p}" for p in proposals) if proposals else "_(none)_"
+    return (
+        f"Today is {today.isoformat()}.\n\n"
+        "## Today's activity (live data)\n"
+        f"- Work events ingested: {a.get('events_today', 0)}\n"
+        f"- KR mappings written: {a.get('mappings_today', 0)}\n"
+        f"- Proposals written: {a.get('proposals_today', 0)}\n"
+        f"- LLM spend today: ${a.get('spend_today_usd', 0.0):.4f}\n\n"
+        "## Top events today\n"
+        f"{titles_block}\n\n"
+        "## Proposals written today\n"
+        f"{proposals_block}\n\n"
+        "Generate the daily status synopsis. Reply with ONLY the JSON object specified in the schema."
+    )
+
+
+def _format_daily_body_md(parsed: dict[str, Any], raw_text: str) -> str:
+    if not parsed:
+        return f"_(unparsed)_\n\n```\n{raw_text}\n```"
+    lines = [f"# {parsed.get('title', '(no title)')}", "",
+             parsed.get("summary", "").strip(), ""]
+    if acc := parsed.get("accomplished_today"):
+        lines.append("## Accomplished today")
+        lines.extend(f"- {a}" for a in acc)
+        lines.append("")
+    if exp := parsed.get("expected_today_per_sprint_plan"):
+        lines.append("## Expected today (per sprint plan)")
+        lines.extend(f"- {e}" for e in exp)
+        lines.append("")
+    if gap := parsed.get("gap_analysis"):
+        lines.append("## Gap analysis")
+        lines.append(gap)
+        lines.append("")
+    if blockers := parsed.get("blockers_today"):
+        lines.append("## Blockers")
+        lines.extend(f"- {b}" for b in blockers)
+        lines.append("")
+    spend = parsed.get("spend_today_usd")
+    if spend is not None:
+        lines.append(f"**Spend today:** ${float(spend):.4f}")
+    verdict = parsed.get("verdict_on_next_milestone", "?")
+    one_liner = parsed.get("verdict_one_liner", "")
+    verdict_glyph = {"on_track": "🟢", "drifting": "🟡", "off": "🔴"}.get(verdict, "")
+    lines.append(f"**Next-milestone verdict:** {verdict_glyph} `{verdict}` — {one_liner}")
+    lines.append("")
+    if (conf := parsed.get("confidence")) is not None:
+        lines.append(f"_Confidence: {conf:.2f}_")
+    if parsed.get("reasoning"):
+        lines.append(f"_Reasoning: {parsed['reasoning']}_")
+    return "\n".join(lines)
+
+
+def run_daily_status(*, today: date | None = None,
+                     today_activity: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Run one CEO daily 7pm status pass. Called by scripts/daily_evening.py."""
+    from agents._proposal import run_proposal
+    return run_proposal(
+        agent=_AGENT, kind="daily_status", prompt=_DAILY_PROMPT,
+        user_message_fn=lambda t: _daily_user_message(t, today_activity=today_activity),
+        body_md_fn=_format_daily_body_md,
+        today=today,
+    )

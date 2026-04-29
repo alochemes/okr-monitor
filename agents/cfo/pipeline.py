@@ -16,6 +16,7 @@ from core import audit, config, llm, store
 _AGENT = "cfo"
 _KIND = "pricing_model"
 _PROMPT = (Path(__file__).parent / "prompts" / "pricing_model.md").read_text(encoding="utf-8")
+_COST_PROJECTION_PROMPT = (Path(__file__).parent / "prompts" / "cost_projection.md").read_text(encoding="utf-8")
 
 
 def _user_message(today: date) -> str:
@@ -125,3 +126,76 @@ def run(*, today: date | None = None) -> dict[str, Any]:
         audit.emit(run_id=run_id, agent=_AGENT, action=f"{_KIND}.exception",
                    severity="error", payload={"error": str(exc)})
         raise
+
+
+# --- Daily 7pm cost & token projection -----------------------------------
+
+def _cost_projection_user_message(today: date, *, cost_history: dict[str, Any] | None = None) -> str:
+    h = cost_history or {}
+    daily = h.get("daily_spend") or []
+    by_agent = h.get("by_agent") or []
+    daily_block = "\n".join(f"- {d['day']}: ${d['usd']:.4f}" for d in daily) if daily else "_(no historical data)_"
+    agent_block = "\n".join(
+        f"- {a['agent']}: {a['calls']} calls, ${a['total_usd']:.4f} total"
+        for a in by_agent
+    ) if by_agent else "_(no historical data)_"
+    return (
+        f"Today is {today.isoformat()}.\n\n"
+        "## Last 14 days LLM spend (kpi_daily)\n"
+        f"{daily_block}\n\n"
+        "## Last 14 days spend by agent (proposals.cost_usd)\n"
+        f"{agent_block}\n\n"
+        "Project 14 days ahead. Reply with ONLY the JSON object specified in the schema."
+    )
+
+
+def _format_cost_projection_body_md(parsed: dict[str, Any], raw_text: str) -> str:
+    if not parsed:
+        return f"_(unparsed)_\n\n```\n{raw_text}\n```"
+    lines = [f"# {parsed.get('title', '(no title)')}", "",
+             parsed.get("summary", "").strip(), ""]
+    lines.append("## Spend snapshot")
+    lines.append(f"- Today: **${parsed.get('today_spend_usd', 0.0):.4f}**")
+    lines.append(f"- 7-day avg/day: ${parsed.get('last_7d_avg_daily_usd', 0.0):.4f}")
+    lines.append(f"- 14-day total: ${parsed.get('last_14d_total_usd', 0.0):.4f}")
+    lines.append(f"- **Projected next 14 days: ${parsed.get('projected_next_14d_usd', 0.0):.2f}**")
+    lines.append(f"- Projected next 30 days: ${parsed.get('projected_next_30d_usd', 0.0):.2f}")
+    lines.append("")
+    if by_agent := parsed.get("spend_by_agent_last_14d"):
+        lines.append("## By agent (last 14 days)")
+        lines.append("| Agent | Calls | Total | Avg/call |")
+        lines.append("|---|---:|---:|---:|")
+        for a in by_agent:
+            lines.append(f"| {a.get('agent', '?')} | {a.get('calls', 0)} | "
+                         f"${a.get('total_usd', 0.0):.4f} | ${a.get('avg_per_call_usd', 0.0):.4f} |")
+        lines.append("")
+    if dom := parsed.get("dominant_cost_driver"):
+        lines.append(f"**Dominant cost driver:** {dom}")
+    cb = parsed.get("circuit_breaker_status", "?")
+    cb_glyph = {"under_cap": "🟢", "at_cap": "🟡", "breached_today": "🔴"}.get(cb, "")
+    lines.append(f"**Circuit breaker:** {cb_glyph} `{cb}`")
+    bs = parsed.get("budget_status_vs_cycle_plan", "?")
+    bs_glyph = {"under": "🟢", "on_track": "🟢", "over": "🔴"}.get(bs, "")
+    lines.append(f"**Cycle budget:** {bs_glyph} `{bs}`")
+    lines.append("")
+    if action := parsed.get("recommended_action"):
+        lines.append(f"**Recommended action:** {action}")
+        lines.append("")
+    if (conf := parsed.get("confidence")) is not None:
+        lines.append(f"_Confidence: {conf:.2f}_")
+    if parsed.get("reasoning"):
+        lines.append(f"_Reasoning: {parsed['reasoning']}_")
+    return "\n".join(lines)
+
+
+def run_cost_projection(*, today: date | None = None,
+                        cost_history: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Run the daily 14-day cost & token projection. Called by scripts/daily_evening.py."""
+    from agents._proposal import run_proposal
+    return run_proposal(
+        agent=_AGENT, kind="cost_projection",
+        prompt=_COST_PROJECTION_PROMPT,
+        user_message_fn=lambda t: _cost_projection_user_message(t, cost_history=cost_history),
+        body_md_fn=_format_cost_projection_body_md,
+        today=today,
+    )

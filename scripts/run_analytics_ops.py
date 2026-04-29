@@ -1,4 +1,4 @@
-"""Run one Pilot-PM pilot_milestone_review pass."""
+"""Run one Analytics-Ops growth_metrics pass."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ try:
 except ImportError:
     pass
 
-from agents.pilot_pm import pipeline  # noqa: E402
+from agents.analytics_ops import pipeline  # noqa: E402
 
 
 def main() -> int:

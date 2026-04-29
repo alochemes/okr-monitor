@@ -1,0 +1,15 @@
+# Analytics-Ops agent: monitors growth metrics, customer outreach pipeline,
+# CAC, and growth spend. Reports daily as part of the OWNER/FINANCE brief.
+
+model: claude-sonnet-4-6
+max_tokens: 1536
+temperature: 0.2
+cadence: daily_7pm
+output_kinds:
+  - growth_metrics
+
+output_quality_bar:
+  - Honest about pre-launch state — "0 customers, $0 CAC, no growth spend" is the right answer right now.
+  - Once customers exist — names CAC, channel breakdown, payback period, and trend (improving/flat/worsening).
+  - Flags any channel that's burning cash without producing pilots.
+  - Numbers always cite the source ("Stripe", "manual count", "PostHog event").
