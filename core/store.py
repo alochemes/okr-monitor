@@ -89,6 +89,67 @@ CREATE TABLE IF NOT EXISTS tracker_snapshots (
 
 CREATE INDEX IF NOT EXISTS idx_tracker_snapshots_at ON tracker_snapshots(snapshot_at DESC);
 
+-- A "work event" is anything that happened in the company that can plausibly
+-- be tied to a KR: a code commit, a ticket, a Slack thread — and, in our
+-- dogfood loop, an internal agent proposal. Source-native ID is preserved so
+-- ingestion is idempotent.
+CREATE TABLE IF NOT EXISTS work_events (
+    id              TEXT PRIMARY KEY,        -- uuid
+    source          TEXT NOT NULL,           -- agent_proposal | github | linear | jira | slack | manual
+    source_event_id TEXT NOT NULL,           -- proposal_id, commit sha, issue id, etc.
+    kind            TEXT,                    -- commit | pr | issue_opened | message | proposal | ...
+    title           TEXT NOT NULL,
+    body            TEXT,
+    actor           TEXT,                    -- agent name, github user, slack user
+    occurred_at     TEXT NOT NULL,
+    raw_json        TEXT,
+    created_at      TEXT NOT NULL,
+    UNIQUE(source, source_event_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_work_events_occurred ON work_events(occurred_at DESC);
+CREATE INDEX IF NOT EXISTS idx_work_events_source_actor ON work_events(source, actor);
+
+-- An okr_mapper output: one row per (event, kr) link with confidence. An event
+-- can map to zero, one, or many KRs.
+CREATE TABLE IF NOT EXISTS event_kr_mappings (
+    id              TEXT PRIMARY KEY,        -- uuid
+    event_id        TEXT NOT NULL,
+    run_id          TEXT NOT NULL,
+    kr_id           TEXT NOT NULL,           -- "1.3", "4.2", etc. — must exist in TRACKER.md §2
+    confidence      REAL NOT NULL,           -- 0..1
+    reasoning       TEXT,
+    model           TEXT NOT NULL,
+    tokens_in       INTEGER,
+    tokens_out      INTEGER,
+    cost_usd        REAL,
+    created_at      TEXT NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES work_events(id),
+    FOREIGN KEY (run_id) REFERENCES runs(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_event_kr_event ON event_kr_mappings(event_id);
+CREATE INDEX IF NOT EXISTS idx_event_kr_kr_created ON event_kr_mappings(kr_id, created_at DESC);
+
+-- Output of the narrative agent: a markdown brief covering one time window.
+CREATE TABLE IF NOT EXISTS narratives (
+    id              TEXT PRIMARY KEY,
+    run_id          TEXT NOT NULL,
+    period_start    TEXT NOT NULL,           -- ISO date inclusive
+    period_end      TEXT NOT NULL,           -- ISO date inclusive
+    title           TEXT NOT NULL,
+    body_md         TEXT NOT NULL,
+    evidence_json   TEXT NOT NULL,           -- {kr_summaries, events_count, mappings_count, ...}
+    model           TEXT NOT NULL,
+    tokens_in       INTEGER,
+    tokens_out      INTEGER,
+    cost_usd        REAL,
+    created_at      TEXT NOT NULL,
+    FOREIGN KEY (run_id) REFERENCES runs(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_narratives_period ON narratives(period_end DESC);
+
 -- KPI rollups (daily). Same shape as skinmap_agents.
 CREATE TABLE IF NOT EXISTS kpi_daily (
     day             TEXT NOT NULL,            -- YYYY-MM-DD
@@ -242,6 +303,152 @@ def write_proposal_review(
              time_to_review_s, reviewed_by, _utcnow(), notes),
         )
     return rid
+
+
+# ---------- Work events --------------------------------------------------
+
+def upsert_work_event(
+    *,
+    source: str,
+    source_event_id: str,
+    kind: str | None,
+    title: str,
+    body: str | None,
+    actor: str | None,
+    occurred_at: str,
+    raw: dict | None = None,
+) -> tuple[str, bool]:
+    """Insert a work_event if (source, source_event_id) is new. Returns
+    (event_id, was_new). Idempotent — same source+id → same row, returns
+    existing id with was_new=False."""
+    with connect() as conn:
+        existing = conn.execute(
+            "SELECT id FROM work_events WHERE source = ? AND source_event_id = ?",
+            (source, source_event_id),
+        ).fetchone()
+        if existing:
+            return existing["id"], False
+        eid = str(uuid.uuid4())
+        conn.execute(
+            """
+            INSERT INTO work_events (id, source, source_event_id, kind, title,
+                body, actor, occurred_at, raw_json, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (eid, source, source_event_id, kind, title, body, actor,
+             occurred_at, json.dumps(raw or {}), _utcnow()),
+        )
+        return eid, True
+
+
+def list_unmapped_events(limit: int = 100) -> list[sqlite3.Row]:
+    """Events with no event_kr_mappings row yet. Newest first."""
+    with connect() as conn:
+        cur = conn.execute(
+            """
+            SELECT e.id, e.source, e.source_event_id, e.kind, e.title, e.body,
+                   e.actor, e.occurred_at
+            FROM work_events e
+            LEFT JOIN event_kr_mappings m ON m.event_id = e.id
+            WHERE m.id IS NULL
+            ORDER BY e.occurred_at DESC
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        return list(cur.fetchall())
+
+
+def list_events_in_window(*, start_iso: str, end_iso: str) -> list[sqlite3.Row]:
+    with connect() as conn:
+        cur = conn.execute(
+            "SELECT * FROM work_events WHERE occurred_at >= ? AND occurred_at <= ?"
+            " ORDER BY occurred_at",
+            (start_iso, end_iso),
+        )
+        return list(cur.fetchall())
+
+
+# ---------- Event ↔ KR mappings ------------------------------------------
+
+def write_event_kr_mappings(
+    *,
+    event_id: str,
+    run_id: str,
+    mappings: list[dict],   # [{kr_id, confidence, reasoning}]
+    model: str,
+    tokens_in: int | None,
+    tokens_out: int | None,
+    cost_usd: float | None,
+) -> list[str]:
+    """Insert one row per (event, kr) link. Returns the new mapping ids."""
+    ids: list[str] = []
+    with connect() as conn:
+        for m in mappings:
+            mid = str(uuid.uuid4())
+            conn.execute(
+                """
+                INSERT INTO event_kr_mappings (id, event_id, run_id, kr_id,
+                    confidence, reasoning, model, tokens_in, tokens_out, cost_usd, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (mid, event_id, run_id, str(m["kr_id"]),
+                 float(m.get("confidence", 0.0)),
+                 m.get("reasoning"),
+                 model, tokens_in, tokens_out, cost_usd, _utcnow()),
+            )
+            ids.append(mid)
+    return ids
+
+
+def list_mappings_in_window(*, start_iso: str, end_iso: str) -> list[sqlite3.Row]:
+    """All mappings whose event occurred in [start, end]. Joined with the
+    event so the narrative agent has the title/body without a second query."""
+    with connect() as conn:
+        cur = conn.execute(
+            """
+            SELECT m.id AS mapping_id, m.kr_id, m.confidence, m.reasoning,
+                   e.id AS event_id, e.source, e.kind, e.title, e.body,
+                   e.actor, e.occurred_at
+            FROM event_kr_mappings m
+            JOIN work_events e ON e.id = m.event_id
+            WHERE e.occurred_at >= ? AND e.occurred_at <= ?
+            ORDER BY m.kr_id, e.occurred_at
+            """,
+            (start_iso, end_iso),
+        )
+        return list(cur.fetchall())
+
+
+# ---------- Narratives ---------------------------------------------------
+
+def write_narrative(
+    *,
+    run_id: str,
+    period_start: str,
+    period_end: str,
+    title: str,
+    body_md: str,
+    evidence: dict,
+    model: str,
+    tokens_in: int | None,
+    tokens_out: int | None,
+    cost_usd: float | None,
+) -> str:
+    nid = str(uuid.uuid4())
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO narratives (id, run_id, period_start, period_end,
+                title, body_md, evidence_json, model, tokens_in, tokens_out,
+                cost_usd, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (nid, run_id, period_start, period_end, title, body_md,
+             json.dumps(evidence), model, tokens_in, tokens_out,
+             cost_usd, _utcnow()),
+        )
+    return nid
 
 
 # ---------- KPI -----------------------------------------------------------

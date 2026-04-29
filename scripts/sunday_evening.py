@@ -46,7 +46,9 @@ from agents.ceo import pipeline as ceo_pipe  # noqa: E402
 from agents.cpo import pipeline as cpo_pipe  # noqa: E402
 from agents.cto import pipeline as cto_pipe  # noqa: E402
 from agents.cfo import pipeline as cfo_pipe  # noqa: E402
-from core import store  # noqa: E402
+from agents.okr_mapper import pipeline as mapper_pipe  # noqa: E402
+from agents.narrative import pipeline as narrative_pipe  # noqa: E402
+from core import dogfood, store  # noqa: E402
 
 
 _AGENTS = [
@@ -112,12 +114,78 @@ def _write_proposal_files(out_dir: Path, results: list[dict[str, Any]]) -> list[
     return written
 
 
+def _run_dogfood_loop(
+    *, today: date, results: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """After the strategy pod runs, ingest each new proposal as a work_event,
+    map every unmapped event to KRs, and generate the weekly company
+    narrative. Returns a summary dict so the brief can mention it."""
+    out: dict[str, Any] = {
+        "ingested_events": 0, "ingested_new": 0,
+        "mapper_run_id": None, "mapper_events_processed": 0,
+        "mapper_mappings_written": 0, "mapper_cost_usd": 0.0,
+        "narrative_id": None, "narrative_title": None,
+        "narrative_cost_usd": 0.0, "narrative_mappings_in_window": 0,
+        "errors": [],
+    }
+
+    # 1. Ingest fresh proposals as work_events (idempotent on proposal_id).
+    try:
+        ingested = dogfood.ingest_recent_proposals(limit=20)
+        out["ingested_events"] = len(ingested)
+        out["ingested_new"] = sum(1 for r in ingested if r["was_new"])
+    except Exception as exc:
+        out["errors"].append({"step": "ingest", "error": str(exc)})
+        return out
+
+    # 2. Sweep all unmapped events through the OKR-Mapper.
+    try:
+        mapper_stats = mapper_pipe.run_all_unmapped(limit=100)
+        out["mapper_run_id"] = mapper_stats.get("run_id")
+        out["mapper_events_processed"] = mapper_stats.get("events_processed", 0)
+        out["mapper_mappings_written"] = mapper_stats.get("mappings_written", 0)
+        out["mapper_cost_usd"] = mapper_stats.get("total_cost_usd", 0.0) or 0.0
+    except Exception as exc:
+        out["errors"].append({"step": "okr_mapper", "error": str(exc)})
+
+    # 3. Generate weekly narrative covering trailing 7 days ending today.
+    try:
+        narr_stats = narrative_pipe.run(period_end=today, period_days=7)
+        out["narrative_id"] = narr_stats.get("narrative_id")
+        out["narrative_title"] = narr_stats.get("title")
+        out["narrative_cost_usd"] = narr_stats.get("cost_usd", 0.0) or 0.0
+        out["narrative_mappings_in_window"] = narr_stats.get("mappings_in_window", 0)
+    except Exception as exc:
+        out["errors"].append({"step": "narrative", "error": str(exc)})
+
+    return out
+
+
+def _write_narrative_file(out_dir: Path, narrative_id: str | None) -> Path | None:
+    """Pull the narrative we just wrote out of the DB and dump it as a
+    standalone markdown file alongside the proposals, so a reader of the
+    proposals/ directory has the whole package together."""
+    if not narrative_id:
+        return None
+    with store.connect() as conn:
+        row = conn.execute(
+            "SELECT title, body_md FROM narratives WHERE id = ?", (narrative_id,),
+        ).fetchone()
+    if not row:
+        return None
+    path = out_dir / "weekly_narrative.md"
+    path.write_text(row["body_md"], encoding="utf-8")
+    return path
+
+
 def _build_monday_brief(
     *,
     today: date,
     written: list[dict[str, Any]],
     failures: list[dict[str, Any]],
     forced_dry_run: bool,
+    dogfood_summary: dict[str, Any] | None = None,
+    narrative_path: Path | None = None,
 ) -> str:
     lines: list[str] = [
         f"# Monday Brief — week starting {today.isoformat()}",
@@ -161,6 +229,33 @@ def _build_monday_brief(
         lines.append("_See `data/audit/<today>.jsonl` for full traces._")
         lines.append("")
 
+    if dogfood_summary:
+        d = dogfood_summary
+        lines.append("## Dogfood loop")
+        lines.append(
+            f"- Ingested **{d.get('ingested_new', 0)} new** proposals as work_events "
+            f"(of {d.get('ingested_events', 0)} considered)."
+        )
+        lines.append(
+            f"- OKR-Mapper processed **{d.get('mapper_events_processed', 0)} events**, "
+            f"wrote **{d.get('mapper_mappings_written', 0)} mappings** "
+            f"(cost ${d.get('mapper_cost_usd', 0.0):.4f})."
+        )
+        if narrative_path is not None:
+            lines.append(
+                f"- Weekly narrative: `{narrative_path.name}` covering "
+                f"{d.get('narrative_mappings_in_window', 0)} mapped event(s) "
+                f"(cost ${d.get('narrative_cost_usd', 0.0):.4f})."
+            )
+            lines.append(
+                f"  → [`weekly_narrative.md`](./{narrative_path.name})"
+            )
+        elif d.get("narrative_title"):
+            lines.append(f"- Weekly narrative: \"{d['narrative_title']}\"")
+        for err in d.get("errors", []):
+            lines.append(f"- ⚠️ Dogfood step `{err['step']}` failed: `{err['error']}`")
+        lines.append("")
+
     lines.extend([
         "---",
         "",
@@ -195,9 +290,15 @@ def main() -> int:
     written = _write_proposal_files(out_dir, results)
     failures = [r for r in results if not r.get("ok")]
 
+    # Run the dogfood loop AFTER the pod so it sees today's fresh proposals.
+    dogfood_summary = _run_dogfood_loop(today=today, results=results)
+    narrative_path = _write_narrative_file(out_dir, dogfood_summary.get("narrative_id"))
+
     brief_md = _build_monday_brief(
         today=today, written=written, failures=failures,
         forced_dry_run=forced_dry_run,
+        dogfood_summary=dogfood_summary,
+        narrative_path=narrative_path,
     )
     brief_path = out_dir / "MONDAY_BRIEF.md"
     brief_path.write_text(brief_md, encoding="utf-8")
@@ -213,6 +314,8 @@ def main() -> int:
              "confidence": w["row"]["confidence"]}
             for w in written
         ],
+        "dogfood": dogfood_summary,
+        "narrative_path": narrative_path.relative_to(ROOT).as_posix() if narrative_path else None,
         "failures": [{"agent": f["agent"], "error": f.get("error")} for f in failures],
         "forced_dry_run": forced_dry_run,
     }

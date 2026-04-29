@@ -1,0 +1,20 @@
+# OKR-Mapper agent: maps work events to KRs.
+
+model: claude-sonnet-4-6
+max_tokens: 1024
+temperature: 0.1
+cadence: every_event_or_batched_hourly
+output_kinds:
+  - map_event
+
+inputs:
+  - work_event row (title, body, source, actor)
+  - TRACKER.md §2 OKRs (the KR universe)
+  - last 5 mappings for similar events (not yet wired — needed for consistency)
+
+output_quality_bar:
+  - Returns zero KR mappings when no honest tie exists. Don't force a match.
+  - Confidence calibration matters more than precision here. Confident wrong > uncertain right.
+  - Never invents KR IDs. Must match an ID in TRACKER.md §2 (e.g. "1.1", "4.2").
+  - If multiple KRs apply, return all of them. Don't artificially pick one.
+  - Reasoning is one sentence per mapping. No essays.

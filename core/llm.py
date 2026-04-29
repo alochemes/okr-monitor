@@ -200,6 +200,30 @@ def _default_mock(action: str) -> str:
             "confidence": 0.75,
             "reasoning": "DRY_RUN: stub."
         })
+    if "map_event" in action:
+        # Stub mapping that ties any event to KR4.1 (dogfood) — useful for
+        # exercising the end-to-end flow in dry-run.
+        return json.dumps({
+            "mappings": [
+                {"kr_id": "4.1", "confidence": 0.85,
+                 "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."}
+            ]
+        })
+    if "weekly_narrative" in action:
+        return json.dumps({
+            "title": "DRY_RUN: weekly narrative stub",
+            "verdict_summary": "DRY_RUN: cannot judge real progress without live model output.",
+            "kr_verdicts": [
+                {"kr_id": "4.1", "verdict": "on_track",
+                 "narrative": "DRY_RUN: stub narrative — every event mapped to this KR.",
+                 "events_count": 0}
+            ],
+            "alignment_score_pct": 0,
+            "alignment_commentary": "DRY_RUN.",
+            "what_to_do_next_week": "DRY_RUN: enable live LLM and re-run narrative.",
+            "confidence": 0.1,
+            "reasoning": "DRY_RUN."
+        })
     if "pricing_model" in action or "unit_economics" in action:
         return json.dumps({
             "title": "Pricing v0 proposal — three tiers, anchor on Team",

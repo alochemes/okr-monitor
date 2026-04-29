@@ -52,8 +52,8 @@
 ### O4 — Build the company on the company's own product (dogfood)
 | KR | Target | Current | Owner pod | Due | Status |
 |---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 4/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy pod live) |
-| 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 0 | AI/Data | 2026-05-19 | 🔴 Not started |
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 6/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + okr_mapper + narrative live) |
+| 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
 | 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
 
 ---
@@ -119,10 +119,10 @@
 | 14 | ai_engineer | Engineering | 🔴 | `agents/ai_engineer/` |
 | 15 | platform | Engineering | 🔴 | `agents/platform/` |
 | 16 | security | Engineering | 🔴 | `agents/security/` |
-| 17 | okr_mapper | AI/Data | 🔴 | `agents/okr_mapper/` |
+| 17 | okr_mapper | AI/Data | 🟢 | `agents/okr_mapper/` |
 | 18 | signals_analyst | AI/Data | 🔴 | `agents/signals_analyst/` |
 | 19 | forecasting | AI/Data | 🔴 | `agents/forecasting/` |
-| 20 | narrative | AI/Data | 🔴 | `agents/narrative/` |
+| 20 | narrative | AI/Data | 🟢 | `agents/narrative/` |
 | 21 | growth_hacker | GTM | 🔴 | `agents/growth_hacker/` |
 | 22 | content | GTM | 🔴 | `agents/content/` |
 | 23 | demand_gen | GTM | 🔴 | `agents/demand_gen/` |
@@ -191,6 +191,16 @@
 - **Operator decisions captured (2026-04-29):** ✅ API key activation, ✅ daily LLM circuit breaker, ✅ git repo init. ⏸️ Budget + GTM deferred until product signal exists.
 - KR4.1 progress unchanged (4/30 agents). KR1.1 progress: ~5% (scaffolding + dogfood loop, no MVP web app yet).
 
+#### Day 3 (2026-04-29 evening) — what shipped
+- **AI/Data pod's load-bearing pair: `okr_mapper` + `narrative`.** Each follows the same skinmap-style pipeline (cached system prompt + per-call user message, store via `core/store.py`, audit via `core/audit.py`).
+  - **OKR-Mapper** (`agents/okr_mapper/`): `run(event_id=...)` to map one event, or `run_all_unmapped()` to sweep. Drops mappings with confidence < 0.5 in code (defense in depth).
+  - **Narrative** (`agents/narrative/`): `run(period_end=, period_days=7)` reads all mappings in window, produces structured weekly brief with per-KR verdicts (on_track/drifting/off) and an attention-alignment score.
+- **Dogfood ingestion** (`core/dogfood.py`): turns each strategy-pod proposal into a `work_event` with `source="agent_proposal"`, idempotent on `proposal_id`.
+- **Schema additions** in `core/store.py`: `work_events`, `event_kr_mappings`, `narratives` — all FK-linked to `runs`.
+- **`scripts/sunday_evening.py` extended:** after the strategy pod runs, it now (1) ingests all 4 fresh proposals as work_events, (2) sweeps every unmapped event through the OKR-Mapper, (3) generates the weekly narrative, (4) drops `weekly_narrative.md` into `proposals/YYYY-MM-DD/` alongside the brief, (5) summarizes the dogfood loop in MONDAY_BRIEF.md.
+- **End-to-end smoke test (dry-run):** fresh DB → pod → 4 proposals → 4 ingested events → 4 mappings → 1 narrative → 7 markdown files in `proposals/2026-04-29/`. All audit events landed; zero failures.
+- KR4.1 progress: **6/30 agents** (Strategy pod 4 + okr_mapper + narrative). KR4.2 in progress (loop wired; awaiting live LLM for first real narrative).
+
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.
 
@@ -216,6 +226,9 @@
 | 2026-04-29 | Daily LLM cost circuit breaker shipped (`core/limits.py`): $50/day Sprint 0–1, $100/day Sprint 2+. Override via `OKR_MONITOR_DAILY_LLM_CAP_USD`. Trip = call refused, audit emits `*.circuit_breaker_open` alert. | Operator approval to enable the API key was contingent on a hard cap. Better to refuse a call and alert than to discover overspend in a billing email. Cap is intentionally per-day (UTC), not per-month — daily granularity catches runaway loops within hours, not weeks. | — |
 | 2026-04-29 | API-key smoke test surfaced: key authenticates but Anthropic account has \$0 balance. Pipeline wiring confirmed correct; real LLM calls blocked by billing, not code. | Operator needs to top up at `console.anthropic.com → Plans & Billing` before any real strategy-pod run. Sprint 0 forecast \$40/14d → recommend loading \$50–\$100 to start. | — |
 | 2026-04-29 | Budget approval and GTM allocation deferred until "the product is further along" (operator). Only API-key activation, daily circuit breaker, and git repo init are in-scope right now. | Disciplined: operator wants real product signal (design partners using the MVP) before approving the GTM elephant ($20.9K of $30K plan). Smart call — paid acquisition with no product signal is just expensive learning. | — |
+| 2026-04-29 | AI/Data pod's two load-bearing agents (`okr_mapper` and `narrative`) shipped, plus dogfood ingestion (`core/dogfood.py`). Every strategy-pod proposal now becomes a `work_event` → mapped to KR(s) by `okr_mapper` → fed into the weekly auto-narrative. | This is the magic-moment IP (KR1.3 mapper precision = the whole product). Wiring it dogfood-first means we generate real eval data on our own work BEFORE the first design partner touches the system — zero customer-data risk during the precision-tuning phase. | — |
+| 2026-04-29 | Schema additions (`work_events`, `event_kr_mappings`, `narratives`) chosen with `UNIQUE(source, source_event_id)` for idempotency. Real integrations (GitHub/Linear/Slack) write the same shape via `store.upsert_work_event`. | Webhook retries are the silent killer — same commit can fire 2-3 times. Idempotency at the schema level means we cannot double-count events even if the integration code is buggy. The `agent_proposal` source is just the first source to use this shape. | — |
+| 2026-04-29 | OKR-Mapper enforces a confidence ≥ 0.5 floor at the pipeline level (in code, not the prompt). Anything below is dropped. | Confident-wrong is worse than no-mapping for the narrative. The prompt asks for calibration; the pipeline enforces it. Defense in depth — the model can drift on calibration; the floor cannot. | — |
 
 ---
 

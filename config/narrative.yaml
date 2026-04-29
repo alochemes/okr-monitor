@@ -1,0 +1,21 @@
+# Narrative agent: weekly company auto-narrative.
+
+model: claude-sonnet-4-6
+max_tokens: 3072
+temperature: 0.5
+cadence: weekly_friday_evening
+output_kinds:
+  - weekly_narrative
+
+inputs:
+  - TRACKER.md (full file)
+  - all event_kr_mappings in the period window
+  - last 4 weeks of narratives (for continuity / not yet wired)
+
+output_quality_bar:
+  - The "magic moment" of the product. Reads like the smartest analyst the customer has ever met.
+  - Lead with the verdict per KR — on track, drifting, or off. No hedging.
+  - Cite specific events by title. Generic narratives are worthless; specific ones get screenshotted.
+  - Surface misalignment honestly: if 80% of work tied to KR1 instead of KR3, say so.
+  - End with a "what to do next week" section the operator can act on Monday morning.
+  - Tone: confident, terse, executive-grade. No hedging language.
