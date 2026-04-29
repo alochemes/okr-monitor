@@ -1,0 +1,66 @@
+name: Daily 7pm OWNER/FINANCE report
+
+# Runs every day at 23:00 UTC = 7pm Pacific (during EDT, March-November).
+# After November 2026 DST cutover, change to "0 0 * * *" to keep 7pm Pacific.
+# Also runnable manually from the Actions tab via "Run workflow".
+on:
+  schedule:
+    - cron: "0 23 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write    # required so the workflow can commit + push reports
+
+jobs:
+  daily-report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Initialize SQLite (cloud sandbox is ephemeral)
+        run: python scripts/init_db.py
+
+      - name: Run daily OWNER/FINANCE report
+        env:
+          # Required — Anthropic key (the funded one, NOT the Max-plan one).
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Force real LLM mode in CI; the local .env default is dry-run.
+          OKR_MONITOR_DRY_RUN: "false"
+          # Email config — if SMTP_PASS is empty, the wrapper no-ops the send
+          # gracefully and the report is still committed to git below.
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: "587"
+          SMTP_USER: andrew@skinmap.com
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          SMTP_FROM: okr-monitor@skinmap.com
+          REPORT_TO_EMAIL: andrew@skinmap.com
+          # Optional override of the daily LLM cost cap (default: $50 in Sprint 0-1)
+          # OKR_MONITOR_DAILY_LLM_CAP_USD: "100"
+        run: python scripts/daily_evening.py
+
+      - name: Commit and push report
+        run: |
+          set -e
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          if git diff --staged --quiet; then
+            echo "No new report files to commit."
+          else
+            git commit -m "Daily OWNER/FINANCE report — $(date -u +%Y-%m-%d)"
+            git push origin main
+          fi
