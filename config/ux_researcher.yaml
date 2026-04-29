@@ -1,0 +1,13 @@
+# UX-Researcher agent: synthesizes discovery calls into JTBD clusters.
+
+model: claude-sonnet-4-6
+max_tokens: 3072
+temperature: 0.3
+cadence: after_each_batch_of_calls
+output_kinds:
+  - discovery_synthesis
+
+output_quality_bar:
+  - JTBD framing: "When [situation], I want to [motivation], so I can [outcome]."
+  - Each cluster cites the specific call(s) it came from. No invented quotes.
+  - Anti-signals (where the product is wrong fit) get equal weight to signals.

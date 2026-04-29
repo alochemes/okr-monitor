@@ -1,0 +1,13 @@
+# Onboarding agent: drafts kickoff playbooks and first-week milestone plans.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.4
+cadence: per_new_pilot_or_when_playbook_changes
+output_kinds:
+  - onboarding_playbook
+
+output_quality_bar:
+  - '"First value" moment is named explicitly and reachable in <30 min (KR1.4).'
+  - Kickoff agenda is timeboxed (45 min total) with explicit decision points.
+  - 'First-week milestones are observable in the product (e.g. "narrative read", "Slack digest enabled"), not vibes.'

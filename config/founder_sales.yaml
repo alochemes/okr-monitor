@@ -1,0 +1,13 @@
+# Founder-Sales agent: drafts personal outreach to specific ICP accounts.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.5
+cadence: daily_morning
+output_kinds:
+  - outreach_drafts
+
+output_quality_bar:
+  - Personalization is concrete: name a public artifact (recent funding, blog post, hire) the recipient actually wrote/announced.
+  - Subject ≤55 chars. Body ≤120 words. Calls book a 15-min call, not a 30-min "intro".
+  - Drafts are operator-reviewable; nothing sends without approval (Stage 0).

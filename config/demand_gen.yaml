@@ -1,0 +1,13 @@
+# Demand-Gen agent: drafts multi-touch cold sequences for ICP segments.
+
+model: claude-sonnet-4-6
+max_tokens: 3072
+temperature: 0.4
+cadence: weekly_per_segment
+output_kinds:
+  - cold_sequence
+
+output_quality_bar:
+  - Sequence is 4-6 touches. Each touch has its own thesis (signal sent in T1, escalation in T3, breakup in T5).
+  - Channels mixed (email + LinkedIn). Pure email sequences underperform.
+  - Reply-rate target is honest, not aspirational. Below 3% = redesign.

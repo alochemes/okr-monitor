@@ -224,6 +224,109 @@ def _default_mock(action: str) -> str:
             "confidence": 0.1,
             "reasoning": "DRY_RUN."
         })
+    if "user_stories" in action:
+        return json.dumps({
+            "title": "DRY_RUN: Sprint 0 stories — top 5 stub",
+            "summary": "DRY_RUN stub — real sprint stories require live model.",
+            "stories": [{"as_a": "operator", "i_want": "real LLM output",
+                         "so_that": "I can review actual proposals", "kr": "1.1",
+                         "acceptance": ["DRY_RUN", "DRY_RUN"]}],
+            "stories_cut": ["DRY_RUN"], "decisions_needed_from_operator": [],
+            "confidence": 0.1, "reasoning": "DRY_RUN."
+        })
+    if "discovery_synthesis" in action:
+        return json.dumps({
+            "title": "DRY_RUN: discovery synthesis stub",
+            "summary": "DRY_RUN stub — real synthesis requires call notes.",
+            "jtbd_clusters": [{"job": "DRY_RUN cluster", "frequency": 0.0,
+                               "intensity": 0.0, "evidence": ["DRY_RUN"]}],
+            "anti_signals": ["DRY_RUN anti-signal"], "icp_refinements": [],
+            "decisions_needed_from_operator": [], "confidence": 0.1,
+            "reasoning": "DRY_RUN."
+        })
+    if "copy_draft" in action:
+        return json.dumps({
+            "title": "DRY_RUN: copy draft stub",
+            "summary": "DRY_RUN — 3 stub variants.",
+            "variants": [
+                {"id": "A", "angle": "stub", "text": "DRY_RUN headline A",
+                 "rationale": "DRY_RUN."},
+                {"id": "B", "angle": "stub", "text": "DRY_RUN headline B",
+                 "rationale": "DRY_RUN."},
+                {"id": "C", "angle": "stub", "text": "DRY_RUN headline C",
+                 "rationale": "DRY_RUN."}
+            ],
+            "operator_pick_recommended": "A", "confidence": 0.1,
+            "reasoning": "DRY_RUN."
+        })
+    if "outreach_drafts" in action:
+        return json.dumps({
+            "title": "DRY_RUN: 5 outreach drafts (templates) stub",
+            "summary": "DRY_RUN — generic templates.",
+            "drafts": [{"persona": "Chief of Staff at {company}",
+                        "artifact_hook": "{recent_artifact}",
+                        "subject": "DRY_RUN subject",
+                        "body": "DRY_RUN body with {placeholder}.",
+                        "rationale": "DRY_RUN."}],
+            "follow_up_cadence_suggested": "T+3, T+7, T+14",
+            "expected_reply_rate_pct": 0.0, "confidence": 0.1,
+            "reasoning": "DRY_RUN."
+        })
+    if "cold_sequence" in action:
+        return json.dumps({
+            "title": "DRY_RUN: 5-touch cold sequence stub",
+            "summary": "DRY_RUN — stub sequence.",
+            "segment": {"persona": "DRY_RUN", "company_archetype": "DRY_RUN",
+                        "trigger_event": "DRY_RUN"},
+            "touches": [{"n": 1, "day": 1, "channel": "email",
+                         "subject_or_opening": "DRY_RUN subject",
+                         "body": "DRY_RUN body.", "thesis": "DRY_RUN."}],
+            "expected_reply_rate_pct": 0.0, "confidence": 0.1,
+            "reasoning": "DRY_RUN."
+        })
+    if "blog_post_draft" in action:
+        return json.dumps({
+            "title": "DRY_RUN: blog post draft stub",
+            "summary": "DRY_RUN — stub post.",
+            "outline": ["DRY_RUN section 1", "DRY_RUN section 2"],
+            "first_draft_md": "DRY_RUN body.",
+            "anchor_stat": "DRY_RUN", "named_anti_pattern": "DRY_RUN",
+            "proprietary_frame": "DRY_RUN",
+            "social_pull_quote": "DRY_RUN pull quote",
+            "seo_keywords": ["DRY_RUN"], "target_word_count": 900,
+            "actual_word_count": 0, "confidence": 0.1, "reasoning": "DRY_RUN."
+        })
+    if "pilot_milestone_review" in action:
+        return json.dumps({
+            "title": "DRY_RUN: pilot health stub (no pilots yet)",
+            "summary": "DRY_RUN — 0 pilots, template review.",
+            "pilots_on_track": [], "pilots_at_risk": [],
+            "pilots_dormant": [], "pilots_converting": [],
+            "decisions_needed_from_operator": [
+                "DRY_RUN: confirm pilot intake form schema before week 1 design partner."
+            ],
+            "confidence": 0.2, "reasoning": "DRY_RUN — 0 active pilots."
+        })
+    if "onboarding_playbook" in action:
+        return json.dumps({
+            "title": "DRY_RUN: onboarding playbook v1 stub",
+            "summary": "DRY_RUN — generic playbook for default ICP.",
+            "pilot_context": {"company": "DRY_RUN Co", "size": "200",
+                              "okr_tool": "Notion",
+                              "integrations": ["GitHub", "Linear", "Slack"],
+                              "stated_goal": "DRY_RUN goal"},
+            "kickoff_agenda": [{"window": "0:00-0:05", "topic": "intros",
+                                "decision_point": None}],
+            "first_value_moment": "DRY_RUN: first auto-narrative read within 30 min.",
+            "first_week_milestones": [{"day": "D+1",
+                                       "milestone": "DRY_RUN milestone",
+                                       "observable_signal": "DRY_RUN signal"}],
+            "day_30_check_in": {"agenda": ["DRY_RUN"],
+                                "success_criteria": ["DRY_RUN"]},
+            "day_60_decision": {"options": ["convert", "extend", "off-ramp"],
+                                "criteria": "DRY_RUN."},
+            "confidence": 0.3, "reasoning": "DRY_RUN."
+        })
     if "pricing_model" in action or "unit_economics" in action:
         return json.dumps({
             "title": "Pricing v0 proposal — three tiers, anchor on Team",

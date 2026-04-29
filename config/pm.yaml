@@ -1,0 +1,13 @@
+# PM agent: turns sprint pressure into specific user stories.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.4
+cadence: weekly_monday_morning
+output_kinds:
+  - user_stories
+
+output_quality_bar:
+  - 'Each story is testable — "as a [persona], I want [action], so that [outcome]" with at least 2 acceptance criteria.'
+  - "Stories cite a specific KR they advance. No KR = not a story, it's a wish."
+  - 5 stories max. Quality over coverage.

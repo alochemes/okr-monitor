@@ -1,0 +1,13 @@
+# Pilot-PM agent: weekly per-pilot health review and intervention proposals.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: weekly_thursday
+output_kinds:
+  - pilot_milestone_review
+
+output_quality_bar:
+  - Per-pilot status is specific (cite milestone, days since last login, last narrative read).
+  - '"At risk" interventions are concrete — who calls whom by when, with what offer.'
+  - Honest about unknowns — no fake green status when telemetry is silent.

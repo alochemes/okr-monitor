@@ -1,0 +1,13 @@
+# Content agent: drafts long-form posts on OKR-execution topics.
+
+model: claude-sonnet-4-6
+max_tokens: 4096
+temperature: 0.5
+cadence: 3x_per_week_in_M3_M4
+output_kinds:
+  - blog_post_draft
+
+output_quality_bar:
+  - Specific to OKR execution (the wedge), not generic productivity content.
+  - Includes one anchor stat, one anti-pattern with named consequence, one proprietary frame.
+  - Word count target 800-1,200. Anything shorter is a tweet; anything longer is for SEO not humans.

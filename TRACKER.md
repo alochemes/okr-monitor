@@ -52,7 +52,7 @@
 ### O4 — Build the company on the company's own product (dogfood)
 | KR | Target | Current | Owner pod | Due | Status |
 |---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 8/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + AI/Data pod live) |
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 16/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + AI/Data + 8 more shipped) |
 | 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
 | 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
 
@@ -107,11 +107,11 @@
 | 2 | cpo | Strategy | 🟢 | `agents/cpo/` |
 | 3 | cto | Strategy | 🟢 | `agents/cto/` |
 | 4 | cfo | Strategy | 🟢 | `agents/cfo/` |
-| 5 | pm | Product & Design | 🔴 | `agents/pm/` |
-| 6 | ux_researcher | Product & Design | 🔴 | `agents/ux_researcher/` |
+| 5 | pm | Product & Design | 🟢 | `agents/pm/` |
+| 6 | ux_researcher | Product & Design | 🟢 | `agents/ux_researcher/` |
 | 7 | ux_designer | Product & Design | 🔴 | `agents/ux_designer/` |
 | 8 | ui_designer | Product & Design | 🔴 | `agents/ui_designer/` |
-| 9 | copywriter | Product & Design | 🔴 | `agents/copywriter/` |
+| 9 | copywriter | Product & Design | 🟢 | `agents/copywriter/` |
 | 10 | backend_architect | Engineering | 🔴 | `agents/backend_architect/` |
 | 11 | frontend_lead | Engineering | 🔴 | `agents/frontend_lead/` |
 | 12 | integrations_engineer | Engineering | 🔴 | `agents/integrations_engineer/` |
@@ -124,14 +124,14 @@
 | 19 | forecasting | AI/Data | 🟢 | `agents/forecasting/` |
 | 20 | narrative | AI/Data | 🟢 | `agents/narrative/` |
 | 21 | growth_hacker | GTM | 🔴 | `agents/growth_hacker/` |
-| 22 | content | GTM | 🔴 | `agents/content/` |
-| 23 | demand_gen | GTM | 🔴 | `agents/demand_gen/` |
+| 22 | content | GTM | 🟢 | `agents/content/` |
+| 23 | demand_gen | GTM | 🟢 | `agents/demand_gen/` |
 | 24 | sales_engineer | GTM | 🔴 | `agents/sales_engineer/` |
-| 25 | founder_sales | GTM | 🔴 | `agents/founder_sales/` |
+| 25 | founder_sales | GTM | 🟢 | `agents/founder_sales/` |
 | 26 | community_pr | GTM | 🔴 | `agents/community_pr/` |
-| 27 | onboarding | Customer & Ops | 🔴 | `agents/onboarding/` |
+| 27 | onboarding | Customer & Ops | 🟢 | `agents/onboarding/` |
 | 28 | support | Customer & Ops | 🔴 | `agents/support/` |
-| 29 | pilot_pm | Customer & Ops | 🔴 | `agents/pilot_pm/` |
+| 29 | pilot_pm | Customer & Ops | 🟢 | `agents/pilot_pm/` |
 | 30 | analytics_ops | Customer & Ops | 🔴 | `agents/analytics_ops/` |
 
 ---
@@ -210,6 +210,19 @@
 - **End-to-end smoke (dry-run, fresh DB):** pod → 4 events → 4 mappings → narrative → 17 KR signals → 17 verdicts (10 qualitative, 6 stale, 1 active). Status CLI confirms the active one is KR4.1 (the dogfood loop) — exactly as designed.
 - KR4.1 progress: **8/30 agents** (Strategy 4 + AI/Data pod 4). KR4.2 still awaiting live LLM. Test infrastructure now in place for any future verdict-math change.
 
+#### Day 3 (2026-04-29 latest) — what shipped (no API needed, half the org online)
+- **`agents/_proposal.py`** — shared run helper for any agent that follows the "single LLM call → one structured proposal" pattern. Extracts the canonical boilerplate (snapshot tracker → cached system → call LLM → parse JSON → write proposal → audit emit → end run) so new agents drop to ~30 lines of unique code (prompt + user_message_fn + body_md_fn).
+- **8 new agents shipped** as scaffolding (operator-in-the-loop, dry-run-tested, real proposals when credits resolve):
+  - **`pm`** (Product & Design) — `user_stories`: ≤5 sprint stories, each tied to a KR with acceptance criteria.
+  - **`ux_researcher`** (Product & Design) — `discovery_synthesis`: JTBD clusters from interview notes; treats anti-signals as gold.
+  - **`copywriter`** (Product & Design) — `copy_draft`: 3 variants per slot (problem-led / outcome-led / contrarian); operator picks.
+  - **`founder_sales`** (GTM) — `outreach_drafts`: 5 personalized templates for named ICP accounts; placeholder hooks for public artifacts.
+  - **`demand_gen`** (GTM) — `cold_sequence`: 5-touch multi-channel sequence with per-touch thesis; reply-rate target stated.
+  - **`content`** (GTM) — `blog_post_draft`: 800-1,200 word post with anchor stat + named anti-pattern + proprietary frame.
+  - **`pilot_pm`** (Customer & Ops) — `pilot_milestone_review`: per-pilot verdict (on_track/at_risk/dormant/converting); breakup emails for dormant.
+  - **`onboarding`** (Customer & Ops) — `onboarding_playbook`: 60-day pilot kickoff with timeboxed agenda + Day-7 milestones.
+- KR4.1 progress: **16/30 agents** — Strategy (4) + AI/Data (4) + Product/Design partial (3 of 5) + GTM partial (3 of 6) + Customer/Ops partial (2 of 4). Just over half the org online.
+
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.
 
@@ -241,6 +254,8 @@
 | 2026-04-29 | AI/Data pod completed: `signals_analyst` and `forecasting` are pure-compute agents (no LLM). signals_analyst writes per-KR rolling counts (7d/30d/all). forecasting parses target/current/due_date from TRACKER.md and emits a verdict per KR (on_track/active/drifting/stale/off/qualitative). Both write to a single `kr_signals` table. | Forecast probabilities (P(hit)) are intentionally deferred. Events ≠ KR target unit for most KRs (a commit isn't a pilot), so a probability without a per-KR conversion factor would be a confident lie. Verdict heuristics ship usefulness now; calibrated P(hit) waits until we have real data per KR class. | — |
 | 2026-04-29 | `cli/status.py` operator dashboard ships — reads latest `kr_signals` and prints a compact table. ASCII-safe (Windows cmd cp1252 chokes on emoji and em-dashes). | Operator needs a single command to answer "where are we right now?" without opening a database. ASCII-only because the operator runs Windows; emoji-pretty isn't worth the friction of a broken table. | — |
 | 2026-04-29 | Test infrastructure shipped: `tests/test_signals_math.py` validates 9 scenarios across signals + forecasting using a separate `okr_monitor_test.db`. Runnable via `python -m tests.test_signals_math`. | Math is the load-bearing IP for the verdict system. Catching a regression in window boundaries or target parsing matters more than catching a typo in a prompt. The test DB is patched at import time so tests never touch production data. | — |
+| 2026-04-29 | 8 more agents scaffolded (pm, ux_researcher, copywriter, founder_sales, demand_gen, content, pilot_pm, onboarding) using new shared `agents/_proposal.py` helper. Each is ~30-line pipeline + tailored prompt + per-output body_md formatter. All 8 dry-run smoke-tested green. | Same operator-in-the-loop pattern as the strategy pod. Helper extracts the canonical "snapshot tracker → call LLM → parse JSON → write proposal → audit" boilerplate so new agents stay focused on their prompt + output shape. Strategy pod's 4 unchanged (kept their inline implementations to avoid touching working code). | — |
+| 2026-04-29 | YAML config gotcha discovered: unquoted colons inside list-string items break parsing (`"At risk": who calls...` interpreted as mapping). Fix: wrap in single quotes `'...'` or rephrase to use em-dash. Three configs (pm, pilot_pm, onboarding) hit this. | Tooling-level lesson worth capturing — anyone writing future YAML configs in this repo will hit this. The fix is mechanical but not obvious from the error message. | — |
 
 ---
 

@@ -1,0 +1,13 @@
+# Copywriter agent: drafts landing/onboarding/in-app/outbound copy.
+
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.6
+cadence: on_demand
+output_kinds:
+  - copy_draft
+
+output_quality_bar:
+  - Voice matches `company.yaml` (confident, terse, executive). No hype words.
+  - Headlines are specific to the wedge sentence in §1 of TRACKER.md, not generic.
+  - Multiple variants per slot — operator picks. Don't ship a single answer.
