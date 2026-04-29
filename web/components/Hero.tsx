@@ -1,6 +1,90 @@
+"use client";
+
 import { NarrativeMock } from "./NarrativeMock";
+import { useExperiment } from "./useExperiment";
+import { trackEvent } from "./PostHogProvider";
+
+type HeadlineVariant = "control" | "variant_a" | "variant_b";
+type CtaVariant = "control" | "variant_a" | "variant_b";
+
+// Experiment registry — kept here for now; move to a shared file once we
+// have >5 experiments. Variant strings must match the PostHog feature flag
+// values exactly.
+const HEADLINE_KEY = "hero_headline";
+const CTA_KEY = "hero_cta";
+
+function HeadlineControl() {
+  return (
+    <h1 className="reveal reveal-2 display-tight font-display text-[clamp(52px,8.4vw,108px)] font-semibold leading-[0.92] tracking-tightest text-ink">
+      Stop guessing
+      <span className="block italic font-medium">which OKRs</span>
+      <span className="block">
+        are{" "}
+        <span className="relative inline-block">
+          real
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 -bottom-1 h-[10px] -skew-x-12 bg-persimmon/30"
+          />
+        </span>
+        .
+      </span>
+    </h1>
+  );
+}
+
+function HeadlineVariantA() {
+  return (
+    <h1 className="reveal reveal-2 display-tight font-display text-[clamp(52px,8.4vw,108px)] font-semibold leading-[0.92] tracking-tightest text-ink">
+      Read your{" "}
+      <span className="italic font-medium">company</span>
+      <span className="block">at a glance,</span>
+      <span className="block">
+        every{" "}
+        <span className="relative inline-block">
+          Friday
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 -bottom-1 h-[10px] -skew-x-12 bg-persimmon/30"
+          />
+        </span>
+        .
+      </span>
+    </h1>
+  );
+}
+
+function HeadlineVariantB() {
+  return (
+    <h1 className="reveal reveal-2 display-tight font-display text-[clamp(52px,8.4vw,108px)] font-semibold leading-[0.92] tracking-tightest text-ink">
+      Your OKRs are
+      <span className="block italic font-medium">lying to you.</span>
+      <span className="block">
+        Here&rsquo;s the{" "}
+        <span className="relative inline-block">
+          autopsy
+          <span
+            aria-hidden="true"
+            className="absolute inset-x-0 -bottom-1 h-[10px] -skew-x-12 bg-persimmon/30"
+          />
+        </span>
+        .
+      </span>
+    </h1>
+  );
+}
+
+const CTA_COPY: Record<CtaVariant, string> = {
+  control: "Get a free OKR Health Check",
+  variant_a: "Apply for design partner",
+  variant_b: "See a sample brief",
+};
 
 export function Hero() {
+  const headline = useExperiment<HeadlineVariant>(HEADLINE_KEY, "control");
+  const cta = useExperiment<CtaVariant>(CTA_KEY, "control");
+  const ctaText = CTA_COPY[cta as CtaVariant] ?? CTA_COPY.control;
+
   return (
     <section className="relative overflow-hidden border-b border-rule">
       <div className="mx-auto max-w-page px-6 pb-20 pt-12 lg:px-10 lg:pb-28 lg:pt-20">
@@ -13,21 +97,13 @@ export function Hero() {
               <span className="label-ink !text-muted">April 2026</span>
             </div>
 
-            <h1 className="reveal reveal-2 display-tight font-display text-[clamp(52px,8.4vw,108px)] font-semibold leading-[0.92] tracking-tightest text-ink">
-              Stop guessing
-              <span className="block italic font-medium">which OKRs</span>
-              <span className="block">
-                are{" "}
-                <span className="relative inline-block">
-                  real
-                  <span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 -bottom-1 h-[10px] -skew-x-12 bg-persimmon/30"
-                  />
-                </span>
-                .
-              </span>
-            </h1>
+            {headline === "variant_a" ? (
+              <HeadlineVariantA />
+            ) : headline === "variant_b" ? (
+              <HeadlineVariantB />
+            ) : (
+              <HeadlineControl />
+            )}
 
             <p className="reveal reveal-3 mt-8 max-w-[52ch] font-display text-[20px] leading-[1.5] tracking-editorial text-ink-soft sm:text-[22px]">
               Every Friday at 9 AM, a one-page exec brief lands in your inbox
@@ -36,11 +112,31 @@ export function Hero() {
             </p>
 
             <div className="reveal reveal-4 mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-              <a href="#waitlist" className="btn-primary">
-                Get a free OKR Health Check
-                <span className="arrow" aria-hidden="true">→</span>
+              <a
+                href="#waitlist"
+                className="btn-primary"
+                onClick={() =>
+                  trackEvent("hero_cta_click", {
+                    headline_variant: headline,
+                    cta_variant: cta,
+                    cta_text: ctaText,
+                  })
+                }
+              >
+                {ctaText}
+                <span className="arrow" aria-hidden="true">
+                  →
+                </span>
               </a>
-              <a href="#how" className="btn-ghost">
+              <a
+                href="#how"
+                className="btn-ghost"
+                onClick={() =>
+                  trackEvent("hero_secondary_click", {
+                    headline_variant: headline,
+                  })
+                }
+              >
                 Read sample brief
               </a>
             </div>

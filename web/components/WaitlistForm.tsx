@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "./PostHogProvider";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -32,6 +33,11 @@ export function WaitlistForm() {
       setMessage(
         "You're on the list. We'll reach out within two business days."
       );
+      // Conversion event — the primary metric for landing-page experiments.
+      trackEvent("waitlist_signup", {
+        has_role: Boolean(role),
+        has_company: Boolean(company),
+      });
       setEmail("");
       setRole("");
       setCompany("");
