@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: weekly
+output_kinds:
+  - infra_review
+output_quality_bar:
+  - Cost / utilization data cited from the source (Vercel dashboard, Supabase usage page, AWS bill).
+  - Risk areas — single point of failure, vendor lock-in, observability gaps.
+  - One concrete action per review — never "consider improving X".

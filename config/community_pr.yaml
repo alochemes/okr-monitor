@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.5
+cadence: weekly
+output_kinds:
+  - pr_pitches
+output_quality_bar:
+  - Each pitch names the venue (podcast, newsletter, community), the host/editor, and the angle.
+  - Angle is specific to that audience — "OKR drift" reads differently to a CFO podcast vs. a CoS Slack community.
+  - Effort estimate per pitch (preparation hours).

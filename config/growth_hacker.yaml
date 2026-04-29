@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.6
+cadence: weekly
+output_kinds:
+  - experiment_proposal
+output_quality_bar:
+  - Hypothesis stated as "If we [do X], then [metric Y will move by Z%], because [reason]."
+  - Sample size or runtime named so success is measurable.
+  - Kill criteria stated — "if we see <50 signups in 14 days, kill."

@@ -1,0 +1,11 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: per_pipeline_change
+output_kinds:
+  - pipeline_design
+output_quality_bar:
+  - Sources/sinks named with shapes.
+  - Normalization rules stated — what is a "work_event" vs raw event.
+  - Late-arriving data handling — how reprocessing/re-mapping is triggered.
+  - Backfill story — how to cold-start a 90-day window.

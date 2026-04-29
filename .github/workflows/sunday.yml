@@ -1,0 +1,56 @@
+name: Sunday 6pm strategy pod + dogfood + narrative
+
+# Runs every Monday at 01:00 UTC = Sunday 6pm Pacific (during EDT, March-November).
+# After November 2026 DST cutover, change to "0 2 * * 1" to keep 6pm Pacific.
+# Also runnable manually from the Actions tab via "Run workflow".
+on:
+  schedule:
+    - cron: "0 1 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write    # required so the workflow can commit + push proposals
+
+jobs:
+  sunday-strategy-pod:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Initialize SQLite (cloud sandbox is ephemeral)
+        run: python scripts/init_db.py
+
+      - name: Run Sunday strategy pod + dogfood + narrative
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OKR_MONITOR_DRY_RUN: "false"
+          # Sunday run is heavier than daily — bump cap for this workflow only.
+          OKR_MONITOR_DAILY_LLM_CAP_USD: "100"
+        run: python scripts/sunday_evening.py
+
+      - name: Commit and push proposals
+        run: |
+          set -e
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add proposals/
+          if git diff --staged --quiet; then
+            echo "No new proposal files to commit."
+          else
+            git commit -m "Sunday strategy pod proposals — week of $(date -u +%Y-%m-%d)"
+            git push origin main
+          fi

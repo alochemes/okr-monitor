@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.4
+cadence: per_component_or_design_system_revision
+output_kinds:
+  - component_spec
+output_quality_bar:
+  - Components specified with props, variants, sizes, states (default/hover/active/disabled).
+  - Color/spacing references match the design system (shadcn + Tailwind defaults).
+  - Accessibility (focus rings, keyboard, contrast) mentioned per component.

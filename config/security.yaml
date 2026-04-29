@@ -1,0 +1,11 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: per_feature_or_weekly
+output_kinds:
+  - security_review
+output_quality_bar:
+  - Threats categorized — STRIDE or OWASP Top 10 referenced.
+  - Severity per finding — critical/high/med/low.
+  - Mitigation per finding — code-level when possible, named library / config when not.
+  - SOC2-readiness checklist mention if applicable.

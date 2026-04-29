@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: per_feature_or_weekly
+output_kinds:
+  - ui_architecture
+output_quality_bar:
+  - Component tree shown (parent → children).
+  - State model named — server-state via React Query / client-state via Zustand / form-state via react-hook-form.
+  - Server vs client components called out for Next.js RSC features.

@@ -1,0 +1,11 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: weekly
+output_kinds:
+  - eval_proposal
+output_quality_bar:
+  - Eval set composition stated — N labeled examples, distribution across KR types.
+  - Metric named — precision @ recall, F1, edit-distance, calibration.
+  - Threshold named — "ship if precision ≥ 0.85 at recall ≥ 0.70" (KR1.3).
+  - Failure mode buckets — what does "wrong" look like, with examples.

@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.3
+cadence: per_demo_request_or_rfp
+output_kinds:
+  - demo_script
+output_quality_bar:
+  - Demo timeboxed in 1-min slots — total ≤25 min including 10 min Q&A.
+  - Each slot names what the prospect SEES and what the rep SAYS.
+  - '"Magic moment" identified — the moment the prospect should say "wait, can you do that with our data?"'

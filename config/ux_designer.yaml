@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.4
+cadence: per_feature_brief_or_sprint_start
+output_kinds:
+  - design_brief
+output_quality_bar:
+  - User flow described as a sequence of states with named transitions, not a vague paragraph.
+  - Wireframes specified in text (regions, hierarchy, interaction patterns) — implementable by a frontend dev.
+  - Tradeoffs called out (e.g. "could split into 2 screens but adds friction").

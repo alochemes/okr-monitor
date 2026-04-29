@@ -1,0 +1,10 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: per_feature_or_weekly
+output_kinds:
+  - api_design
+output_quality_bar:
+  - REST endpoint specs — method, path, request/response shapes, status codes.
+  - Backwards-compat stance stated — additive-only, breaking, or deprecation.
+  - One-paragraph rationale on alternatives considered (REST vs RPC vs GraphQL).

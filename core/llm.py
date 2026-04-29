@@ -397,4 +397,14 @@ def _default_mock(action: str) -> str:
             "confidence": 0.55,
             "reasoning": "DRY_RUN: stub. Real pricing needs willingness-to-pay signal from the 10 discovery calls."
         })
-    return "{}"
+    # Generic fall-through for any newer agent kind without a bespoke mock.
+    # Produces a minimal-but-parseable envelope so render_dict_as_markdown has
+    # the keys it needs (title, summary, confidence, reasoning) — list_keys
+    # are tolerated when missing.
+    return json.dumps({
+        "title": f"DRY_RUN: {action} stub",
+        "summary": (f"DRY_RUN — generic stub for action `{action}`. "
+                    "Activate live LLM (OKR_MONITOR_DRY_RUN=false) for real output."),
+        "confidence": 0.1,
+        "reasoning": "DRY_RUN — no bespoke mock for this action; using generic fall-through.",
+    })

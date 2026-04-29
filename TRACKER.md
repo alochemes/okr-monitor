@@ -52,7 +52,7 @@
 ### O4 — Build the company on the company's own product (dogfood)
 | KR | Target | Current | Owner pod | Due | Status |
 |---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 17/30 | AI/Data | 2026-05-19 | 🟡 In progress (17 live: 4 strategy + 4 AI/Data + 3 P/D + 3 GTM + 3 C/Ops) |
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 30/30 | AI/Data | 2026-05-19 | ✅ **Complete** — entire 30-agent org online (Strategy 4 + P/D 5 + Eng 7 + AI/Data 4 + GTM 6 + C/Ops 4) |
 | 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
 | 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
 
@@ -109,28 +109,28 @@
 | 4 | cfo | Strategy | 🟢 | `agents/cfo/` |
 | 5 | pm | Product & Design | 🟢 | `agents/pm/` |
 | 6 | ux_researcher | Product & Design | 🟢 | `agents/ux_researcher/` |
-| 7 | ux_designer | Product & Design | 🔴 | `agents/ux_designer/` |
-| 8 | ui_designer | Product & Design | 🔴 | `agents/ui_designer/` |
+| 7 | ux_designer | Product & Design | 🟢 | `agents/ux_designer/` |
+| 8 | ui_designer | Product & Design | 🟢 | `agents/ui_designer/` |
 | 9 | copywriter | Product & Design | 🟢 | `agents/copywriter/` |
-| 10 | backend_architect | Engineering | 🔴 | `agents/backend_architect/` |
-| 11 | frontend_lead | Engineering | 🔴 | `agents/frontend_lead/` |
-| 12 | integrations_engineer | Engineering | 🔴 | `agents/integrations_engineer/` |
-| 13 | data_pipeline | Engineering | 🔴 | `agents/data_pipeline/` |
-| 14 | ai_engineer | Engineering | 🔴 | `agents/ai_engineer/` |
-| 15 | platform | Engineering | 🔴 | `agents/platform/` |
-| 16 | security | Engineering | 🔴 | `agents/security/` |
+| 10 | backend_architect | Engineering | 🟢 | `agents/backend_architect/` |
+| 11 | frontend_lead | Engineering | 🟢 | `agents/frontend_lead/` |
+| 12 | integrations_engineer | Engineering | 🟢 | `agents/integrations_engineer/` |
+| 13 | data_pipeline | Engineering | 🟢 | `agents/data_pipeline/` |
+| 14 | ai_engineer | Engineering | 🟢 | `agents/ai_engineer/` |
+| 15 | platform | Engineering | 🟢 | `agents/platform/` |
+| 16 | security | Engineering | 🟢 | `agents/security/` |
 | 17 | okr_mapper | AI/Data | 🟢 | `agents/okr_mapper/` |
 | 18 | signals_analyst | AI/Data | 🟢 | `agents/signals_analyst/` |
 | 19 | forecasting | AI/Data | 🟢 | `agents/forecasting/` |
 | 20 | narrative | AI/Data | 🟢 | `agents/narrative/` |
-| 21 | growth_hacker | GTM | 🔴 | `agents/growth_hacker/` |
+| 21 | growth_hacker | GTM | 🟢 | `agents/growth_hacker/` |
 | 22 | content | GTM | 🟢 | `agents/content/` |
 | 23 | demand_gen | GTM | 🟢 | `agents/demand_gen/` |
-| 24 | sales_engineer | GTM | 🔴 | `agents/sales_engineer/` |
+| 24 | sales_engineer | GTM | 🟢 | `agents/sales_engineer/` |
 | 25 | founder_sales | GTM | 🟢 | `agents/founder_sales/` |
-| 26 | community_pr | GTM | 🔴 | `agents/community_pr/` |
+| 26 | community_pr | GTM | 🟢 | `agents/community_pr/` |
 | 27 | onboarding | Customer & Ops | 🟢 | `agents/onboarding/` |
-| 28 | support | Customer & Ops | 🔴 | `agents/support/` |
+| 28 | support | Customer & Ops | 🟢 | `agents/support/` |
 | 29 | pilot_pm | Customer & Ops | 🟢 | `agents/pilot_pm/` |
 | 30 | analytics_ops | Customer & Ops | 🟢 | `agents/analytics_ops/` |
 
@@ -239,6 +239,17 @@
   - **`README.md`** — what is this, who built it, who runs it, repo layout, quick start, where-to-look-for-what.
   - **`RUNBOOK.md`** — daily/weekly ops, the 5 most-used commands, troubleshooting (balance-too-low, circuit breaker tripped, YAML colon gotcha, SMTP failures), command cheat sheet, what's persistent vs ephemeral.
 - KR4.1 progress: **17/30 agents** (analytics_ops added). KR4.2 narrative loop active in dry-run; awaiting cloud secret injection for real output.
+
+#### Day 3 (2026-04-29 night) — what shipped (org complete + Sunday Actions workflow)
+- **All 13 remaining agents scaffolded** using the `_proposal.run_proposal` helper (~25 lines per pipeline). The full 30-agent org is now online in dry-run:
+  - **Product/Design** completed (2 added): `ux_designer` (design_brief), `ui_designer` (component_spec).
+  - **Engineering pod** completed (7 added): `backend_architect` (api_design), `frontend_lead` (ui_architecture), `integrations_engineer` (integration_design), `data_pipeline` (pipeline_design), `ai_engineer` (eval_proposal), `platform` (infra_review), `security` (security_review).
+  - **GTM** completed (3 added): `sales_engineer` (demo_script), `community_pr` (pr_pitches), `growth_hacker` (experiment_proposal).
+  - **Customer/Ops** completed (1 added): `support` (ticket_triage).
+- **Generic fall-through mock** in `core/llm._default_mock` so any newly-scaffolded agent produces parseable JSON in dry-run without a bespoke mock entry. Bespoke mocks for the load-bearing agents stay; new agents get the generic envelope (title + summary + confidence + reasoning).
+- **Sunday GitHub Actions workflow** at `.github/workflows/sunday.yml`. Cron `0 1 * * 1` UTC = Sun 6pm Pacific (EDT). Mirrors the daily workflow pattern (checkout → Python 3.11 → install → init DB → `sunday_evening.py` → commit + push). Once the operator adds `ANTHROPIC_API_KEY` as a repo secret, this replaces the claude.ai Sunday routine (`trig_01Q99GjcE5D58K5WzLt4cJsC`).
+- **End-to-end smoke test:** all 13 new agents `parsed_ok=true` in dry-run.
+- **KR4.1 = 30/30** ✅ — the entire 30-agent org is on (status flag 🟢). Each agent has its own prompt, config, pipeline, and run script. They will produce real output the moment `OKR_MONITOR_DRY_RUN=false` is set or the GitHub Actions workflow runs with the secret in env.
 
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.

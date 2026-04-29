@@ -1,0 +1,11 @@
+model: claude-sonnet-4-6
+max_tokens: 2048
+temperature: 0.2
+cadence: per_integration_or_weekly
+output_kinds:
+  - integration_design
+output_quality_bar:
+  - OAuth scopes listed — minimum required, no over-asking.
+  - Webhook vs polling decision with rationale.
+  - Idempotency strategy named (UNIQUE constraint, dedup key, etc.).
+  - Rate-limit handling — backoff, queue, or graceful degradation.
