@@ -52,7 +52,7 @@
 ### O4 — Build the company on the company's own product (dogfood)
 | KR | Target | Current | Owner pod | Due | Status |
 |---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 6/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + okr_mapper + narrative live) |
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 8/30 | AI/Data | 2026-05-19 | 🟡 In progress (Strategy + AI/Data pod live) |
 | 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
 | 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
 
@@ -120,8 +120,8 @@
 | 15 | platform | Engineering | 🔴 | `agents/platform/` |
 | 16 | security | Engineering | 🔴 | `agents/security/` |
 | 17 | okr_mapper | AI/Data | 🟢 | `agents/okr_mapper/` |
-| 18 | signals_analyst | AI/Data | 🔴 | `agents/signals_analyst/` |
-| 19 | forecasting | AI/Data | 🔴 | `agents/forecasting/` |
+| 18 | signals_analyst | AI/Data | 🟢 | `agents/signals_analyst/` |
+| 19 | forecasting | AI/Data | 🟢 | `agents/forecasting/` |
 | 20 | narrative | AI/Data | 🟢 | `agents/narrative/` |
 | 21 | growth_hacker | GTM | 🔴 | `agents/growth_hacker/` |
 | 22 | content | GTM | 🔴 | `agents/content/` |
@@ -201,6 +201,15 @@
 - **End-to-end smoke test (dry-run):** fresh DB → pod → 4 proposals → 4 ingested events → 4 mappings → 1 narrative → 7 markdown files in `proposals/2026-04-29/`. All audit events landed; zero failures.
 - KR4.1 progress: **6/30 agents** (Strategy pod 4 + okr_mapper + narrative). KR4.2 in progress (loop wired; awaiting live LLM for first real narrative).
 
+#### Day 3 (2026-04-29 late) — what shipped (no API needed)
+- **`signals_analyst`** (`agents/signals_analyst/`) — pure compute. Reads `event_kr_mappings`, writes one `kr_signals` row per KR per run with rolling 7d/30d/all-time event counts, distinct-actor count, mean confidence, last-event timestamp.
+- **`forecasting`** (`agents/forecasting/`) — pure compute. Pulls latest signals_analyst row + TRACKER.md §2 target/current/due_date, emits a verdict per KR: `on_track | active | drifting | stale | off | qualitative`. Parses targets like `300`, `≥85% P @ ≥70% R`, `5,000`, `≤6 months`. P(hit) deferred to v1.
+- **`cli/status.py`** — operator dashboard. `python -m cli.status` prints the KR scoreboard from latest signals; `--kr 1.3` shows event-level detail.
+- **Sunday wrapper extended** — runs signals_analyst + forecasting after the OKR-Mapper sweep; verdicts surface in `MONDAY_BRIEF.md`.
+- **`tests/test_signals_math.py`** — 9 unit tests covering window-count partitioning, distinct-actor / mean-confidence math, target parsing (numeric/percentage/comma/qualitative), date parsing, and all 6 verdict transitions. Uses a separate `okr_monitor_test.db` patched at import time. **All passing.**
+- **End-to-end smoke (dry-run, fresh DB):** pod → 4 events → 4 mappings → narrative → 17 KR signals → 17 verdicts (10 qualitative, 6 stale, 1 active). Status CLI confirms the active one is KR4.1 (the dogfood loop) — exactly as designed.
+- KR4.1 progress: **8/30 agents** (Strategy 4 + AI/Data pod 4). KR4.2 still awaiting live LLM. Test infrastructure now in place for any future verdict-math change.
+
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.
 
@@ -229,6 +238,9 @@
 | 2026-04-29 | AI/Data pod's two load-bearing agents (`okr_mapper` and `narrative`) shipped, plus dogfood ingestion (`core/dogfood.py`). Every strategy-pod proposal now becomes a `work_event` → mapped to KR(s) by `okr_mapper` → fed into the weekly auto-narrative. | This is the magic-moment IP (KR1.3 mapper precision = the whole product). Wiring it dogfood-first means we generate real eval data on our own work BEFORE the first design partner touches the system — zero customer-data risk during the precision-tuning phase. | — |
 | 2026-04-29 | Schema additions (`work_events`, `event_kr_mappings`, `narratives`) chosen with `UNIQUE(source, source_event_id)` for idempotency. Real integrations (GitHub/Linear/Slack) write the same shape via `store.upsert_work_event`. | Webhook retries are the silent killer — same commit can fire 2-3 times. Idempotency at the schema level means we cannot double-count events even if the integration code is buggy. The `agent_proposal` source is just the first source to use this shape. | — |
 | 2026-04-29 | OKR-Mapper enforces a confidence ≥ 0.5 floor at the pipeline level (in code, not the prompt). Anything below is dropped. | Confident-wrong is worse than no-mapping for the narrative. The prompt asks for calibration; the pipeline enforces it. Defense in depth — the model can drift on calibration; the floor cannot. | — |
+| 2026-04-29 | AI/Data pod completed: `signals_analyst` and `forecasting` are pure-compute agents (no LLM). signals_analyst writes per-KR rolling counts (7d/30d/all). forecasting parses target/current/due_date from TRACKER.md and emits a verdict per KR (on_track/active/drifting/stale/off/qualitative). Both write to a single `kr_signals` table. | Forecast probabilities (P(hit)) are intentionally deferred. Events ≠ KR target unit for most KRs (a commit isn't a pilot), so a probability without a per-KR conversion factor would be a confident lie. Verdict heuristics ship usefulness now; calibrated P(hit) waits until we have real data per KR class. | — |
+| 2026-04-29 | `cli/status.py` operator dashboard ships — reads latest `kr_signals` and prints a compact table. ASCII-safe (Windows cmd cp1252 chokes on emoji and em-dashes). | Operator needs a single command to answer "where are we right now?" without opening a database. ASCII-only because the operator runs Windows; emoji-pretty isn't worth the friction of a broken table. | — |
+| 2026-04-29 | Test infrastructure shipped: `tests/test_signals_math.py` validates 9 scenarios across signals + forecasting using a separate `okr_monitor_test.db`. Runnable via `python -m tests.test_signals_math`. | Math is the load-bearing IP for the verdict system. Catching a regression in window boundaries or target parsing matters more than catching a typo in a prompt. The test DB is patched at import time so tests never touch production data. | — |
 
 ---
 

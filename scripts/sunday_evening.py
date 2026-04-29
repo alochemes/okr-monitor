@@ -48,6 +48,8 @@ from agents.cto import pipeline as cto_pipe  # noqa: E402
 from agents.cfo import pipeline as cfo_pipe  # noqa: E402
 from agents.okr_mapper import pipeline as mapper_pipe  # noqa: E402
 from agents.narrative import pipeline as narrative_pipe  # noqa: E402
+from agents.signals_analyst import pipeline as signals_pipe  # noqa: E402
+from agents.forecasting import pipeline as forecasting_pipe  # noqa: E402
 from core import dogfood, store  # noqa: E402
 
 
@@ -148,6 +150,20 @@ def _run_dogfood_loop(
     except Exception as exc:
         out["errors"].append({"step": "okr_mapper", "error": str(exc)})
 
+    # 2a. Compute kr_signals (counts) — pure compute, no LLM cost.
+    try:
+        sig_stats = signals_pipe.run()
+        out["signals_krs_processed"] = sig_stats.get("krs_processed", 0)
+    except Exception as exc:
+        out["errors"].append({"step": "signals_analyst", "error": str(exc)})
+
+    # 2b. Forecast verdicts — pure compute, no LLM cost.
+    try:
+        fc_stats = forecasting_pipe.run(today=today)
+        out["forecast_by_verdict"] = fc_stats.get("by_verdict", {})
+    except Exception as exc:
+        out["errors"].append({"step": "forecasting", "error": str(exc)})
+
     # 3. Generate weekly narrative covering trailing 7 days ending today.
     try:
         narr_stats = narrative_pipe.run(period_end=today, period_days=7)
@@ -241,6 +257,13 @@ def _build_monday_brief(
             f"wrote **{d.get('mapper_mappings_written', 0)} mappings** "
             f"(cost ${d.get('mapper_cost_usd', 0.0):.4f})."
         )
+        if d.get("signals_krs_processed") is not None:
+            verdicts = d.get("forecast_by_verdict") or {}
+            verdicts_s = ", ".join(f"{k}={v}" for k, v in sorted(verdicts.items())) or "—"
+            lines.append(
+                f"- KR signals + forecast: **{d['signals_krs_processed']} KRs** processed. "
+                f"Verdicts: {verdicts_s}."
+            )
         if narrative_path is not None:
             lines.append(
                 f"- Weekly narrative: `{narrative_path.name}` covering "

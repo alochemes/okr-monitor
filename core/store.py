@@ -150,6 +150,36 @@ CREATE TABLE IF NOT EXISTS narratives (
 
 CREATE INDEX IF NOT EXISTS idx_narratives_period ON narratives(period_end DESC);
 
+-- Per-KR computed signals (no LLM). Written by signals_analyst, enriched by
+-- forecasting. One row per (kr_id, computed_at) — keep the history so we can
+-- chart pace over time.
+CREATE TABLE IF NOT EXISTS kr_signals (
+    id              TEXT PRIMARY KEY,
+    run_id          TEXT NOT NULL,
+    kr_id           TEXT NOT NULL,
+    computed_at     TEXT NOT NULL,
+    -- Mapping-derived counts:
+    events_total      INTEGER NOT NULL,
+    events_7d         INTEGER NOT NULL,
+    events_30d        INTEGER NOT NULL,
+    distinct_actors   INTEGER NOT NULL,
+    last_event_at     TEXT,
+    mean_confidence   REAL,
+    -- Forecast columns (populated by forecasting agent; NULL if unparseable):
+    target_raw        TEXT,
+    target_numeric    REAL,
+    current_numeric   REAL,
+    due_date          TEXT,
+    days_remaining    INTEGER,
+    pace_per_day      REAL,
+    pace_required     REAL,
+    forecast_verdict  TEXT,           -- on_track | drifting | off | qualitative
+    forecast_p_hit    REAL,
+    FOREIGN KEY (run_id) REFERENCES runs(id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_kr_signals_kr_computed ON kr_signals(kr_id, computed_at DESC);
+
 -- KPI rollups (daily). Same shape as skinmap_agents.
 CREATE TABLE IF NOT EXISTS kpi_daily (
     day             TEXT NOT NULL,            -- YYYY-MM-DD
@@ -449,6 +479,86 @@ def write_narrative(
              cost_usd, _utcnow()),
         )
     return nid
+
+
+# ---------- KR signals (no-LLM compute) ----------------------------------
+
+def write_kr_signal(
+    *,
+    run_id: str,
+    kr_id: str,
+    computed_at: str,
+    events_total: int,
+    events_7d: int,
+    events_30d: int,
+    distinct_actors: int,
+    last_event_at: str | None,
+    mean_confidence: float | None,
+    # Forecast fields — caller passes None when not yet computed.
+    target_raw: str | None = None,
+    target_numeric: float | None = None,
+    current_numeric: float | None = None,
+    due_date: str | None = None,
+    days_remaining: int | None = None,
+    pace_per_day: float | None = None,
+    pace_required: float | None = None,
+    forecast_verdict: str | None = None,
+    forecast_p_hit: float | None = None,
+) -> str:
+    sid = str(uuid.uuid4())
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO kr_signals (id, run_id, kr_id, computed_at,
+                events_total, events_7d, events_30d, distinct_actors,
+                last_event_at, mean_confidence,
+                target_raw, target_numeric, current_numeric, due_date,
+                days_remaining, pace_per_day, pace_required,
+                forecast_verdict, forecast_p_hit)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (sid, run_id, kr_id, computed_at,
+             events_total, events_7d, events_30d, distinct_actors,
+             last_event_at, mean_confidence,
+             target_raw, target_numeric, current_numeric, due_date,
+             days_remaining, pace_per_day, pace_required,
+             forecast_verdict, forecast_p_hit),
+        )
+    return sid
+
+
+def latest_kr_signals() -> list[sqlite3.Row]:
+    """One row per KR — the most recently computed signal for each."""
+    with connect() as conn:
+        cur = conn.execute(
+            """
+            SELECT s.* FROM kr_signals s
+            JOIN (
+                SELECT kr_id, MAX(computed_at) AS max_ca
+                FROM kr_signals GROUP BY kr_id
+            ) t ON s.kr_id = t.kr_id AND s.computed_at = t.max_ca
+            ORDER BY s.kr_id
+            """
+        )
+        return list(cur.fetchall())
+
+
+def list_mappings_for_kr(kr_id: str) -> list[sqlite3.Row]:
+    """All mappings for one KR with the joined event row, newest first."""
+    with connect() as conn:
+        cur = conn.execute(
+            """
+            SELECT m.id AS mapping_id, m.confidence, m.reasoning,
+                   e.id AS event_id, e.source, e.kind, e.title, e.actor,
+                   e.occurred_at
+            FROM event_kr_mappings m
+            JOIN work_events e ON e.id = m.event_id
+            WHERE m.kr_id = ?
+            ORDER BY e.occurred_at DESC
+            """,
+            (kr_id,),
+        )
+        return list(cur.fetchall())
 
 
 # ---------- KPI -----------------------------------------------------------

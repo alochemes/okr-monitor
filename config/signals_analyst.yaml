@@ -1,0 +1,15 @@
+# Signals-Analyst agent: pure compute, no LLM. Reads event_kr_mappings,
+# writes kr_signals (one row per KR per run) covering rolling 7d/30d windows.
+
+cadence: hourly_in_production_or_after_each_mapper_run
+output_kinds:
+  - kr_signals_snapshot
+
+# Window definitions:
+windows:
+  short_days: 7
+  long_days: 30
+
+# Treat any mapping older than this (in days) as "stale" — the KR is
+# effectively unattended.
+stale_after_days: 14

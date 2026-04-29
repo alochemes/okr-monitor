@@ -37,6 +37,7 @@ _Full proposal:_ [`proposals/2026-04-29/cfo_pricing_model.md`](../2026-04-29/cfo
 ## Dogfood loop
 - Ingested **4 new** proposals as work_events (of 4 considered).
 - OKR-Mapper processed **4 events**, wrote **4 mappings** (cost $0.0000).
+- KR signals + forecast: **17 KRs** processed. Verdicts: active=1, qualitative=10, stale=6.
 - Weekly narrative: `weekly_narrative.md` covering 4 mapped event(s) (cost $0.0000).
   → [`weekly_narrative.md`](./weekly_narrative.md)
 

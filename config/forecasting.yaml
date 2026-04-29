@@ -1,0 +1,9 @@
+# Forecasting agent: pure compute, no LLM. Reads the latest kr_signals row
+# per KR + TRACKER.md §2 (target + due_date + current), writes a new
+# kr_signals row enriched with forecast columns.
+
+cadence: after_signals_analyst
+
+# How close to the due_date we consider "imminent" — drifting/off verdicts
+# kick in inside this window.
+imminent_window_days: 14
