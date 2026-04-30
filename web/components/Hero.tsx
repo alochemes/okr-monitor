@@ -113,13 +113,14 @@ export function Hero() {
 
             <div className="reveal reveal-4 mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
               <a
-                href="#waitlist"
+                href="/health-check"
                 className="btn-primary"
                 onClick={() =>
                   trackEvent("hero_cta_click", {
                     headline_variant: headline,
                     cta_variant: cta,
                     cta_text: ctaText,
+                    destination: "/health-check",
                   })
                 }
               >
