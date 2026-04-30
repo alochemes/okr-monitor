@@ -45,7 +45,7 @@ from agents.cfo import pipeline as cfo_pipe  # noqa: E402
 from agents.analytics_ops import pipeline as analytics_pipe  # noqa: E402
 from agents.signals_analyst import pipeline as signals_pipe  # noqa: E402
 from agents.forecasting import pipeline as forecasting_pipe  # noqa: E402
-from core import dashboard, mailer, store  # noqa: E402
+from core import dashboard, kpi_status, mailer, store  # noqa: E402
 
 
 # --------------------------------------------------------------------------
@@ -177,7 +177,13 @@ def _build_report_body(
         f"{activity['proposals_today']} proposals · "
         f"spend ${activity['spend_today_usd']:.4f}._",
         "",
-        "## KPI Dashboard (real-time)",
+        "## Operational KPIs",
+        "",
+        f"_{kpi_status.summary_line()}_",
+        "",
+        kpi_status.render_md(),
+        "",
+        "## KR Dashboard (real-time)",
         "",
         dashboard_md,
         "",
