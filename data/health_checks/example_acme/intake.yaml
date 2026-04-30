@@ -1,0 +1,78 @@
+# Example pilot intake — Acme Inc
+# Pasted from the customer's filled-in pilot_intake_questionnaire.md.
+# Save real intakes at data/health_checks/<slug>/intake.yaml.
+# This file is a template + a worked example.
+
+company:
+  name: Acme Inc
+  size: 142
+  stage: Series B
+  industry: SaaS — RevOps tooling
+  buyer_role: Chief of Staff
+  primary_buyer: VP of Operations at $50M+ ARR companies
+
+current_okr_practice:
+  has_okrs: true
+  tool: Notion
+  review_cadence: quarterly_only
+  who_writes: CEO + leadership
+  cascading: false
+  last_quarter_hit_rate_pct: 45
+  biggest_frustration: |
+    "We set OKRs in January and by April nobody remembers what KR-3 was.
+    The post-mortem is the most honest writing we do all year."
+
+current_kpis:
+  has_dashboard: false
+  top_3:
+    - p95 API latency
+    - MRR
+    - "(none third — what should we be tracking?)"
+  alerting: false
+
+stack:
+  code: GitHub
+  tickets: Linear
+  docs: Notion
+  chat: Slack
+  pipeline: HubSpot
+
+current_rituals:
+  friday_update: true
+  friday_update_writer: Chief of Staff (manual, ~90 min)
+  monday_standup: leadership
+  monday_standup_minutes: 60
+  qbr: yes
+  ritual_to_cancel: "Monday standup — most of it is status reading"
+
+# 5-in-5 exercise output. The CoS sat down for 5 minutes and wrote 5 KRs
+# against ONE Objective. Raw and unedited.
+five_in_five:
+  objective: Become the default ops tool for $50M+ RevOps teams
+  candidate_krs:
+    - "Land 5 enterprise pilots by end of quarter"
+    - "Reduce p95 latency to <150ms (currently 320ms)"
+    - "Hit NPS 50 (currently 12)"
+    - "Generate 25 inbound demo requests/month"
+    - "Get cited in 3 RevOps newsletters"
+
+pilot_specifics:
+  quarter_end: 2026-08-28
+  brief_recipients:
+    - andrew@acme.example  # CEO
+    - cos@acme.example      # Chief of Staff
+    - vpe@acme.example      # VP Eng
+  delivery_time: Friday 9:00 AM PT
+  pilot_win_definition: |
+    "Cancel the Monday standup. The brief replaces it.
+    CEO forwards the brief to the board prep deck."
+
+# Optional: paste a summary of recent work the customer is proud of.
+# The Health Check uses this to demonstrate event-to-KR mapping.
+recent_work_summary: |
+  Last 30 days:
+  - Engineering shipped redis pipeline tuning (commit fix(perf): tune redis pipeline)
+  - Engineering shipped 18 commits on the new dashboard surface
+  - Sales had pilot conversations with Stripe, Notion, Linear (no closes)
+  - Marketing shipped 2 blog posts; one ranked for "RevOps OKRs"
+  - Customer Success ran a churn analysis (results private)
