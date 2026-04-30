@@ -97,6 +97,27 @@
 
 ---
 
+## 3.5 KPIs — operational metrics (always green; alert on red)
+
+> KPIs are the metrics that should be green continuously. Distinct from OKRs (change-driving goals). Per our own customer-facing OKR/KPI framework playbook (`notion/03_playbooks/01_customer_okr_kpi_framework.md`), if any KPI goes red the operator gets a notification — KPIs are not weekly review material, they're a tripwire layer.
+
+| KPI | Target | Current | Alert when | Source of truth |
+|---|---|---|---|---|
+| **K1 — Daily LLM cost cap respected** | $0 days breached/cycle | 0 days | breach event in audit log | `core/limits.py` + `kpi_daily` |
+| **K2 — Daily 7pm OWNER/FINANCE report sent** | ≥99% of days | n/a (just shipped) | run not committed by 8pm UTC | `reports/daily/` git log |
+| **K3 — Friday weekly narrative generated** | 100% of Fridays | n/a (just shipped) | run not committed by 18:00 UTC Mon | `proposals/<sun-date>/weekly_narrative.md` git log |
+| **K4 — `tests/test_signals_math.py` passing** | 9/9 | 9/9 ✅ | any test failure on `main` | CI / manual |
+| **K5 — `web/` build passes** | 100% commits to `main` | 100% ✅ | non-zero exit from `npm run build` | GitHub Actions |
+| **K6 — GitHub Actions workflow success rate (rolling 14d)** | ≥95% | n/a (just enabled) | <90% rolling | Actions UI |
+| **K7 — Anthropic balance** | ≥ 30 days runway at projected pace | $99.98 (~5,700 days at current dry-run-heavy pace) | <14 days runway | `console.anthropic.com` (manual check) |
+| **K8 — Audit log writeable** | 100% of writes | 100% | any `[audit] write failure` to stderr | `core/audit.py` |
+| **K9 — Strategy pod proposals/week** | ≥4 (= 1 from each of CEO/CPO/CTO/CFO) | n/a (Sunday workflow not yet fired) | <4 in any week | `proposals/` |
+| **K10 — Web: median First Load JS** | ≤200 kB | 174 kB ✅ | >250 kB | `npm run build` output |
+
+These KPIs become live metrics in the daily 7pm OWNER/FINANCE report once the relevant data is collected. K1, K4, K5, K8, K10 are **green right now**. The rest are baselined-but-not-yet-tracking because the relevant cycles haven't run yet (Sunday routine fires May 3; daily routine first fired tonight).
+
+---
+
 ## 4. The 30-Agent Roster
 
 > Status legend: 🔴 not scaffolded · 🟡 scaffolded, no real prompt · 🟢 prompt + first run · ✅ shipping useful output
