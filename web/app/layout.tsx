@@ -25,15 +25,27 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
+const PAGE_TITLE = "OKR Monitor — connect goals to the work";
+const PAGE_DESC =
+  "Every Friday, a one-page exec brief naming which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.";
+
 export const metadata: Metadata = {
-  title: "OKR Monitor — connect goals to the work",
-  description:
-    "Every Friday, a one-page exec brief naming which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.",
+  title: PAGE_TITLE,
+  description: PAGE_DESC,
+  icons: {
+    icon: "/logo-icon.svg",
+  },
   openGraph: {
-    title: "OKR Monitor — connect goals to the work",
-    description:
-      "Every Friday, a one-page exec brief naming which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.",
+    title: PAGE_TITLE,
+    description: PAGE_DESC,
     type: "website",
+    images: [{ url: "/og.svg", width: 1200, height: 630, alt: "OKR Monitor" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESC,
+    images: ["/og.svg"],
   },
 };
 

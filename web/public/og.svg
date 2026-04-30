@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="OKR Monitor — every Friday, the brief writes itself">
+  <title>OKR Monitor</title>
+
+  <!-- Background: warm paper -->
+  <rect width="1200" height="630" fill="#FAF7F2"/>
+
+  <!-- Hairline rule top -->
+  <rect x="80" y="80" width="1040" height="1" fill="#D9D2C4"/>
+
+  <!-- Editorial label row -->
+  <text x="80" y="120" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" letter-spacing="3" fill="#C73A14">NO. 001 — EDITORIAL</text>
+  <text x="1120" y="120" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="500" letter-spacing="2" fill="#6B6862" text-anchor="end">APRIL 2026</text>
+
+  <!-- Headline (display serif) -->
+  <text x="80" y="280" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="92" letter-spacing="-3" fill="#0F0E0C">Stop guessing</text>
+  <text x="80" y="380" font-family="Fraunces, Georgia, serif" font-weight="500" font-style="italic" font-size="92" letter-spacing="-2" fill="#0F0E0C">which OKRs</text>
+  <text x="80" y="480" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="92" letter-spacing="-3" fill="#0F0E0C">are <tspan>real</tspan>.</text>
+
+  <!-- Persimmon underline highlight on "real" — approx 110px wide -->
+  <rect x="222" y="465" width="125" height="10" fill="#C73A14" opacity="0.30" transform="skewX(-12 285 470)"/>
+
+  <!-- Hairline rule bottom -->
+  <rect x="80" y="540" width="1040" height="1" fill="#D9D2C4"/>
+
+  <!-- Bottom row: brand mark left, URL right -->
+  <text x="80" y="580" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="22" letter-spacing="-0.5" fill="#0F0E0C">OKR Monitor</text>
+  <rect x="225" y="567" width="6" height="6" fill="#C73A14"/>
+
+  <text x="1120" y="580" text-anchor="end" font-family="JetBrains Mono, ui-monospace, monospace" font-size="16" fill="#6B6862">okrmonitor.com</text>
+</svg>

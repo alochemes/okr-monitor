@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" width="320" height="64" role="img" aria-label="OKR Monitor">
+  <title>OKR Monitor</title>
+  <!-- Fraunces-equivalent serif. Browser falls back to Georgia / serif if Fraunces isn't loaded. -->
+  <text x="0" y="44" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="34" letter-spacing="-0.5" fill="#0F0E0C">OKR Monitor</text>
+  <!-- Persimmon dot — single accent. Sits at the baseline of the wordmark. -->
+  <rect x="297" y="40" width="6" height="6" fill="#C73A14"/>
+</svg>

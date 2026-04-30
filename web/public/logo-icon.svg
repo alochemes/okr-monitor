@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="OKR Monitor">
+  <title>OKR Monitor</title>
+  <!-- Square brand mark — used as favicon, app icon, social profile photo. Paper background, ink letterform, persimmon accent dot. -->
+  <rect width="64" height="64" fill="#FAF7F2"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="34" fill="#0F0E0C" letter-spacing="-1">OM</text>
+  <rect x="50" y="48" width="4" height="4" fill="#C73A14"/>
+</svg>
