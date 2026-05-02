@@ -143,7 +143,12 @@ def _safe_run(name: str, fn, **kwargs) -> dict[str, Any]:
 # --------------------------------------------------------------------------
 # Assemble report body
 
-_VERDICT_HEADER_GLYPH = {"on_track": "🟢", "drifting": "🟡", "off": "🔴"}
+_AGENT_LABEL = {
+    "ceo": "CEO synopsis — today vs expected",
+    "cpo": "Product roadmap",
+    "cfo": "Cost & token projection (next 14 days)",
+    "analytics_ops": "Growth metrics",
+}
 
 
 def _fetch_proposal_body(proposal_id: str | None) -> str:
@@ -156,55 +161,221 @@ def _fetch_proposal_body(proposal_id: str | None) -> str:
     return row["body_md"] if row else "_(proposal id not found in DB)_"
 
 
+def _is_dry_run_body(body: str) -> bool:
+    return "DRY_RUN" in body[:500] or "_Confidence: 0.10_" in body
+
+
+def _agent_headline(body: str) -> str:
+    """One-line summary pulled from the agent body — first H1, or first
+    non-blank prose line. Used in the TL;DR section instead of the full body."""
+    for raw in body.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        if line.startswith("# "):
+            return line[2:].strip()
+        if line.startswith(("##", "**", "_", "-", "|")):
+            continue
+        return line[:140]
+    return "_(empty)_"
+
+
+def _kr_rollup() -> tuple[dict[str, int], list[dict[str, Any]]]:
+    """Return (counts by verdict, list of stale/off KRs needing attention)."""
+    rows = store.latest_kr_signals()
+    counts: dict[str, int] = {}
+    attention: list[dict[str, Any]] = []
+    for r in rows:
+        v = r["forecast_verdict"] or "qualitative"
+        counts[v] = counts.get(v, 0) + 1
+        if v in ("stale", "drifting", "off"):
+            attention.append(dict(r))
+    return counts, attention
+
+
+def _kpi_alerts() -> list[dict[str, Any]]:
+    """KPIs that aren't green — what the operator should look at first."""
+    return [k for k in kpi_status.all_kpis() if k["status"] != "green"]
+
+
+def _build_tldr(
+    *, today: date, activity: dict[str, Any],
+    kr_counts: dict[str, int], kpi_rows: list[dict[str, Any]],
+    dry_run_count: int, total_agents: int,
+) -> str:
+    kpi_summary = kpi_status.summary_line()
+    kr_parts = [f"{n} {v}" for v, n in sorted(kr_counts.items(), key=lambda kv: -kv[1])]
+    kr_summary = " · ".join(kr_parts) if kr_parts else "no signals computed"
+    kr_total = sum(kr_counts.values())
+
+    cap_row = next((k for k in kpi_rows if k["id"] == "K1"), None)
+    cap_value = cap_row["value"] if cap_row else f"${activity['spend_today_usd']:.4f}"
+
+    lines = [
+        "## TL;DR",
+        "",
+        f"- **KRs ({kr_total}):** {kr_summary}",
+        f"- **Today:** {activity['events_today']} events · "
+        f"{activity['mappings_today']} mappings · "
+        f"{activity['proposals_today']} proposals",
+        f"- **Spend:** {cap_value}",
+        f"- **KPIs:** {kpi_summary}",
+    ]
+    if dry_run_count:
+        lines.append(
+            f"- **⚠️ Agent output: {dry_run_count}/{total_agents} stub (DRY_RUN)** — "
+            "see warning below"
+        )
+    return "\n".join(lines)
+
+
+def _build_dry_run_banner(dry_run_count: int, total_agents: int) -> str:
+    if not dry_run_count:
+        return ""
+    if dry_run_count == total_agents:
+        msg = "All agents fell through to stub responses."
+    else:
+        msg = f"{dry_run_count} of {total_agents} agents fell through to stub responses."
+    return (
+        "> ⚠️ **DRY_RUN — no live agent output.** " + msg + " "
+        "Set `ANTHROPIC_API_KEY` in repo secrets to enable real synopsis: "
+        "https://github.com/alochemes/okr-monitor/settings/secrets/actions"
+    )
+
+
+def _build_alerts_section(
+    kpi_rows: list[dict[str, Any]],
+    attention_krs: list[dict[str, Any]],
+) -> str:
+    if not kpi_rows and not attention_krs:
+        return "## Alerts\n\n_All KPIs green and no KRs in attention zone._"
+
+    glyph = {"yellow": "🟡", "red": "🔴", "unknown": "❓"}
+    lines = ["## Alerts & action items", ""]
+    for k in kpi_rows:
+        lines.append(
+            f"- {glyph.get(k['status'], '·')} **{k['id']}** {k['label']} — _{k['value']}_"
+        )
+    if attention_krs:
+        lines.append("")
+        lines.append("**KRs needing attention** (stale / drifting / off):")
+        for r in attention_krs[:8]:
+            v = r["forecast_verdict"]
+            tgt = r["target_numeric"]
+            cur = r["current_numeric"]
+            req = r["pace_required"]
+            days = r["days_remaining"]
+            tgt_s = f"target {tgt:g}" if tgt is not None else ""
+            cur_s = f"current {cur:g}" if cur is not None else "current 0"
+            req_s = f"need {req:.2f}/d" if req is not None else ""
+            days_s = f"{days}d left" if days is not None else ""
+            tail = " · ".join(p for p in (tgt_s, cur_s, days_s, req_s) if p)
+            lines.append(
+                f"- {glyph.get('yellow', '·')} **KR {r['kr_id']}** ({v}) — {tail}"
+            )
+        if len(attention_krs) > 8:
+            lines.append(f"- _…and {len(attention_krs) - 8} more (see Details)_")
+    return "\n".join(lines)
+
+
+def _build_agent_headlines(results: dict[str, dict[str, Any]]) -> str:
+    """One-line headline per agent — shows the highest-signal sentence,
+    not the full body. Full bodies live under Details."""
+    lines = ["## Pod headlines", ""]
+    for key, label in _AGENT_LABEL.items():
+        r = results.get(key, {})
+        if not r.get("ok"):
+            lines.append(f"- **{label}** — ⚠️ failed: `{r.get('error', 'unknown')}`")
+            continue
+        body = _fetch_proposal_body(r["stats"].get("proposal_id"))
+        if _is_dry_run_body(body):
+            lines.append(f"- **{label}** — _(DRY_RUN stub — see banner above)_")
+        else:
+            lines.append(f"- **{label}** — {_agent_headline(body)}")
+    return "\n".join(lines)
+
+
+def _build_details_section(
+    *, dashboard_md: str, results: dict[str, dict[str, Any]],
+    show_agent_bodies: bool,
+) -> str:
+    parts: list[str] = ["## Details", "", "### Operational KPIs", "",
+                        kpi_status.render_md(), "",
+                        "### KR Dashboard (real-time)", "",
+                        dashboard_md, ""]
+    if show_agent_bodies:
+        for key, label in _AGENT_LABEL.items():
+            r = results.get(key, {})
+            parts.append("---")
+            parts.append("")
+            parts.append(f"### {label}")
+            parts.append("")
+            if not r.get("ok"):
+                parts.append(f"_⚠️ Agent failed:_ `{r.get('error', 'unknown')}`")
+            else:
+                parts.append(_fetch_proposal_body(r["stats"].get("proposal_id")))
+            parts.append("")
+    return "\n".join(parts)
+
+
 def _build_report_body(
     *, today: date, activity: dict[str, Any],
     dashboard_md: str, results: dict[str, dict[str, Any]],
 ) -> str:
-    def section(title: str, key: str) -> str:
-        r = results.get(key, {})
-        if not r.get("ok"):
-            return (f"## {title}\n\n_⚠️ Agent failed:_ "
-                    f"`{r.get('error', 'unknown')}`\n")
-        body = _fetch_proposal_body(r["stats"].get("proposal_id"))
-        return f"## {title}\n\n{body}\n"
+    # DRY_RUN detection — count how many agents fell through to stubs.
+    dry_run_count = 0
+    total_agents = 0
+    for r in results.values():
+        if r.get("ok") and r["stats"].get("proposal_id"):
+            total_agents += 1
+            body = _fetch_proposal_body(r["stats"]["proposal_id"])
+            if _is_dry_run_body(body):
+                dry_run_count += 1
 
-    return "\n".join([
+    kr_counts, attention_krs = _kr_rollup()
+    kpi_alerts = _kpi_alerts()
+    all_dry = dry_run_count == total_agents and total_agents > 0
+
+    sections: list[str] = [
         f"# OKR Monitor — Daily OWNER/FINANCE — {today.isoformat()}",
         "",
-        f"_Generated automatically at the daily 7pm cutover. "
-        f"Activity today: {activity['events_today']} events · "
-        f"{activity['mappings_today']} mappings · "
-        f"{activity['proposals_today']} proposals · "
-        f"spend ${activity['spend_today_usd']:.4f}._",
+        f"_7pm cutover · spend ${activity['spend_today_usd']:.4f} · "
+        f"{kpi_status.summary_line()} · {kr_counts.get('on_track', 0)}/"
+        f"{sum(kr_counts.values())} KRs on track_",
         "",
-        "## Operational KPIs",
+    ]
+
+    banner = _build_dry_run_banner(dry_run_count, total_agents)
+    if banner:
+        sections += [banner, ""]
+
+    sections += [
+        _build_tldr(today=today, activity=activity, kr_counts=kr_counts,
+                    kpi_rows=kpi_alerts, dry_run_count=dry_run_count,
+                    total_agents=total_agents),
         "",
-        f"_{kpi_status.summary_line()}_",
+        _build_alerts_section(kpi_alerts, attention_krs),
         "",
-        kpi_status.render_md(),
+    ]
+
+    # When everything is DRY_RUN the agent bodies add nothing. Show only the
+    # headline list, hide the stub bodies entirely.
+    sections += [_build_agent_headlines(results), ""]
+
+    sections += [
+        "---",
         "",
-        "## KR Dashboard (real-time)",
-        "",
-        dashboard_md,
+        _build_details_section(dashboard_md=dashboard_md, results=results,
+                               show_agent_bodies=not all_dry),
         "",
         "---",
         "",
-        section("CEO synopsis — today vs expected", "ceo"),
-        "---",
-        "",
-        section("Product roadmap report", "cpo"),
-        "---",
-        "",
-        section("Cost & token projection (next 14 days)", "cfo"),
-        "---",
-        "",
-        section("Growth metrics", "analytics_ops"),
-        "---",
-        "",
+        f"_Full report file: reports/daily/{today.isoformat()}/OWNER_FINANCE_REPORT.md_",
         "_Repo: https://github.com/alochemes/okr-monitor_",
         f"_Today's audit log: data/audit/{today.isoformat()}.jsonl_",
-        "_This is an automated report. Reply to andrew@skinmap.com._",
-    ])
+        "_Reply to alochemes@gmail.com._",
+    ]
+    return "\n".join(sections)
 
 
 # --------------------------------------------------------------------------

@@ -33,17 +33,17 @@ Gmail app passwords require 2-Step Verification.
    SMTP_PORT=587
    SMTP_USER=
    SMTP_PASS=
-   SMTP_FROM=okr-monitor@skinmap.com
-   REPORT_TO_EMAIL=andrew@skinmap.com
+   SMTP_FROM=alochemes@gmail.com
+   REPORT_TO_EMAIL=alochemes@gmail.com
    ```
 3. Fill in like this:
    ```
    SMTP_HOST=smtp.gmail.com
    SMTP_PORT=587
-   SMTP_USER=andrew@skinmap.com
+   SMTP_USER=alochemes@gmail.com
    SMTP_PASS=xxxxxxxxxxxxxxxx
-   SMTP_FROM=okr-monitor@skinmap.com
-   REPORT_TO_EMAIL=andrew@skinmap.com
+   SMTP_FROM=alochemes@gmail.com
+   REPORT_TO_EMAIL=alochemes@gmail.com
    ```
    Replace `xxxxxxxxxxxxxxxx` with your app password (no spaces, no quotes).
 4. Save. **Do not commit `.env`** — it's already in `.gitignore`.
@@ -60,10 +60,10 @@ In the script output you should see:
 ```json
 "email": {
   "sent": true,
-  "to": "andrew@skinmap.com",
+  "to": "alochemes@gmail.com",
   "host": "smtp.gmail.com",
   "port": 587,
-  "from": "okr-monitor@skinmap.com",
+  "from": "alochemes@gmail.com",
   "subject": "OKR Monitor — Daily OWNER/FINANCE — 2026-04-29 · ..."
 }
 ```
@@ -85,7 +85,7 @@ And an email should land in your inbox within a few seconds.
 ### Why this matters
 The two remote routines I scheduled (`trig_01Q99GjcE5D58K5WzLt4cJsC` Sunday + `trig_01BMMoRNTGDwuVshakfmapS6` Daily) clone the repo and try to run their wrapper scripts. They don't have access to your local `.env`, so the wrappers fall back to **dry-run mode** and the reports/proposals you get are stub content with a `DRY_RUN` banner.
 
-To get **real LLM output**, the `ANTHROPIC_API_KEY` (and `SMTP_PASS` if you want email) needs to be in the runtime environment when the script runs.
+To get **real LLM output**, the `ANTHROPIC_API_KEY` (and `  ` if you want email) needs to be in the runtime environment when the script runs.
 
 GitHub Actions has first-class secret management. The cleanest path: replace the claude.ai daily routine with a GitHub Actions cron workflow.
 
@@ -105,7 +105,8 @@ I've already added the workflow file: [`.github/workflows/daily.yml`](.github/wo
 
 ### Step 2.2 — Enable Actions on the repo (one-time)
 1. Go to https://github.com/alochemes/okr-monitor/actions
-2. If you see **"Workflows aren't being run on this repository"**, click the green **I understand my workflows, go ahead and enable them** button.
+2. If you see **"Workflows aren't being run on
+ this repository"**, click the green **I understand my workflows, go ahead and enable them** button.
 3. You should now see **Daily 7pm OWNER/FINANCE report** in the left sidebar.
 
 ### Step 2.3 — Test it manually first

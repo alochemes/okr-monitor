@@ -13,8 +13,8 @@ Configuration (in `.env`):
   SMTP_PORT=587
   SMTP_USER=you@gmail.com
   SMTP_PASS=<app-password>      # NOT your normal password — use an app-specific one
-  SMTP_FROM=okr-monitor@skinmap.com
-  REPORT_TO_EMAIL=andrew@skinmap.com
+  SMTP_FROM=alochemes@gmail.com
+  REPORT_TO_EMAIL=alochemes@gmail.com
 """
 
 from __future__ import annotations

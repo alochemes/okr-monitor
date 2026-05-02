@@ -44,10 +44,10 @@ jobs:
           # gracefully and the report is still committed to git below.
           SMTP_HOST: smtp.gmail.com
           SMTP_PORT: "587"
-          SMTP_USER: andrew@skinmap.com
+          SMTP_USER: alochemes@gmail.com
           SMTP_PASS: ${{ secrets.SMTP_PASS }}
-          SMTP_FROM: okr-monitor@skinmap.com
-          REPORT_TO_EMAIL: andrew@skinmap.com
+          SMTP_FROM: alochemes@gmail.com
+          REPORT_TO_EMAIL: alochemes@gmail.com
           # Optional override of the daily LLM cost cap (default: $50 in Sprint 0-1)
           # OKR_MONITOR_DAILY_LLM_CAP_USD: "100"
         run: python scripts/daily_evening.py
@@ -60,7 +60,20 @@ jobs:
           git add reports/
           if git diff --staged --quiet; then
             echo "No new report files to commit."
-          else
-            git commit -m "Daily OWNER/FINANCE report — $(date -u +%Y-%m-%d)"
-            git push origin main
+            exit 0
           fi
+          git commit -m "Daily OWNER/FINANCE report — $(date -u +%Y-%m-%d)"
+          # Rebase-and-retry: between checkout and push the operator may have
+          # pushed work locally. We rebase our single auto-commit on top of any
+          # new tip, then push. Up to 3 attempts in case of repeated races.
+          for attempt in 1 2 3; do
+            git pull --rebase --autostash origin main
+            if git push origin main; then
+              echo "Push succeeded on attempt $attempt"
+              exit 0
+            fi
+            echo "Push failed on attempt $attempt — refreshing and retrying"
+            sleep 3
+          done
+          echo "Push failed after 3 attempts" >&2
+          exit 1

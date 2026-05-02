@@ -1,14 +1,14 @@
-# OKR Monitor — Daily OWNER/FINANCE — 2026-04-29
+# OKR Monitor — Daily OWNER/FINANCE — 2026-05-02
 
-_7pm cutover · spend $0.0174 · 7 green | 3 unknown · 1/17 KRs on track_
+_7pm cutover · spend $0.0000 · 7 green | 3 unknown · 1/17 KRs on track_
 
 > ⚠️ **DRY_RUN — no live agent output.** All agents fell through to stub responses. Set `ANTHROPIC_API_KEY` in repo secrets to enable real synopsis: https://github.com/alochemes/okr-monitor/settings/secrets/actions
 
 ## TL;DR
 
 - **KRs (17):** 10 qualitative · 6 stale · 1 on_track
-- **Today:** 4 events · 4 mappings · 42 proposals
-- **Spend:** $0.0174
+- **Today:** 0 events · 0 mappings · 8 proposals
+- **Spend:** $0.0000
 - **KPIs:** 7 green | 3 unknown
 - **⚠️ Agent output: 4/4 stub (DRY_RUN)** — see warning below
 
@@ -19,12 +19,12 @@ _7pm cutover · spend $0.0174 · 7 green | 3 unknown · 1/17 KRs on track_
 - ❓ **K7** Anthropic balance runway — _not tracked (write current $ to data/anthropic_balance.txt)_
 
 **KRs needing attention** (stale / drifting / off):
-- 🟡 **KR 1.2** (stale) — target 5 · current 0 · 20d left · need 0.25/d
-- 🟡 **KR 2.1** (stale) — target 300 · current 0 · 121d left · need 2.48/d
-- 🟡 **KR 2.4** (stale) — target 3 · current 0 · 121d left · need 0.02/d
-- 🟡 **KR 3.1** (stale) — target 12 · current 0 · 121d left · need 0.10/d
-- 🟡 **KR 3.3** (stale) — target 12 · current 0 · 121d left · need 0.10/d
-- 🟡 **KR 4.2** (stale) — target 100 · current 1 · 20d left · need 4.95/d
+- 🟡 **KR 1.2** (stale) — target 5 · current 0 · 17d left · need 0.29/d
+- 🟡 **KR 2.1** (stale) — target 300 · current 0 · 118d left · need 2.54/d
+- 🟡 **KR 2.4** (stale) — target 3 · current 0 · 118d left · need 0.03/d
+- 🟡 **KR 3.1** (stale) — target 12 · current 0 · 118d left · need 0.10/d
+- 🟡 **KR 3.3** (stale) — target 12 · current 0 · 118d left · need 0.10/d
+- 🟡 **KR 4.2** (stale) — target 100 · current 1 · 17d left · need 5.82/d
 
 ## Pod headlines
 
@@ -57,27 +57,27 @@ _7pm cutover · spend $0.0174 · 7 green | 3 unknown · 1/17 KRs on track_
 | KR | Verdict | 7d | 30d | All | Days left | Target | Current | Req/d |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
 | 1.1 | — qual | 0 | 0 | 0 | — | — | — | — |
-| 1.2 | 🟡 stale | 0 | 0 | 0 | 20 | 5 | 0 | 0.25 |
+| 1.2 | 🟡 stale | 0 | 0 | 0 | 17 | 5 | 0 | 0.29 |
 | 1.3 | — qual | 0 | 0 | 0 | — | 85 | — | — |
 | 1.4 | — qual | 0 | 0 | 0 | — | 30 | — | — |
 | 1.5 | — qual | 0 | 0 | 0 | — | 50 | — | — |
-| 2.1 | 🟡 stale | 0 | 0 | 0 | 121 | 300 | 0 | 2.48 |
+| 2.1 | 🟡 stale | 0 | 0 | 0 | 118 | 300 | 0 | 2.54 |
 | 2.2 | — qual | 0 | 0 | 0 | — | 60 | — | — |
 | 2.3 | — qual | 0 | 0 | 0 | — | 25 | — | — |
-| 2.4 | 🟡 stale | 0 | 0 | 0 | 121 | 3 | 0 | 0.02 |
+| 2.4 | 🟡 stale | 0 | 0 | 0 | 118 | 3 | 0 | 0.03 |
 | 2.5 | — qual | 0 | 0 | 0 | — | 6 | — | — |
-| 3.1 | 🟡 stale | 0 | 0 | 0 | 121 | 12 | 0 | 0.10 |
+| 3.1 | 🟡 stale | 0 | 0 | 0 | 118 | 12 | 0 | 0.10 |
 | 3.2 | — qual | 0 | 0 | 0 | — | 5000 | — | — |
-| 3.3 | 🟡 stale | 0 | 0 | 0 | 121 | 12 | 0 | 0.10 |
+| 3.3 | 🟡 stale | 0 | 0 | 0 | 118 | 12 | 0 | 0.10 |
 | 3.4 | — qual | 0 | 0 | 0 | — | 5 | — | — |
-| 4.1 | 🟢 on_track | 4 | 4 | 4 | 20 | 30 | 30 | 0.00 |
-| 4.2 | 🟡 stale | 0 | 0 | 0 | 20 | 100 | 1 | 4.95 |
+| 4.1 | 🟢 on_track | 4 | 4 | 4 | 17 | 30 | 30 | 0.00 |
+| 4.2 | 🟡 stale | 0 | 0 | 0 | 17 | 100 | 1 | 5.82 |
 | 4.3 | — qual | 0 | 0 | 0 | — | 100 | — | — |
 
 
 ---
 
-_Full report file: reports/daily/2026-04-29/OWNER_FINANCE_REPORT.md_
+_Full report file: reports/daily/2026-05-02/OWNER_FINANCE_REPORT.md_
 _Repo: https://github.com/alochemes/okr-monitor_
-_Today's audit log: data/audit/2026-04-29.jsonl_
+_Today's audit log: data/audit/2026-05-02.jsonl_
 _Reply to alochemes@gmail.com._
