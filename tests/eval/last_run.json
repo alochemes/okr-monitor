@@ -1,0 +1,158 @@
+{
+  "started_utc": "2026-05-02T19:17:24.744737+00:00",
+  "model": "claude-sonnet-4-6::DRY_RUN",
+  "dry_run": true,
+  "total_cost_usd": 0.0,
+  "wall_seconds": 0.0,
+  "aggregate": {
+    "tp": 0,
+    "fp": 5,
+    "fn": 5,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "negative_correct": 0,
+    "negative_total": 0,
+    "negative_rate": 0.0,
+    "per_kr": {
+      "1.1": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 4,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "1.2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "4.1": {
+        "tp": 0,
+        "fp": 5,
+        "fn": 0,
+        "precision": 0.0,
+        "recall": 0.0
+      }
+    }
+  },
+  "per_example": [
+    {
+      "event_id": "ev_001",
+      "title": "Set up Vercel project for product app",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_002",
+      "title": "Deploy MVP v0 to staging at app.okrmonitor.com",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_003",
+      "title": "Configure custom domain DNS for production",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_004",
+      "title": "Production deploy went green at 14:32 UTC",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_005",
+      "title": "Kickoff call with Acme Corp scheduled for 2026-05-14",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    }
+  ]
+}

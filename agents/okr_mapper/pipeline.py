@@ -100,6 +100,62 @@ def _build_system_once() -> str:
     return _base.build_system_prompt(agent_prompt_md=_PROMPT)
 
 
+def predict_mappings(
+    event: dict[str, Any],
+    *,
+    system: str | None = None,
+    run_id: str | None = None,
+) -> dict[str, Any]:
+    """Predict KR mappings for an event WITHOUT writing to the DB.
+
+    Used by the eval harness (`tests/eval/`) to score the mapper against
+    hand-labeled examples without polluting `event_kr_mappings`. The same
+    confidence floor (≥0.5) is applied so eval scores reflect what the
+    production pipeline would actually persist.
+
+    Returns: {"mappings": [{kr_id, confidence, reasoning}],
+              "no_mapping_reason": str | None,
+              "model": str, "cost_usd": float}
+    """
+    cfg = config.agent(_AGENT)
+    sys_block = system if system is not None else _build_system_once()
+    result = llm.complete(
+        system=sys_block,
+        user=_user_message(event),
+        model=cfg["model"],
+        max_tokens=cfg.get("max_tokens", 1024),
+        temperature=cfg.get("temperature", 0.1),
+        run_id=run_id,
+        agent=_AGENT,
+        action=f"{_AGENT}.{_KIND}.predict",
+    )
+    parsed = result.parse_json()
+    raw_mappings = parsed.get("mappings") or []
+
+    cleaned: list[dict[str, Any]] = []
+    for m in raw_mappings:
+        try:
+            kr_id = str(m["kr_id"]).strip()
+            conf = float(m["confidence"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not kr_id or conf < 0.5:
+            continue
+        cleaned.append({
+            "kr_id": kr_id, "confidence": conf,
+            "reasoning": (m.get("reasoning") or "").strip() or None,
+        })
+
+    return {
+        "mappings": cleaned,
+        "no_mapping_reason": parsed.get("no_mapping_reason"),
+        "model": result.model,
+        "cost_usd": result.cost_usd,
+        "tokens_in": result.tokens_in,
+        "tokens_out": result.tokens_out,
+    }
+
+
 def run(*, event_id: str) -> dict[str, Any]:
     """Map one specific work_event."""
     store.init_db()

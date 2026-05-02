@@ -379,6 +379,63 @@ def _build_report_body(
 
 
 # --------------------------------------------------------------------------
+# Web snapshot — bridge to the product app
+
+def _write_kr_signals_snapshot(
+    path: Path, *, today: date, activity: dict[str, Any],
+) -> None:
+    """Write the latest KR signals to web/public/kr_signals.json.
+
+    Read by web/app/app/dashboard/page.tsx so the product app dashboard
+    renders the same data this report just synthesized. JSON shape is
+    versioned (`schema: 1`) so the frontend can hard-fail on mismatch.
+    """
+    rows = store.latest_kr_signals()
+    krs = [
+        {
+            "kr_id": r["kr_id"],
+            "computed_at": r["computed_at"],
+            "events_total": r["events_total"],
+            "events_7d": r["events_7d"],
+            "events_30d": r["events_30d"],
+            "distinct_actors": r["distinct_actors"],
+            "last_event_at": r["last_event_at"],
+            "mean_confidence": r["mean_confidence"],
+            "target_raw": r["target_raw"],
+            "target_numeric": r["target_numeric"],
+            "current_numeric": r["current_numeric"],
+            "due_date": r["due_date"],
+            "days_remaining": r["days_remaining"],
+            "pace_per_day": r["pace_per_day"],
+            "pace_required": r["pace_required"],
+            "forecast_verdict": r["forecast_verdict"] or "qualitative",
+            "forecast_p_hit": r["forecast_p_hit"],
+        }
+        for r in rows
+    ]
+    payload = {
+        "schema": 1,
+        "generated_at": _utcnow_iso(),
+        "report_date": today.isoformat(),
+        "totals": {
+            "krs": len(krs),
+            "events_today": activity["events_today"],
+            "mappings_today": activity["mappings_today"],
+            "proposals_today": activity["proposals_today"],
+            "spend_today_usd": activity["spend_today_usd"],
+        },
+        "krs": krs,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+
+
+def _utcnow_iso() -> str:
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).isoformat()
+
+
+# --------------------------------------------------------------------------
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -424,6 +481,12 @@ def main() -> int:
 
     report_path = out_dir / "OWNER_FINANCE_REPORT.md"
     report_path.write_text(body, encoding="utf-8")
+
+    # Snapshot the KR signals to web/public/kr_signals.json so the product
+    # app's /app/dashboard route renders the same data the daily report saw.
+    # Pre-MVP this is the bridge from the Python brain to the customer surface.
+    snapshot_path = ROOT / "web" / "public" / "kr_signals.json"
+    _write_kr_signals_snapshot(snapshot_path, today=today, activity=activity)
 
     if args.no_email:
         email_status: dict[str, Any] = {"sent": False, "reason": "--no-email flag set"}

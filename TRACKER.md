@@ -5,7 +5,7 @@
 - **Cycle:** 2026-04-28 → 2026-08-28 (4 months)
 - **Founder/Operator:** andrew@skinmap.com
 - **Repo root:** `C:/Users/aloch/okr-monitor/`
-- **Last updated:** 2026-04-29
+- **Last updated:** 2026-05-02
 
 ---
 
@@ -271,6 +271,18 @@ These KPIs become live metrics in the daily 7pm OWNER/FINANCE report once the re
 - **Sunday GitHub Actions workflow** at `.github/workflows/sunday.yml`. Cron `0 1 * * 1` UTC = Sun 6pm Pacific (EDT). Mirrors the daily workflow pattern (checkout → Python 3.11 → install → init DB → `sunday_evening.py` → commit + push). Once the operator adds `ANTHROPIC_API_KEY` as a repo secret, this replaces the claude.ai Sunday routine (`trig_01Q99GjcE5D58K5WzLt4cJsC`).
 - **End-to-end smoke test:** all 13 new agents `parsed_ok=true` in dry-run.
 - **KR4.1 = 30/30** ✅ — the entire 30-agent org is on (status flag 🟢). Each agent has its own prompt, config, pipeline, and run script. They will produce real output the moment `OKR_MONITOR_DRY_RUN=false` is set or the GitHub Actions workflow runs with the secret in env.
+
+#### Day 5 (2026-05-02) — what shipped (eval framework + GTM kit + product-app skeleton)
+
+- **OKR-Mapper eval set v0** (`tests/eval/`) — framework wired end-to-end. 50 labeled events spanning all 17 KRs (10 negatives, 4 multi-mappings); `tests/eval/dataset.py` is the canonical labeled set. `python -m tests.eval.run_eval` writes `REPORT.md` with precision/recall, F1, per-KR breakdown, and the failure list. Today's run is dry-run (0% precision against fall-through mocks); the first real precision number lands on `OKR_MONITOR_DRY_RUN=false`. The 200-event grow-out for the Sprint 0 milestone (2026-05-05) is just adding entries to `dataset.py` — the framework is done.
+- **Discovery-call kit** (`gtm/`, 5 files) — the operator's Monday-morning artifact. (1) `01_target_list.md` — qualification rubric + 5 ICP categories + 50 ranked targets in tiers (Tier 1 of 10 with worked-template row). (2) `02_outreach_scripts.md` — 5 subject-line variants, T0 cold email, T2 LinkedIn DM, T4 founder-direct templates, reply-handling playbook, 5 pre-answered objections, funnel math and reply-rate troubleshooting. (3) `03_interview_guide.md` — 30-min call template by minute-block, tied to the 5-in-5 exercise (`notion/03_playbooks/01_customer_okr_kpi_framework.md` §4) as the close. (4) `04_calendaring.md` — Calendly event-type config, 3-slot reply, T-24h/T-1h confirmations, conferencing rules, no-show recovery, funnel-math sanity check. (5) `05_post_call_synthesis.md` — 60-min capture template, retro cadence (5-call rhythm), agent feedback loop into `ux_researcher`/`founder_sales`/`copywriter`. The bottleneck for KR1.2 (5 design partners by 2026-05-19) is now operator-time-to-dial, not preparation.
+- **MVP product-app skeleton** (`web/app/app/`) —
+  - `scripts/daily_evening.py` extended: writes `web/public/kr_signals.json` (schema versioned, 17 KRs with full forecast columns) at the end of every daily run. This is the bridge from the Python brain to the customer surface.
+  - `web/app/app/login/page.tsx` — magic-link stub in v2-console palette. Form posts to `/app/dashboard` for now; Supabase wiring lands in Sprint 1.
+  - `web/app/app/dashboard/page.tsx` — server-rendered scoreboard reading `kr_signals.json` at request time. Verdict chip strip, 5-stat header (KRs · events_today · mappings_today · proposals_today · spend_today), full 17-row KR table with verdict, 7d/30d/all event counts, target/current/due/days-left/needed-pace. Graceful fallback when the snapshot is missing.
+  - `npm run build` green. `/app/dashboard` 176 B / 109 kB First Load JS — well under the K10 ceiling.
+- **KR1.1 progress:** ~25% — product-app routes ship; auth + integrations + Vercel deploy still ahead. **KR1.2 progress:** unblocked — operator can dial Monday with the kit. **KR1.3 progress:** framework ready, awaiting live-LLM precision number.
+- **Critical path to MVP-or-die (2026-05-12, 10 days):** discovery calls land design partners; live-LLM eval precision number; Vercel deploy + Supabase auth wiring; first integration (GitHub).
 
 ### Sprint 1 — 2026-05-13 → 2026-05-26 — "Design partner love"
 - Sprint goal: 5 design partners using product weekly, NPS measured.
