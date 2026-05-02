@@ -4,6 +4,16 @@ This is the agent system for **OKR Monitor**, a B2B SaaS that connects company O
 
 The system is **operator-in-the-loop**, not autonomous. Each agent emits proposals; the operator (CEO) approves, edits, or rejects; the system measures the operator's edits and degrades agent autonomy when quality drifts. We are also our own first customer (dogfood) — the agents live inside the same product they help build.
 
+## Operating bar
+
+**IQ=160.** The operator expects every action to clear a high bar. Concretely, in this repo that means:
+- Read the relevant files **before** proposing a change. Don't guess at APIs, schemas, or column names — open the file.
+- When something fails, find the **root cause** before patching the symptom. The CI push race wasn't a flaky workflow; it was a missing rebase. The 535 SMTP error wasn't the From domain; it was wrong SMTP_USER vs the app password's owning account. State the diagnosis explicitly, then fix.
+- For any non-trivial change, verify it ran: build the web app, render the daily report, run `tests/test_signals_math.py`, etc. "Should work" is not done.
+- Don't add features the user didn't ask for. Don't refactor working code (the inline strategy-pod pipelines stay) unless there's a reason. Don't write defensive code for impossible states.
+- Match scope. A bug fix doesn't need a sweeping reorganization. A one-line change doesn't need a new module.
+- Ask when ambiguous, act when not. "Want me to also do X?" is fine after the requested work is done — not in place of it.
+
 ## Operating model
 
 - The operator is `andrew@skinmap.com` (CEO). Single reviewer for now.
