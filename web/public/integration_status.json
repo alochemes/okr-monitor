@@ -1,0 +1,313 @@
+{
+  "schema": 1,
+  "generated_at": "2026-05-03T02:38:44.035499+00:00",
+  "workspace_slug": "okrmonitor-internal",
+  "sources": [
+    {
+      "category": "okr-sources",
+      "kind": "notion",
+      "name": "Notion",
+      "status": "connected",
+      "last_sync_at": "2026-05-03T00:59:14.736854+00:00",
+      "stats_24h": {
+        "objectives": 4,
+        "krs": 17
+      },
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "asana",
+      "name": "Asana Goals",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "csv",
+      "name": "CSV / paste",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "coda",
+      "name": "Coda",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "monday",
+      "name": "Monday.com",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "mooncamp",
+      "name": "Mooncamp",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "lattice",
+      "name": "Lattice",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "workboard",
+      "name": "Workboard",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "okr-sources",
+      "kind": "google_docs",
+      "name": "Google Docs",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.code",
+      "kind": "github",
+      "name": "GitHub",
+      "status": "connected",
+      "last_sync_at": "2026-05-03T00:59:15.669696+00:00",
+      "stats_24h": {
+        "events_written": 20,
+        "events_seen": 63
+      },
+      "error": null
+    },
+    {
+      "category": "work-events.tickets",
+      "kind": "linear",
+      "name": "Linear",
+      "status": "connected",
+      "last_sync_at": "2026-05-03T00:59:16.119771+00:00",
+      "stats_24h": {
+        "events_written": 4,
+        "events_seen": 8
+      },
+      "error": null
+    },
+    {
+      "category": "work-events.tickets",
+      "kind": "asana_tasks",
+      "name": "Asana (tasks)",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.code",
+      "kind": "bitbucket",
+      "name": "Bitbucket",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.tickets",
+      "kind": "github_issues",
+      "name": "GitHub Issues",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.code",
+      "kind": "gitlab",
+      "name": "GitLab",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.crm",
+      "kind": "hubspot",
+      "name": "HubSpot",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.tickets",
+      "kind": "jira",
+      "name": "Jira",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.chat",
+      "kind": "slack",
+      "name": "Slack",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.crm",
+      "kind": "attio",
+      "name": "Attio",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.docs",
+      "kind": "coda_docs",
+      "name": "Coda (docs)",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.docs",
+      "kind": "confluence",
+      "name": "Confluence",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.chat",
+      "kind": "discord",
+      "name": "Discord",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.docs",
+      "kind": "google_drive",
+      "name": "Google Drive",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.chat",
+      "kind": "teams",
+      "name": "Microsoft Teams",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.docs",
+      "kind": "notion_docs",
+      "name": "Notion (docs)",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.crm",
+      "kind": "pipedrive",
+      "name": "Pipedrive",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.crm",
+      "kind": "salesforce",
+      "name": "Salesforce",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "work-events.tickets",
+      "kind": "shortcut",
+      "name": "Shortcut",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "kpi-sources",
+      "kind": "datadog",
+      "name": "Datadog",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "kpi-sources",
+      "kind": "mixpanel",
+      "name": "Mixpanel",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "kpi-sources",
+      "kind": "amplitude",
+      "name": "Amplitude",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "kpi-sources",
+      "kind": "grafana",
+      "name": "Grafana",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    },
+    {
+      "category": "kpi-sources",
+      "kind": "posthog",
+      "name": "PostHog",
+      "status": "not_configured",
+      "last_sync_at": null,
+      "stats_24h": {},
+      "error": null
+    }
+  ]
+}

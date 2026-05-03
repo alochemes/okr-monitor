@@ -45,7 +45,8 @@ from agents.cfo import pipeline as cfo_pipe  # noqa: E402
 from agents.analytics_ops import pipeline as analytics_pipe  # noqa: E402
 from agents.signals_analyst import pipeline as signals_pipe  # noqa: E402
 from agents.forecasting import pipeline as forecasting_pipe  # noqa: E402
-from core import dashboard, kpi_status, mailer, store  # noqa: E402
+from agents.okr_mapper import pipeline as okr_mapper_pipe  # noqa: E402
+from core import dashboard, github_ingest, integration_status, kpi_status, linear_ingest, mailer, notion_okr, store  # noqa: E402
 
 
 # --------------------------------------------------------------------------
@@ -436,6 +437,44 @@ def _utcnow_iso() -> str:
 
 
 # --------------------------------------------------------------------------
+# Source ingestion (GitHub, Linear) — best-effort wrappers used by main().
+
+def _safe_ingest_github() -> dict[str, Any]:
+    """Poll the configured GitHub repos. Best-effort: returns a dict either
+    way so the report can show the operator what landed."""
+    repos = github_ingest.configured_repos()
+    if not repos:
+        return {"ok": True, "skipped": "no_repos_configured",
+                "events_written": 0, "events_seen": 0}
+    out = github_ingest.poll_repos(repos, since_days=1)
+    out["ok"] = True
+    return out
+
+
+def _safe_ingest_linear() -> dict[str, Any]:
+    """Poll Linear workspace for recent issue activity. Best-effort."""
+    if not linear_ingest.is_configured():
+        return {"ok": True, "skipped": "no_api_key",
+                "events_written": 0, "events_seen": 0}
+    res = linear_ingest.poll_workspace(since_days=1)
+    return {"ok": True, **res}
+
+
+def _safe_pull_notion_okrs() -> dict[str, Any]:
+    """Pull OKRs from Notion (canonical) → regenerate TRACKER.md §2 + cache.
+
+    Best-effort: a missing key or unconfigured database id no-ops cleanly so
+    the rest of the daily run still produces a report. The agent system
+    falls back to whatever §2 already says.
+    """
+    if not os.environ.get("NOTION_API_KEY"):
+        return {"ok": True, "skipped": "no_api_key"}
+    if not notion_okr.configured_database_id():
+        return {"ok": True, "skipped": "no_database_id"}
+    return notion_okr.pull_and_update()
+
+
+# --------------------------------------------------------------------------
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -451,6 +490,36 @@ def main() -> int:
 
     store.init_db()
 
+    # Pull fresh activity from external sources before computing today's
+    # signals. Each source is best-effort — if a token is missing or the API
+    # is down, we still ship the report with whatever we have.
+    # Notion is pulled first because the OKR catalog feeds the mapper; we
+    # want the latest objectives in TRACKER.md before any mapping happens.
+    ingest_summary: dict[str, Any] = {}
+    for src_name, src_fn in (
+        ("notion_okrs", _safe_pull_notion_okrs),
+        ("github", _safe_ingest_github),
+        ("linear", _safe_ingest_linear),
+    ):
+        try:
+            ingest_summary[src_name] = src_fn()
+        except Exception as exc:    # pragma: no cover
+            ingest_summary[src_name] = {"ok": False, "error": str(exc)}
+            print(f"[warn] {src_name} ingest failed: {exc}", file=sys.stderr)
+
+    # Map any newly-ingested events to KRs so they show up in today's
+    # signals. Skipped automatically in dry-run (the mapper itself respects
+    # OKR_MONITOR_DRY_RUN); skipped on zero new events to save the LLM call.
+    new_events = sum(
+        s.get("events_written", 0) for s in ingest_summary.values()
+        if isinstance(s, dict)
+    )
+    if new_events:
+        try:
+            okr_mapper_pipe.run_all_unmapped(limit=200)
+        except Exception as exc:    # pragma: no cover
+            print(f"[warn] mapper sweep failed: {exc}", file=sys.stderr)
+
     # Refresh signals + forecast so the dashboard reflects today's reality.
     try:
         signals_pipe.run()
@@ -459,6 +528,7 @@ def main() -> int:
         print(f"[warn] signals/forecast refresh failed: {exc}", file=sys.stderr)
 
     activity = _gather_today_activity(today)
+    activity["ingest"] = ingest_summary
     cost_history = _gather_cost_history(today)
     growth_data = _gather_growth_data(today)
 
@@ -487,6 +557,11 @@ def main() -> int:
     # Pre-MVP this is the bridge from the Python brain to the customer surface.
     snapshot_path = ROOT / "web" / "public" / "kr_signals.json"
     _write_kr_signals_snapshot(snapshot_path, today=today, activity=activity)
+
+    # Integration-status snapshot for /app/integrations.
+    integration_status.write_snapshot(
+        ROOT / "web" / "public" / "integration_status.json",
+    )
 
     if args.no_email:
         email_status: dict[str, Any] = {"sent": False, "reason": "--no-email flag set"}

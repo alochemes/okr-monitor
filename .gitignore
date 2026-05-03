@@ -12,3 +12,10 @@ venv/
 .mypy_cache/
 .ruff_cache/
 .DS_Store
+
+# Workspaces — pilot/customer data is gitignored to prevent customer data
+# leaking into our repo. Our own workspace (okrmonitor-internal) is
+# committed for dogfood transparency.
+data/workspaces/*
+!data/workspaces/okrmonitor-internal/
+!data/workspaces/okrmonitor-internal/**

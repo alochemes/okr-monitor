@@ -1,29 +1,26 @@
 # OKR Monitor — Daily OWNER/FINANCE — 2026-05-02
 
-_7pm cutover · spend $0.0000 · 8 green | 2 unknown · 1/17 KRs on track_
+_7pm cutover · spend $0.0000 · 7 green | 1 yellow | 2 unknown · 1/17 KRs on track_
 
 > ⚠️ **DRY_RUN — no live agent output.** All agents fell through to stub responses. Set `ANTHROPIC_API_KEY` in repo secrets to enable real synopsis: https://github.com/alochemes/okr-monitor/settings/secrets/actions
 
 ## TL;DR
 
-- **KRs (17):** 10 qualitative · 6 stale · 1 on_track
-- **Today:** 0 events · 0 mappings · 16 proposals
+- **KRs (17):** 10 qualitative · 4 active · 2 stale · 1 on_track
+- **Today:** 7 events · 42 mappings · 24 proposals
 - **Spend:** $0.0000
-- **KPIs:** 8 green | 2 unknown
+- **KPIs:** 7 green | 1 yellow | 2 unknown
 - **⚠️ Agent output: 4/4 stub (DRY_RUN)** — see warning below
 
 ## Alerts & action items
 
+- 🟡 **K2** Daily 7pm OWNER/FINANCE report sent — _no commit yet today; yesterday's present_
 - ❓ **K6** GitHub Actions workflow success rate (rolling 14d) — _2 workflow file(s) present_
 - ❓ **K7** Anthropic balance runway — _not tracked (write current $ to data/anthropic_balance.txt)_
 
 **KRs needing attention** (stale / drifting / off):
-- 🟡 **KR 1.2** (stale) — target 5 · current 0 · 17d left · need 0.29/d
-- 🟡 **KR 2.1** (stale) — target 300 · current 0 · 118d left · need 2.54/d
 - 🟡 **KR 2.4** (stale) — target 3 · current 0 · 118d left · need 0.03/d
-- 🟡 **KR 3.1** (stale) — target 12 · current 0 · 118d left · need 0.10/d
 - 🟡 **KR 3.3** (stale) — target 12 · current 0 · 118d left · need 0.10/d
-- 🟡 **KR 4.2** (stale) — target 100 · current 1 · 17d left · need 5.82/d
 
 ## Pod headlines
 
@@ -40,8 +37,8 @@ _7pm cutover · spend $0.0000 · 8 green | 2 unknown · 1/17 KRs on track_
 
 | KPI | Status | Value | Target |
 |---|---|---|---|
-| **K1** Daily LLM cost cap respected | [OK] | $0.0000 of $50.00 (0.0%) | 0 days breached/cycle |
-| **K2** Daily 7pm OWNER/FINANCE report sent | [OK] | committed today (2026-05-02) | ≥99% of days |
+| **K1** Daily LLM cost cap respected | [OK] | $0.0020 of $50.00 (0.0%) | 0 days breached/cycle |
+| **K2** Daily 7pm OWNER/FINANCE report sent | [WARN] | no commit yet today; yesterday's present | ≥99% of days |
 | **K3** Friday weekly narrative generated | [OK] | 1 narrative file(s) in last 8 days | 100% of Fridays |
 | **K4** Math tests passing | [OK] | 30 test functions present (last verified: 9/9) | all green |
 | **K5** web/ build passes | [OK] | package.json present (last build: ✓ 13.6 kB / 174 kB FLJS) | 100% |
@@ -55,23 +52,23 @@ _7pm cutover · spend $0.0000 · 8 green | 2 unknown · 1/17 KRs on track_
 
 | KR | Verdict | 7d | 30d | All | Days left | Target | Current | Req/d |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
-| 1.1 | — qual | 0 | 0 | 0 | — | — | — | — |
-| 1.2 | 🟡 stale | 0 | 0 | 0 | 17 | 5 | 0 | 0.29 |
-| 1.3 | — qual | 0 | 0 | 0 | — | 85 | — | — |
-| 1.4 | — qual | 0 | 0 | 0 | — | 30 | — | — |
+| 1.1 | — qual | 4 | 4 | 4 | — | — | — | — |
+| 1.2 | 🟢 active | 2 | 2 | 2 | 17 | 5 | 0 | 0.29 |
+| 1.3 | — qual | 5 | 5 | 5 | — | 85 | — | — |
+| 1.4 | — qual | 3 | 3 | 3 | — | 30 | — | — |
 | 1.5 | — qual | 0 | 0 | 0 | — | 50 | — | — |
-| 2.1 | 🟡 stale | 0 | 0 | 0 | 118 | 300 | 0 | 2.54 |
+| 2.1 | 🟢 active | 1 | 1 | 1 | 118 | 300 | 0 | 2.54 |
 | 2.2 | — qual | 0 | 0 | 0 | — | 60 | — | — |
 | 2.3 | — qual | 0 | 0 | 0 | — | 25 | — | — |
 | 2.4 | 🟡 stale | 0 | 0 | 0 | 118 | 3 | 0 | 0.03 |
 | 2.5 | — qual | 0 | 0 | 0 | — | 6 | — | — |
-| 3.1 | 🟡 stale | 0 | 0 | 0 | 118 | 12 | 0 | 0.10 |
-| 3.2 | — qual | 0 | 0 | 0 | — | 5000 | — | — |
+| 3.1 | 🟢 active | 3 | 3 | 3 | 118 | 12 | 0 | 0.10 |
+| 3.2 | — qual | 1 | 1 | 1 | — | 5000 | — | — |
 | 3.3 | 🟡 stale | 0 | 0 | 0 | 118 | 12 | 0 | 0.10 |
 | 3.4 | — qual | 0 | 0 | 0 | — | 5 | — | — |
-| 4.1 | 🟢 on_track | 4 | 4 | 4 | 17 | 30 | 30 | 0.00 |
-| 4.2 | 🟡 stale | 0 | 0 | 0 | 17 | 100 | 1 | 5.82 |
-| 4.3 | — qual | 0 | 0 | 0 | — | 100 | — | — |
+| 4.1 | 🟢 on_track | 10 | 10 | 10 | 17 | 30 | 30 | 0.00 |
+| 4.2 | 🟢 active | 13 | 13 | 13 | 17 | 100 | 1 | 5.82 |
+| 4.3 | — qual | 4 | 4 | 4 | — | 100 | — | — |
 
 
 ---
