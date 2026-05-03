@@ -13,9 +13,11 @@ OKR Monitor connects company OKRs to the actual work happening in code, tickets,
 
 ## The wedge sentence
 
-> Every Friday, get a one-page exec summary of which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.
+> OKR drift, surfaced the day it starts — not the week it ends. A live scoreboard you can check anytime, and a one-page Friday brief that anchors Monday standup.
 
-This sentence appears verbatim on the landing page, in cold outreach, in pilot kickoffs, and in podcast pitches. **Don't paraphrase it.** Other product copy can vary; this one stays anchored.
+These two sentences appear verbatim on the landing page, in cold outreach, in pilot kickoffs, and in podcast pitches. **Don't paraphrase them.** Other product copy can vary; this pair stays anchored.
+
+The structure matters and shouldn't be inverted: the **pain claim** leads (drift surfaced same-day, not at week-end), the **mechanism pair** follows (live scoreboard + Friday brief). The first sentence sells the speed upgrade against the category default of weekly status; the second names the two artifacts a buyer actually receives. Drop either sentence and the positioning collapses — the daily true-up alone reads as a dashboard, the weekly brief alone reads as another newsletter.
 
 ## ICP (who we sell to)
 

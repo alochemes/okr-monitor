@@ -94,10 +94,10 @@ export function HeroV2() {
             </h1>
 
             <p className="reveal reveal-3 mt-8 max-w-[58ch] text-[19px] leading-[1.55] text-v2-text-dim">
-              Every Friday, a one-page exec brief naming which OKRs are on
-              track, which are drifting, and exactly which work is — and
-              isn&rsquo;t — moving the needle. Connected to the systems
-              where work already happens.
+              OKR drift, surfaced the day it starts &mdash; not the week
+              it ends. A live scoreboard you can check anytime, and a
+              one-page Friday brief that anchors Monday standup.
+              Connected to the systems where work already happens.
             </p>
 
             <div className="reveal reveal-4 mt-10 flex flex-wrap items-center gap-x-6 gap-y-4">

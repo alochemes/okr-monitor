@@ -4,12 +4,14 @@
 name: OKR Monitor
 url: https://okrmonitor.com
 one_liner: >
-  OKR Monitor connects company OKRs to the actual work happening in code,
-  tickets, and conversations, and surfaces drift in real time.
+  OKR drift, surfaced the day it starts — not the week it ends. A live
+  scoreboard you can check anytime, and a one-page Friday brief that
+  anchors Monday standup.
 
 what_we_are:
+  - A live OKR scoreboard reflecting today's work, checkable anytime
+  - A one-page Friday exec brief that anchors Monday standup
   - A real-time alignment system between OKRs and execution
-  - A weekly auto-narrative that tells leaders what is and isn't moving the needle
   - An early-warning system for OKR drift before quarter-end
 
 what_we_are_not:

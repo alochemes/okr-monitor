@@ -10,7 +10,7 @@ This repository is the **agent system** behind OKR Monitor. It is operator-in-th
 
 If you're a Chief of Staff or Head of Operations and you've ever spent your Monday morning DM-ing five people to find out whether the OKRs you set are actually being worked on, this is for you.
 
-**The wedge:** every Friday, you get a one-page exec summary of which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.
+**The wedge:** OKR drift, surfaced the day it starts — not the week it ends. A live scoreboard you can check anytime, and a one-page Friday brief that anchors Monday standup.
 
 **The mechanism:**
 1. We ingest "work events" from the systems you already use (GitHub, Linear/Jira, Slack, Notion).

@@ -27,7 +27,7 @@ const mono = JetBrains_Mono({
 
 const PAGE_TITLE = "OKR Monitor — connect goals to the work";
 const PAGE_DESC =
-  "Every Friday, a one-page exec brief naming which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle.";
+  "OKR drift, surfaced the day it starts — not the week it ends. A live scoreboard you can check anytime, and a one-page Friday brief that anchors Monday standup.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,

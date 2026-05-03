@@ -106,9 +106,9 @@ export function Hero() {
             )}
 
             <p className="reveal reveal-3 mt-8 max-w-[52ch] font-display text-[20px] leading-[1.5] tracking-editorial text-ink-soft sm:text-[22px]">
-              Every Friday at 9 AM, a one-page exec brief lands in your inbox
-              naming which KRs are on track, which are drifting, and exactly
-              which commits, tickets, and conversations moved them.
+              OKR drift, surfaced the day it starts — not the week it ends.
+              A live scoreboard you can check anytime, and a one-page
+              Friday brief that anchors Monday standup.
             </p>
 
             <div className="reveal reveal-4 mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">

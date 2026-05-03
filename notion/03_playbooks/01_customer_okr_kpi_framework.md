@@ -117,11 +117,13 @@ If you have a strong reason to cascade (PE-backed, board mandate, very large com
 
 ---
 
-## 6. Cadence — set quarterly, review weekly
+## 6. Cadence — checked daily, set quarterly, brief weekly
 
 **Quarterly:** set 3–5 Os and ≤5 KRs each.
 
-**Weekly (Friday):** read the OKR Monitor brief. ~5 min.
+**Daily true-up (anytime):** the live scoreboard reflects today's events. Check it on demand — when someone asks "are we on track for KR-2?" the answer is one URL away, not a Sunday-night reconstruction. The point of the daily layer is *availability*, not a daily ritual; you don't have to look at it every day.
+
+**Weekly (Friday):** read the OKR Monitor brief. ~5 min. The brief is the decision-grade artifact — it names verdicts, calls out drift, and gives Monday standup an agenda.
 
 **Weekly (Monday standup):** 15 min, structured by the brief:
 - Spend ~5 min on each KR rated `drifting` or `off`.

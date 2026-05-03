@@ -62,10 +62,11 @@ actually shipping caught my eye."]
 I talk to spend Sunday writing the Monday status from memory and
 gut, then defend it Wednesday in standup."]
 
-We turn your real work in GitHub + Linear + Slack into a one-page
-Friday exec brief naming exactly which KRs are on track, which are
-drifting, and which work isn't moving the needle. No new tool for
-your team — we just read the work.
+We turn your real work in GitHub + Linear + Slack into a live
+KR scoreboard you can check anytime, plus a one-page Friday exec
+brief that anchors Monday standup. Drift surfaces the day it
+starts, not the week it ends. No new tool for your team — we
+just read the work.
 
 Open to 15 minutes [day, time, time-zone]? I'll send you a sample
 brief generated against your real OKRs and 30 days of activity, and
@@ -144,10 +145,11 @@ Subject: [pick from §2 — usually S1 or S4]
 Two notes back to [CoS FirstName] last week didn't land — sending
 this one straight to you in case the topic is yours, not theirs.
 
-We make a one-page Friday brief naming which OKRs are on track, which
-are drifting, and which work isn't moving the needle — sourced from
-your team's actual GitHub, Linear, Slack, Notion. The thing it
-replaces is the email you write your board on Sunday.
+We make a live KR scoreboard you can check anytime, plus a one-page
+Friday brief that anchors Monday standup — sourced from your team's
+actual GitHub, Linear, Slack, Notion. Drift surfaces the day it
+starts, not the week it ends. The thing it replaces is the email
+you write your board on Sunday.
 
 Happy to generate a brief on [Company]'s real Q2 OKRs and 30 days of
 activity, and walk [CoS FirstName] through it. 15 minutes.

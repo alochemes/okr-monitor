@@ -6,7 +6,7 @@
 
 ## The whole thing in one paragraph
 
-OKR Monitor ingests "work events" from the systems where your team actually does work — commits in GitHub, tickets in Linear or Jira, threads in Slack, doc updates in Notion. An agent called **OKR-Mapper** classifies every event against your KRs with a calibrated confidence score (≥0.5 floor, anything below is dropped, not faked). A second agent — **Signals-Analyst** — rolls those mappings into per-KR rolling counts (events / 7d / 30d / all-time). A third — **Forecasting** — compares current pace to required pace and emits a verdict per KR: `on_track | active | drifting | stale | off | qualitative`. Every Friday at 9 AM, a fourth agent — **Narrative** — writes a one-page exec brief synthesizing the week. The brief is the product.
+OKR Monitor ingests "work events" from the systems where your team actually does work — commits in GitHub, tickets in Linear or Jira, threads in Slack, doc updates in Notion. An agent called **OKR-Mapper** classifies every event against your KRs with a calibrated confidence score (≥0.5 floor, anything below is dropped, not faked). A second agent — **Signals-Analyst** — rolls those mappings into per-KR rolling counts (events / 7d / 30d / all-time). A third — **Forecasting** — compares current pace to required pace and emits a verdict per KR: `on_track | active | drifting | stale | off | qualitative`. Those four feed a **live scoreboard** that reflects the day's events as they land — drift is visible the day it starts. Every Friday at 9 AM, a fourth agent — **Narrative** — writes a one-page exec brief synthesizing the week. The scoreboard is the trust mechanism; the brief is the decision artifact.
 
 ---
 
@@ -112,7 +112,10 @@ The `integrations_engineer` agent's first proposal will be the GitHub design. Se
 
 ## What customers actually receive
 
-Every Friday at 9 AM (their timezone), they get one of these in their inbox:
+Two surfaces, two cadences:
+
+1. **The live scoreboard at `/app/dashboard`** — checkable anytime, reflects today's ingested events. The CoS who wants to know "are we on track for KR-2 right now?" gets the answer in one click. No daily email, no notification spam — availability is the value, not a ritual.
+2. **The Friday 9 AM brief** — the decision-grade artifact. Every Friday at 9 AM (their timezone), they get one of these in their inbox:
 
 ```
 Subject: OKR Monitor — Brief 17.26 — 3 of 7 KRs at risk
