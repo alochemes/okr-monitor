@@ -1,0 +1,14 @@
+slug: okrmonitor-internal
+name: OKR Monitor (internal / dogfood)
+kind: internal
+contacts:
+  - alochemes@gmail.com
+integrations:
+  github:
+    repos:
+      - alochemes/okr-monitor
+  linear:
+    workspace: okr-monitor
+  notion:
+    okr_database_id: ""    # filled in by scripts/notion_okr_seed.py
+    parent_page_id: ""     # the Notion page hosting the OKR DB

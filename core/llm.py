@@ -26,10 +26,12 @@ from core import audit, limits
 
 
 # Token-cost table in USD per million tokens. Update when pricing changes.
+# `cache_write` is for tokens written to a 5-min ephemeral cache (1.25× base
+# input rate). `cache_read` is for tokens read from cache (0.10× base rate).
 _PRICE = {
-    "claude-haiku-4-5-20251001":  {"in": 1.00, "out": 5.00,  "cache_read": 0.10},
-    "claude-sonnet-4-6":          {"in": 3.00, "out": 15.00, "cache_read": 0.30},
-    "claude-opus-4-7":            {"in": 15.00, "out": 75.00, "cache_read": 1.50},
+    "claude-haiku-4-5-20251001":  {"in": 1.00,  "out": 5.00,   "cache_write": 1.25,   "cache_read": 0.10},
+    "claude-sonnet-4-6":          {"in": 3.00,  "out": 15.00,  "cache_write": 3.75,   "cache_read": 0.30},
+    "claude-opus-4-7":            {"in": 15.00, "out": 75.00,  "cache_write": 18.75,  "cache_read": 1.50},
 }
 
 
@@ -40,6 +42,7 @@ class LLMResult:
     tokens_in: int
     tokens_out: int
     cache_read_tokens: int
+    cache_creation_tokens: int
     cost_usd: float
     raw: dict[str, Any]
 
@@ -68,14 +71,24 @@ def _is_dry_run() -> bool:
     return os.environ.get("OKR_MONITOR_DRY_RUN", "true").lower() == "true"
 
 
-def _price(model: str, tokens_in: int, tokens_out: int, cache_read: int) -> float:
+def _price(model: str, tokens_in: int, tokens_out: int,
+           cache_read: int, cache_write: int) -> float:
+    """Return USD cost for one call.
+
+    Anthropic's `usage.input_tokens` is the count billed at base input rate —
+    it ALREADY EXCLUDES `cache_creation_input_tokens` and
+    `cache_read_input_tokens`. So we sum four lines instead of trying to
+    subtract anything (an earlier version subtracted `cache_read` from
+    `tokens_in`, which produced negative costs when the cache hit was big).
+    """
     p = _PRICE.get(model)
     if not p:
         return 0.0
     return (
-        (tokens_in - cache_read) * p["in"] / 1_000_000
-        + cache_read * p["cache_read"] / 1_000_000
-        + tokens_out * p["out"] / 1_000_000
+        tokens_in    * p["in"]          / 1_000_000
+        + cache_write * p["cache_write"] / 1_000_000
+        + cache_read  * p["cache_read"]  / 1_000_000
+        + tokens_out  * p["out"]         / 1_000_000
     )
 
 
@@ -100,7 +113,8 @@ def complete(
             text=text, model=f"{model}::DRY_RUN",
             tokens_in=len(system) // 4 + len(user) // 4,
             tokens_out=len(text) // 4,
-            cache_read_tokens=0, cost_usd=0.0, raw={"dry_run": True},
+            cache_read_tokens=0, cache_creation_tokens=0,
+            cost_usd=0.0, raw={"dry_run": True},
         )
         audit.emit(run_id=run_id, agent=agent, action=action, model=result.model,
                    tokens_in=result.tokens_in, tokens_out=result.tokens_out,
@@ -140,7 +154,8 @@ def complete(
     tokens_in = getattr(usage, "input_tokens", 0) or 0
     tokens_out = getattr(usage, "output_tokens", 0) or 0
     cache_read = getattr(usage, "cache_read_input_tokens", 0) or 0
-    cost = _price(model, tokens_in, tokens_out, cache_read)
+    cache_write = getattr(usage, "cache_creation_input_tokens", 0) or 0
+    cost = _price(model, tokens_in, tokens_out, cache_read, cache_write)
 
     # Record spend toward today's circuit-breaker cap before returning.
     limits.record_spend(cost)
@@ -149,13 +164,15 @@ def complete(
         run_id=run_id, agent=agent, action=action, model=model,
         tokens_in=tokens_in, tokens_out=tokens_out, cost_usd=cost,
         payload={"cache_read_tokens": cache_read,
+                 "cache_creation_tokens": cache_write,
                  "stop_reason": getattr(resp, "stop_reason", None),
                  "daily_spent_usd_after": round(limits.spent_today(), 4),
                  "daily_cap_usd": limits.daily_cap_usd()},
     )
     return LLMResult(
         text=text, model=model, tokens_in=tokens_in, tokens_out=tokens_out,
-        cache_read_tokens=cache_read, cost_usd=cost,
+        cache_read_tokens=cache_read, cache_creation_tokens=cache_write,
+        cost_usd=cost,
         raw={"id": resp.id, "stop_reason": getattr(resp, "stop_reason", None)},
     )
 

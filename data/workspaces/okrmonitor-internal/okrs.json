@@ -1,0 +1,183 @@
+{
+  "schema": 1,
+  "fetched_at": "2026-05-03T00:59:14.736707+00:00",
+  "objectives": [
+    {
+      "objective_num": 1,
+      "objective": "Ship a magical MVP that makes \"OKR drift\" visible in <30 minutes",
+      "krs": [
+        {
+          "id": "1.1",
+          "description": "MVP deployed to production",
+          "target": "live on Vercel",
+          "current": "not started",
+          "owner_pod": "Engineering",
+          "due": "2026-05-12",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "1.2",
+          "description": "Active design partners (logged in ≥3×/week)",
+          "target": "5",
+          "current": "0",
+          "owner_pod": "Customer/Ops",
+          "due": "2026-05-19",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "1.3",
+          "description": "OKR-Mapper precision @ recall on 200-event eval set",
+          "target": "≥85% P @ ≥70% R",
+          "current": "n/a",
+          "owner_pod": "AI/Data",
+          "due": "2026-05-12",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "1.4",
+          "description": "Time-to-first-narrative for new accounts (p90)",
+          "target": "≤30 min",
+          "current": "n/a",
+          "owner_pod": "Product/Design",
+          "due": "2026-05-19",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "1.5",
+          "description": "Design-partner NPS",
+          "target": "≥50",
+          "current": "n/a",
+          "owner_pod": "Customer/Ops",
+          "due": "2026-05-26",
+          "status": "🔴 Not started"
+        }
+      ]
+    },
+    {
+      "objective_num": 2,
+      "objective": "Prove repeatable acquisition by landing 300 pilots in 4 months",
+      "krs": [
+        {
+          "id": "2.1",
+          "description": "Cumulative pilot accounts",
+          "target": "300",
+          "current": "0",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "2.2",
+          "description": "Pilot activation rate (read ≥1 weekly narrative)",
+          "target": "≥60%",
+          "current": "n/a",
+          "owner_pod": "Customer/Ops",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "2.3",
+          "description": "Pilot → paid intent at end of pilot",
+          "target": "≥25%",
+          "current": "n/a",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "2.4",
+          "description": "Acquisition channels each producing ≥30 pilots/mo",
+          "target": "3",
+          "current": "0",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "2.5",
+          "description": "CAC payback on first paying cohort",
+          "target": "≤6 months",
+          "current": "n/a",
+          "owner_pod": "Strategy",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        }
+      ]
+    },
+    {
+      "objective_num": 3,
+      "objective": "Become the most credible voice on OKR execution on the internet",
+      "krs": [
+        {
+          "id": "3.1",
+          "description": "Published \"State of OKR Execution\" benchmark posts",
+          "target": "12",
+          "current": "0",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "3.2",
+          "description": "Combined LinkedIn followers (founder + brand)",
+          "target": "5,000",
+          "current": "tbd",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "3.3",
+          "description": "Podcast appearances (cumulative from M2)",
+          "target": "12",
+          "current": "0",
+          "owner_pod": "GTM",
+          "due": "2026-08-28",
+          "status": "🔴 Not started"
+        },
+        {
+          "id": "3.4",
+          "description": "Product Hunt launch result",
+          "target": "Top 5 of day",
+          "current": "n/a",
+          "owner_pod": "GTM",
+          "due": "2026-06-15",
+          "status": "🔴 Not started"
+        }
+      ]
+    },
+    {
+      "objective_num": 4,
+      "objective": "Build the company on the company's own product (dogfood)",
+      "krs": [
+        {
+          "id": "4.1",
+          "description": "All 30 agents tracked as \"work-units\" inside our product",
+          "target": "30/30",
+          "current": "30/30",
+          "owner_pod": "AI/Data",
+          "due": "2026-05-19",
+          "status": "✅ Complete"
+        },
+        {
+          "id": "4.2",
+          "description": "Weekly company narrative auto-generated from agent output",
+          "target": "100% of weeks",
+          "current": "1 (dry-run)",
+          "owner_pod": "AI/Data",
+          "due": "2026-05-19",
+          "status": "🟡 In progress"
+        },
+        {
+          "id": "4.3",
+          "description": "Dogfood-discovered gaps that become backlog within 24h",
+          "target": "100%",
+          "current": "n/a",
+          "owner_pod": "Product/Design",
+          "due": "",
+          "status": "🔴 Not started"
+        }
+      ]
+    }
+  ]
+}

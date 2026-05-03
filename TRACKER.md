@@ -3,7 +3,7 @@
 > The single source of truth for the OKR Monitor venture. This file is also our **first dogfood**: every agent, every KR, and every weekly narrative we ship will be ingestible by the product we are building. If the product can't make sense of this file, the product isn't good enough yet.
 
 - **Cycle:** 2026-04-28 → 2026-08-28 (4 months)
-- **Founder/Operator:** andrew@skinmap.com
+- **Founder/Operator:** alochemes@gmail.com
 - **Repo root:** `C:/Users/aloch/okr-monitor/`
 - **Last updated:** 2026-05-02
 
@@ -13,7 +13,7 @@
 
 **Mission.** Make every company's OKRs honest in real time by connecting goals to the actual work happening in code, tickets, and conversations.
 
-**Wedge (the one sentence on the landing page).** "Every Friday, get a one-page exec summary of which OKRs are on track, which are drifting, and exactly which work is — and isn't — moving the needle."
+**Wedge (the headline pair on the landing page).** "OKR drift, surfaced the day it starts — not the week it ends. A live scoreboard you can check anytime, and a one-page Friday brief that anchors Monday standup."
 
 **ICP for pilots.** Series A–C SaaS, 50–500 employees, OKRs in Notion / Asana / Mooncamp, day-to-day work in GitHub + Linear/Jira + Slack. Buyer is the **Chief of Staff** or **Head of Ops** (not the CEO directly — they are the user who weaponizes it for the CEO).
 
@@ -24,8 +24,8 @@
 ## 2. Company OKRs (2026-04-28 → 2026-08-28)
 
 ### O1 — Ship a magical MVP that makes "OKR drift" visible in <30 minutes
-| KR | Target | Current | Owner pod | Due | Status |
-|---|---|---|---|---|---|
+| KR | Statement | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|---|
 | 1.1 | MVP deployed to production | live on Vercel | not started | Engineering | 2026-05-12 | 🔴 Not started |
 | 1.2 | Active design partners (logged in ≥3×/week) | 5 | 0 | Customer/Ops | 2026-05-19 | 🔴 Not started |
 | 1.3 | OKR-Mapper precision @ recall on 200-event eval set | ≥85% P @ ≥70% R | n/a | AI/Data | 2026-05-12 | 🔴 Not started |
@@ -33,8 +33,8 @@
 | 1.5 | Design-partner NPS | ≥50 | n/a | Customer/Ops | 2026-05-26 | 🔴 Not started |
 
 ### O2 — Prove repeatable acquisition by landing 300 pilots in 4 months
-| KR | Target | Current | Owner pod | Due | Status |
-|---|---|---|---|---|---|
+| KR | Statement | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|---|
 | 2.1 | Cumulative pilot accounts | 300 | 0 | GTM | 2026-08-28 | 🔴 Not started |
 | 2.2 | Pilot activation rate (read ≥1 weekly narrative) | ≥60% | n/a | Customer/Ops | 2026-08-28 | 🔴 Not started |
 | 2.3 | Pilot → paid intent at end of pilot | ≥25% | n/a | GTM | 2026-08-28 | 🔴 Not started |
@@ -42,19 +42,19 @@
 | 2.5 | CAC payback on first paying cohort | ≤6 months | n/a | Strategy | 2026-08-28 | 🔴 Not started |
 
 ### O3 — Become the most credible voice on OKR execution on the internet
-| KR | Target | Current | Owner pod | Due | Status |
-|---|---|---|---|---|---|
+| KR | Statement | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|---|
 | 3.1 | Published "State of OKR Execution" benchmark posts | 12 | 0 | GTM | 2026-08-28 | 🔴 Not started |
 | 3.2 | Combined LinkedIn followers (founder + brand) | 5,000 | tbd | GTM | 2026-08-28 | 🔴 Not started |
 | 3.3 | Podcast appearances (cumulative from M2) | 12 | 0 | GTM | 2026-08-28 | 🔴 Not started |
 | 3.4 | Product Hunt launch result | Top 5 of day | n/a | GTM | 2026-06-15 | 🔴 Not started |
 
 ### O4 — Build the company on the company's own product (dogfood)
-| KR | Target | Current | Owner pod | Due | Status |
-|---|---|---|---|---|---|
-| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 30/30 | AI/Data | 2026-05-19 | ✅ **Complete** — entire 30-agent org online (Strategy 4 + P/D 5 + Eng 7 + AI/Data 4 + GTM 6 + C/Ops 4) |
-| 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress (loop wired; awaiting live LLM for first real narrative) |
-| 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | ongoing | 🔴 Not started |
+| KR | Statement | Target | Current | Owner pod | Due | Status |
+|---|---|---|---|---|---|---|
+| 4.1 | All 30 agents tracked as "work-units" inside our product | 30/30 | 30/30 | AI/Data | 2026-05-19 | ✅ Complete |
+| 4.2 | Weekly company narrative auto-generated from agent output | 100% of weeks | 1 (dry-run) | AI/Data | 2026-05-19 | 🟡 In progress |
+| 4.3 | Dogfood-discovered gaps that become backlog within 24h | 100% | n/a | Product/Design | — | 🔴 Not started |
 
 ---
 
