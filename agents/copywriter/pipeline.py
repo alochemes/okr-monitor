@@ -13,11 +13,18 @@ _KIND = "copy_draft"
 _PROMPT = (Path(__file__).parent / "prompts" / "copy_draft.md").read_text(encoding="utf-8")
 
 
-def _user_message(today: date) -> str:
+_DEFAULT_SLOT_BRIEF = (
+    "Draft 3 variants for the **landing page H1 headline**. "
+    "Slot constraint: ≤80 chars."
+)
+
+
+def _user_message(today: date, slot_brief: str = _DEFAULT_SLOT_BRIEF) -> str:
     return (
         f"Today is {today.isoformat()}.\n\n"
-        "Draft 3 variants for the **landing page H1 headline**. Slot constraint: ≤80 chars. "
-        "Voice rules in `company.yaml` are non-negotiable. Reply with ONLY the JSON object specified."
+        f"{slot_brief}\n\n"
+        "Voice rules in `company.yaml` are non-negotiable. Reply with ONLY "
+        "the JSON object specified in the system prompt."
     )
 
 
@@ -43,10 +50,11 @@ def _format_body_md(parsed: dict[str, Any], raw_text: str) -> str:
     return "\n".join(lines)
 
 
-def run(*, today: date | None = None) -> dict[str, Any]:
+def run(*, today: date | None = None,
+        slot_brief: str = _DEFAULT_SLOT_BRIEF) -> dict[str, Any]:
     return run_proposal(
         agent=_AGENT, kind=_KIND, prompt=_PROMPT,
-        user_message_fn=_user_message,
+        user_message_fn=lambda t: _user_message(t, slot_brief=slot_brief),
         body_md_fn=_format_body_md,
         today=today,
     )

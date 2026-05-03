@@ -56,3 +56,4 @@ Doing **P2 (Vercel) before P3 (auth)** because P2 takes 2 hours and unblocks the
 ---
 
 _Working doc, not a system of record. System of record is `TRACKER.md` §6._
+

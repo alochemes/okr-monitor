@@ -1,38 +1,136 @@
 {
-  "started_utc": "2026-05-02T19:17:24.744737+00:00",
+  "started_utc": "2026-05-02T19:58:32.491770+00:00",
   "model": "claude-sonnet-4-6::DRY_RUN",
   "dry_run": true,
   "total_cost_usd": 0.0,
-  "wall_seconds": 0.0,
+  "wall_seconds": 0.06,
   "aggregate": {
-    "tp": 0,
-    "fp": 5,
-    "fn": 5,
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1": 0.0,
+    "tp": 6,
+    "fp": 194,
+    "fn": 186,
+    "precision": 0.03,
+    "recall": 0.03125,
+    "f1": 0.030612244897959183,
     "negative_correct": 0,
-    "negative_total": 0,
+    "negative_total": 31,
     "negative_rate": 0.0,
     "per_kr": {
       "1.1": {
         "tp": 0,
         "fp": 0,
-        "fn": 4,
+        "fn": 13,
         "precision": 0.0,
         "recall": 0.0
       },
       "1.2": {
         "tp": 0,
         "fp": 0,
-        "fn": 1,
+        "fn": 12,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "1.3": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 13,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "1.4": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 9,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "1.5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 9,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "2.1": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 19,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "2.2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "2.3": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "2.4": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 14,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "2.5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 6,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "3.1": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 16,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "3.2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 14,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "3.3": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 11,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "3.4": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 9,
         "precision": 0.0,
         "recall": 0.0
       },
       "4.1": {
-        "tp": 0,
-        "fp": 5,
+        "tp": 6,
+        "fp": 194,
         "fn": 0,
+        "precision": 0.03,
+        "recall": 1.0
+      },
+      "4.2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 10,
+        "precision": 0.0,
+        "recall": 0.0
+      },
+      "4.3": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 11,
         "precision": 0.0,
         "recall": 0.0
       }
@@ -152,6 +250,4452 @@
         "tp": 0,
         "fp": 1,
         "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_006",
+      "title": "Beta Co signed pilot agreement",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_007",
+      "title": "Charlie Inc onboarded \u2014 read first narrative this morning",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_008",
+      "title": "Improve mapper prompt for Slack threads",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_009",
+      "title": "Drop mapper confidence floor of 0.5 across pipeline",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_010",
+      "title": "Hand-labeled 50 more events for OKR-Mapper eval set",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_011",
+      "title": "Add prompt cache key to mapper system block",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_012",
+      "title": "Reduce narrative tokens from 8K to 4K via per-KR slicing",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_013",
+      "title": "First narrative for new account in 22 minutes",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_014",
+      "title": "Sent NPS survey to all 5 design partners",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_015",
+      "title": "Acme rated us 9/10 on first NPS pulse",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_016",
+      "title": "New pilot signup: Echo Inc.",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_017",
+      "title": "Pilot count crossed 25 (M1 milestone hit)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_018",
+      "title": "Beta Co read 4th weekly narrative this week",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_019",
+      "title": "Acme: pilot-to-paid kickoff call booked for 2026-06-01",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_020",
+      "title": "Started Reddit r/SaaS growth experiment as 4th channel",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_021",
+      "title": "Outbound channel hit 32 pilots this month",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_022",
+      "title": "First cohort blended CAC computed: $480, payback 5.3mo",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_023",
+      "title": "Published 'State of OKR Execution Q2 2026' benchmark post",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_024",
+      "title": "Drafted benchmark post on KR drift in B2B SaaS",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_025",
+      "title": "LinkedIn post 'Why monthly check-ins are too late' \u2014 487 reactions",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_026",
+      "title": "Hit 1,000 LinkedIn followers milestone",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_027",
+      "title": "Booked SaaStr Founder Stories podcast for 2026-05-22",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_028",
+      "title": "Recorded 'B2B Banter' episode on operational visibility",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_029",
+      "title": "Drafted Product Hunt launch hero asset and copy",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_030",
+      "title": "Submitted Product Hunt scheduled launch for 2026-06-15",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_031",
+      "title": "Scaffolded 8 more agents using shared _proposal helper (8/30 \u2192 16/30)",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_032",
+      "title": "Friday weekly narrative auto-generated (period 04-21 \u2192 04-27)",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_033",
+      "title": "Sunday workflow committed proposals/2026-05-04/MONDAY_BRIEF.md",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_034",
+      "title": "Fix narrative agent for empty mapping windows",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_035",
+      "title": "Dogfood: report email format unreadable \u2192 opened backlog ticket",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_036",
+      "title": "Dogfood: noticed daily report has DRY_RUN spam \u2014 fixed within 24h",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_037",
+      "title": "Published State of OKR Drift report and posted teaser to LinkedIn",
+      "true_krs": [
+        "3.1",
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_038",
+      "title": "Recorded podcast \u2014 drove 14 inbound demo requests",
+      "true_krs": [
+        "2.4",
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_039",
+      "title": "Product Hunt launch \u2014 47 new pilot signups",
+      "true_krs": [
+        "2.1",
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_040",
+      "title": "MVP /app/dashboard route \u2014 wires kr_signals snapshot",
+      "true_krs": [
+        "1.1",
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_041",
+      "title": "Bump eslint to 9.16 in unrelated personal repo",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_042",
+      "title": "Reminder: team lunch Friday at noon",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_043",
+      "title": "Update profile picture and bio in GitHub settings",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_044",
+      "title": "Thread on which monitor stand to buy for desk setup",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_045",
+      "title": "Doctor appointment 2026-05-08 14:00",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_046",
+      "title": "Replied to recruiter on LinkedIn (declined)",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_047",
+      "title": "Pushed commit to Hacktoberfest fork of someone else's project",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_048",
+      "title": "Tweet: 'this espresso machine just changed my life'",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_049",
+      "title": "Random AI article shared in #general",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_050",
+      "title": "Refactored personal dotfiles repo to use stow",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_051",
+      "title": "Wire Supabase magic-link auth on /app/login",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_052",
+      "title": "OKR-58 \u2014 Vercel project linked, first prod deploy green",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_053",
+      "title": "Add web/middleware.ts gating /app/* routes",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_054",
+      "title": "Vercel staging up at staging.okrmonitor.com",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_055",
+      "title": "Pin Next.js to 15.0.4 to match Vercel build cache",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_056",
+      "title": "Cut /app/dashboard First Load JS from 142 kB \u2192 109 kB",
+      "true_krs": [
+        "1.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_057",
+      "title": "Delta Software \u2014 kickoff scheduled 2026-05-19",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_058",
+      "title": "Echo CoS confirmed pilot agreement signed",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_059",
+      "title": "Foxtrot CTO declined pilot \u2014 too early-stage",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_060",
+      "title": "Acme onboarded; first GitHub OAuth grant succeeded",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_061",
+      "title": "Beta Co weekly check-in \u2014 they read 3 narratives this week",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_062",
+      "title": "Charlie's COO joined the shared Slack \u2014 third user from Charlie",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_063",
+      "title": "DP intake form fielded by Mira at Hotel Inc",
+      "true_krs": [
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_064",
+      "title": "Add 'no_mapping_reason' to mapper output schema",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_065",
+      "title": "Bump confidence floor 0.5 \u2192 0.6 for Slack-source events",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_066",
+      "title": "Hand-labeled 50 more events spanning all 17 KRs",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_067",
+      "title": "Mapper: prompt-cache the KR catalog separately",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_068",
+      "title": "Eval precision 87.4% on 200-event set (live LLM)",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_069",
+      "title": "Add few-shot example for 'docs PR' anti-mapping",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_070",
+      "title": "Mapper sweep produced 47 mappings on 53 new events",
+      "true_krs": [
+        "1.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_071",
+      "title": "Parallelize narrative per-KR section generation",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_072",
+      "title": "Fresh-account onboarding measured: 19 minutes to first narrative",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_073",
+      "title": "Cache TRACKER.md text per narrative run",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_074",
+      "title": "OKR-72 \u2014 narrative streaming for SSE",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_075",
+      "title": "Onboarding measurement: Echo at 28 minutes (within p90)",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_076",
+      "title": "Mapper backoff: skip retries on 5xx and surface to narrative",
+      "true_krs": [
+        "1.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_077",
+      "title": "Beta NPS pulse: 8/10 \u2014 'reliable, no surprises'",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_078",
+      "title": "Charlie NPS: 9/10 \u2014 confident promoter",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_079",
+      "title": "Echo NPS: 6/10 \u2014 passive, asked for Notion ingestion",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_080",
+      "title": "Delta NPS: 10/10 \u2014 'transformational'",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_081",
+      "title": "NPS rollup week 4: average 8.4 across 5 design partners",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_082",
+      "title": "Sent NPS pulse #2 to all 5 design partners",
+      "true_krs": [
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_083",
+      "title": "Pilot signup: November Labs (Series A, 70 ppl)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_084",
+      "title": "Pilot signup: Oscar Inc (Series C fintech, 410 ppl)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_085",
+      "title": "Pilot signup: Papa Tech (Series B, 220 ppl)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_086",
+      "title": "Pilot count crossed 50 (M2 ahead of schedule)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_087",
+      "title": "Pilot signup batch: 7 inbound from PH launch day",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_088",
+      "title": "Pilot signup: Quebec Apps (Series B, 150 ppl)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_089",
+      "title": "Cumulative pilot count = 100 (M3 milestone hit early)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_090",
+      "title": "Pilot signup: Romeo OS (Series C, 530 ppl) \u2014 over the ICP cap",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_091",
+      "title": "Pilot signup: Sierra Inc",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_092",
+      "title": "Pilot signup: Tango Networks (175 ppl)",
+      "true_krs": [
+        "2.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_093",
+      "title": "Activation snapshot: 28 of 47 pilots read this week's narrative",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_094",
+      "title": "November Labs read first narrative on day 4",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_095",
+      "title": "Charlie active 5/5 weeks in a row",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_096",
+      "title": "Reactivation experiment: 3 of 8 dormant pilots opened narrative",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_097",
+      "title": "Activation rollup: 42 of 65 pilots activated (64.6%)",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_098",
+      "title": "Echo activated \u2014 read first narrative within 6 days",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_099",
+      "title": "Quebec Apps still dormant after 14 days",
+      "true_krs": [
+        "2.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_100",
+      "title": "Beta committed to convert at $899/mo Team tier",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_101",
+      "title": "Charlie negotiating annual commit at $9k",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_102",
+      "title": "Acme: paid kickoff signed at $899/mo",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_103",
+      "title": "Conversion rollup: 6 of 23 expired pilots converted (26%)",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_104",
+      "title": "Delta requested an enterprise quote",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_105",
+      "title": "Mid-pilot pricing chat with Hotel Inc",
+      "true_krs": [
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_106",
+      "title": "Sierra Inc \u2014 declined to convert post-pilot",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_107",
+      "title": "Content channel hit 32 pilots/mo for the first time",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_108",
+      "title": "Outbound founder-sales sustained at 45 pilots/mo",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_109",
+      "title": "Reddit r/SaaS experiment: 14 pilots in 30 days at $62 CAC",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_110",
+      "title": "Podcast inbound channel: 31 pilots last 30 days",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_111",
+      "title": "LinkedIn organic posts driving 22 pilots/mo",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_112",
+      "title": "Newsletter sponsorship test (Lenny's Newsletter): 9 pilots from one drop",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_113",
+      "title": "Affiliate program seeded with 3 ops-community newsletters",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_114",
+      "title": "3-channels-each-\u226530/mo officially achieved (M3 review)",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_115",
+      "title": "Productized free tool 'okr-monitor.com/health-check' driving 18 pilots/mo",
+      "true_krs": [
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_116",
+      "title": "Updated CAC computation with channel-mix factor",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_117",
+      "title": "Cohort 1 payback measured: 4.7 months (vs \u22646 target)",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_118",
+      "title": "Pricing v2 introduces $1,499 Team-Plus tier",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_119",
+      "title": "Discounted Annual prepay reducing CAC payback by ~1mo",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_120",
+      "title": "Q3 cohort blended CAC payback: 5.1 months",
+      "true_krs": [
+        "2.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_121",
+      "title": "Published 'Why Monthly Reviews Are Too Late' benchmark",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_122",
+      "title": "Published 'The CoS Stack 2026' benchmark",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_123",
+      "title": "Published 'OKR Drift Patterns Across 80 SaaS Companies'",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_124",
+      "title": "Drafted 'Anti-OKRs: KRs Companies Should Stop Setting'",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_125",
+      "title": "Published 'The 90-Minute OKR Health Check Method'",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_126",
+      "title": "Cumulative benchmark posts: 6 of 12 target",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_127",
+      "title": "Published 'When KPIs Lie' \u2014 co-authored with Beta CoS",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_128",
+      "title": "Published 'A Founder's Guide to Reading OKR Drift'",
+      "true_krs": [
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_129",
+      "title": "LinkedIn carousel 'OKR drift archetypes' \u2014 1,820 reactions",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_130",
+      "title": "LinkedIn post 'Why your QBR feels like a fairy tale'",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_131",
+      "title": "Hit 2,000 LinkedIn followers (40% to target)",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_132",
+      "title": "LinkedIn carousel on the 5-in-5 exercise \u2014 viral",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_133",
+      "title": "Hit 3,500 LinkedIn followers",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_134",
+      "title": "LinkedIn comment-debate post 'Lattice vs Mooncamp vs Notion'",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_135",
+      "title": "Brand account hit 1,200 followers (combined: 4,700)",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_136",
+      "title": "Crossed combined 5,000 LinkedIn followers (KR3.2 met)",
+      "true_krs": [
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_137",
+      "title": "Aired: SaaStr Founder Stories episode",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_138",
+      "title": "Booked: Lenny's Podcast for 2026-06-19",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_139",
+      "title": "Aired: 'B2B Banter' episode",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_140",
+      "title": "Recorded: 'CoS Notes' episode",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_141",
+      "title": "Cumulative podcast appearances: 8 of 12 target",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_142",
+      "title": "Booked: 'Operators' podcast for 2026-07-22",
+      "true_krs": [
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_143",
+      "title": "PH launch executed \u2014 finished #2 of day",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_144",
+      "title": "Engaged 12 hunters and product-hunt VIPs ahead of launch",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_145",
+      "title": "Add PH-specific landing variant at /v2?via=ph",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_146",
+      "title": "PH comment-day playbook executed (replied to 88 comments)",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_147",
+      "title": "Drafted PH demo video (90s)",
+      "true_krs": [
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_148",
+      "title": "Scaffolded final 13 agents \u2014 KR4.1 hits 30/30",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_149",
+      "title": "Each agent emits a `work_event` of source='agent_proposal'",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_150",
+      "title": "founder_sales agent dry-run produced 5 outreach drafts",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_151",
+      "title": "Agent roster review \u2014 all 30 agents \ud83d\udfe2 in TRACKER.md \u00a74",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_152",
+      "title": "Generic _default_mock fallthrough for new agents",
+      "true_krs": [
+        "4.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_153",
+      "title": "Friday narrative auto-shipped \u2014 04-28 \u2192 05-04 window",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_154",
+      "title": "Narrative agent now formats per-KR sections deterministically",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_155",
+      "title": "Sunday wrapper produced narrative for empty mapping window",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_156",
+      "title": "Weekly narrative for week of 2026-06-15 \u2014 47 events, 38 mappings",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_157",
+      "title": "100% of weeks have an auto-narrative (Sprint 0 \u2192 Sprint 4)",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_158",
+      "title": "Add narrative human-rating capture form",
+      "true_krs": [
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_159",
+      "title": "Dogfood: missing per-KR drill-down \u2192 opened OKR-117 same day",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_160",
+      "title": "Dogfood: kpi_daily timezone bug \u2192 fix shipped within 6h",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_161",
+      "title": "Dogfood: stale narrative for Acme on a holiday \u2192 ticket OKR-119",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_162",
+      "title": "KR4.3 audit: 14 dogfood gaps \u2192 14 tickets, all within 24h",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_163",
+      "title": "Dogfood: GitHub ingest 404 on rate-limit \u2192 fixed in 8h",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_164",
+      "title": "Operator flagged missing Slack ingest \u2014 backlog'd in 2h",
+      "true_krs": [
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 1
+      }
+    },
+    {
+      "event_id": "ev_165",
+      "title": "Benchmark post co-authored with Beta drives 9 new pilots and +180 LinkedIn followers",
+      "true_krs": [
+        "2.1",
+        "3.1",
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 3
+      }
+    },
+    {
+      "event_id": "ev_166",
+      "title": "Aired podcast \u2192 8 inbound pilot signups",
+      "true_krs": [
+        "2.1",
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_167",
+      "title": "Mapper precision improvement \u2192 narrative quality up; DP NPS pulse 9.2",
+      "true_krs": [
+        "1.3",
+        "1.5"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_168",
+      "title": "Acme pilot conversion + first paying customer + case study published",
+      "true_krs": [
+        "2.3",
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_169",
+      "title": "First weekly narrative auto-shipped to live customer (Beta)",
+      "true_krs": [
+        "1.2",
+        "2.2",
+        "4.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 3
+      }
+    },
+    {
+      "event_id": "ev_170",
+      "title": "Outbound channel hits 30/mo at the same time pilot count crosses 50",
+      "true_krs": [
+        "2.1",
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_171",
+      "title": "PH launch landed 47 inbound pilots and #2 of day finish",
+      "true_krs": [
+        "2.1",
+        "3.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_172",
+      "title": "LinkedIn post and benchmark blog about the 5-in-5 exercise",
+      "true_krs": [
+        "3.1",
+        "3.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_173",
+      "title": "Auth wiring + dashboard renders \u2192 MVP usable for first DP",
+      "true_krs": [
+        "1.1",
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_174",
+      "title": "Case study with Acme published, drove 6 inbound pilots",
+      "true_krs": [
+        "2.1",
+        "3.1"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_175",
+      "title": "Mapper hits 88% precision \u2192 unblocks productionizing for paying tier",
+      "true_krs": [
+        "1.3",
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_176",
+      "title": "Dogfood-driven dashboard improvement also benefits Echo onboarding",
+      "true_krs": [
+        "1.4",
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_177",
+      "title": "Reactivation campaign brought 4 dormant pilots to active and 1 to paid",
+      "true_krs": [
+        "2.2",
+        "2.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_178",
+      "title": "GitHub integration ingest live \u2014 first DP (Acme) sees their own commits in dashboard",
+      "true_krs": [
+        "1.1",
+        "1.2"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_179",
+      "title": "Founder appeared on 'Operators' podcast and crossed 4,500 LinkedIn followers same day",
+      "true_krs": [
+        "3.2",
+        "3.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_180",
+      "title": "Cumulative pilots crossed 100 the same week 3 channels each \u226530/mo",
+      "true_krs": [
+        "2.1",
+        "2.4"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_181",
+      "title": "Operator wrote a benchmark post inspired by a dogfood finding",
+      "true_krs": [
+        "3.1",
+        "4.3"
+      ],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "event_id": "ev_182",
+      "title": "Bump react-three/drei to 10.1 in unrelated graphics demo",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_183",
+      "title": "Anyone want to grab lunch at Tartine on Thursday?",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_184",
+      "title": "Dentist appointment 2026-05-15 09:30",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_185",
+      "title": "Updated personal pinned repos on GitHub profile",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_186",
+      "title": "Long thread debating mechanical keyboard switches",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_187",
+      "title": "Tweet replying to a Lakers game",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_188",
+      "title": "Contributing fix to a Rust crate (anyhow)",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_189",
+      "title": "Booked a haircut",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_190",
+      "title": "OKR-test-issue created during integration test",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_191",
+      "title": "Investigate intermittent CI flake (no fix yet)",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_192",
+      "title": "Random meme posted in #general",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_193",
+      "title": "Drafted 'How to choose a co-founder' personal essay",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_194",
+      "title": "LinkedIn post sharing a Verge article unrelated to OKRs",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_195",
+      "title": "Spent 2h reading a paper on retrieval-augmented narrative",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_196",
+      "title": "Fix typo in CONTRIBUTING.md",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_197",
+      "title": "Out-of-office for Friday",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_198",
+      "title": "Yearly investor portfolio sync (unrelated company)",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_199",
+      "title": "Side project \u2014 added dark mode to weekend hackathon repo",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
+      }
+    },
+    {
+      "event_id": "ev_200",
+      "title": "Birthday lunch reminder for Sam on Friday",
+      "true_krs": [],
+      "pred_krs": [
+        "4.1"
+      ],
+      "predictions": [
+        {
+          "kr_id": "4.1",
+          "confidence": 0.85,
+          "reasoning": "DRY_RUN: stub maps every event to KR4.1 to exercise the dogfood loop."
+        }
+      ],
+      "no_mapping_reason": null,
+      "score": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 0
       }
     }
   ]

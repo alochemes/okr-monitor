@@ -1,5 +1,9 @@
 # okr-monitor — Project Notes
 
+> **Session start:** before doing anything else this session, read [`.claude/SESSION_RULES.md`](.claude/SESSION_RULES.md) and follow its session-start ritual exactly. If the user says "wrap up," follow [`.claude/END_OF_SESSION_PROMPT.md`](.claude/END_OF_SESSION_PROMPT.md). The rest of this file is the project's domain context.
+
+---
+
 This is the agent system for **OKR Monitor**, a B2B SaaS that connects company OKRs to the actual work happening in code, tickets, and conversations, and surfaces drift in real time.
 
 The system is **operator-in-the-loop**, not autonomous. Each agent emits proposals; the operator (CEO) approves, edits, or rejects; the system measures the operator's edits and degrades agent autonomy when quality drifts. We are also our own first customer (dogfood) — the agents live inside the same product they help build.
@@ -16,7 +20,7 @@ The system is **operator-in-the-loop**, not autonomous. Each agent emits proposa
 
 ## Operating model
 
-- The operator is `andrew@skinmap.com` (CEO). Single reviewer for now.
+- The operator is `alochemes@gmail.com` (CEO). Single reviewer for now.
 - Agents do not act on the world directly. They write **proposals** to a queue. The operator reviews via `cli/review.py`.
 - Every consequential action is logged twice: a row in SQLite (`data/okr_monitor.db`) and a JSONL event under `data/audit/YYYY-MM-DD.jsonl`. Treat divergence as a bug.
 - Cost discipline matters. Cheap models filter and summarize; expensive models judge and synthesize. Default workhorse is `claude-sonnet-4-6` with prompt caching pinned to the system block.
