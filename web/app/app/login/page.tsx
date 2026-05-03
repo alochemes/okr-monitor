@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+
+import { LoginForm } from "./login-form";
 
 export const metadata: Metadata = {
   title: "OKR Monitor — sign in",
@@ -7,9 +10,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// Sprint-0 magic-link stub. Form posts to /api/auth/magic-link (TBD —
-// wired to Supabase in Sprint 1). Until then, the form short-circuits
-// to the dashboard so the operator can demo the signed-in shell.
 export default function LoginPage() {
   return (
     <main className="min-h-screen bg-v2-bg text-v2-text font-sans">
@@ -41,39 +41,9 @@ export default function LoginPage() {
             no SSO friction.
           </p>
 
-          <form
-            action="/app/dashboard"
-            method="get"
-            className="mt-8 space-y-5"
-            aria-label="Sign in form"
-          >
-            <label className="block">
-              <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-v2-muted">
-                work_email
-              </span>
-              <input
-                type="email"
-                name="email"
-                required
-                autoComplete="email"
-                placeholder="you@yourcompany.com"
-                className="mt-2 w-full border border-v2-rule-strong bg-v2-bg-card px-4 py-3 font-sans text-[14px] text-v2-text placeholder:text-v2-muted focus:border-v2-cyan focus:outline-none focus:ring-0"
-              />
-            </label>
-
-            <button
-              type="submit"
-              className="group inline-flex w-full items-center justify-center gap-3 bg-persimmon px-7 py-4 font-sans text-[15px] font-medium tracking-tight text-v2-text transition-all duration-200 hover:translate-y-[-1px] hover:shadow-[0_0_36px_rgba(199,58,20,0.55)]"
-            >
-              Send magic link
-              <span
-                className="inline-block transition-transform group-hover:translate-x-1"
-                aria-hidden
-              >
-                →
-              </span>
-            </button>
-          </form>
+          <Suspense fallback={null}>
+            <LoginForm />
+          </Suspense>
 
           <div className="mt-10 border-t border-v2-rule pt-6">
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-v2-muted">
@@ -86,10 +56,6 @@ export default function LoginPage() {
               Get a free OKR Health Check &rarr;
             </Link>
           </div>
-
-          <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.18em] text-v2-muted">
-            sprint_0 stub · supabase wiring lands in sprint_1
-          </p>
         </section>
 
         <footer className="mt-auto pt-10 font-mono text-[10px] uppercase tracking-[0.18em] text-v2-muted">
