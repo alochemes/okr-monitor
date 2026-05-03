@@ -233,4 +233,4 @@ _Reasoning: All growth data inputs are zero with no ambiguity; pre-launch state 
 
 _Repo: https://github.com/alochemes/okr-monitor_
 _Today's audit log: data/audit/2026-05-01.jsonl_
-_This is an automated report. Reply to andrew@skinmap.com._
+_This is an automated report. Reply to alochemes@gmail.com._

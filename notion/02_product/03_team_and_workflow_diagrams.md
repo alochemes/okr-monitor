@@ -12,7 +12,7 @@ The company is structured as 6 pods + the operator. Every agent reports to the o
 
 ```mermaid
 graph TD
-    OP["⬢ Operator<br/><i>andrew@skinmap.com</i><br/>reviews every proposal"]
+    OP["⬢ Operator<br/><i>alochemes@gmail.com</i><br/>reviews every proposal"]
 
     subgraph Strategy[" Strategy Pod (4) "]
         CEO["ceo<br/><i>weekly_priorities · daily_status</i>"]

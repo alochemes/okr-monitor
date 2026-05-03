@@ -223,4 +223,4 @@ _Reasoning: All figures sourced directly from the Growth data block provided; ze
 
 _Repo: https://github.com/alochemes/okr-monitor_
 _Today's audit log: data/audit/2026-04-30.jsonl_
-_This is an automated report. Reply to andrew@skinmap.com._
+_This is an automated report. Reply to alochemes@gmail.com._

@@ -32,7 +32,7 @@ from rich.table import Table  # noqa: E402
 
 from core import store  # noqa: E402
 
-_OPERATOR = os.environ.get("OPERATOR_EMAIL", "andrew@skinmap.com")
+_OPERATOR = os.environ.get("OPERATOR_EMAIL", "alochemes@gmail.com")
 _console = Console()
 
 

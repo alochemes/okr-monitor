@@ -113,7 +113,7 @@ If your OKRs are still being written when you fill this out, **that's fine** —
 
 ## Send the completed intake to
 
-`andrew@skinmap.com` (subject line: `OKR Monitor pilot intake — [your company]`)
+`alochemes@gmail.com` (subject line: `OKR Monitor pilot intake — [your company]`)
 
 Or if your team uses a shared form, paste the URL in your reply email and we'll pull it directly.
 

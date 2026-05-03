@@ -55,7 +55,7 @@ voice:
 # Operator guardrails. Strategy pod proposals are reviewed before any action
 # downstream takes them as input.
 operator:
-  email: andrew@skinmap.com
+  email: alochemes@gmail.com
   review_required_for:
     - any change to TRACKER.md content (decisions, OKRs, agent statuses)
     - any outbound communication (email, LinkedIn, posts)

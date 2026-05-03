@@ -27,7 +27,7 @@ The marketing surface (Next.js landing page in `web/`) is shipped. The product a
 
 ## Who built this
 
-- **Operator/Founder:** Andrew (`andrew@skinmap.com`)
+- **Operator/Founder:** Andrew (`alochemes@gmail.com`)
 - **Repository:** https://github.com/alochemes/okr-monitor (private)
 - **Started:** 2026-04-28
 - **MVP target:** 2026-05-12 · **300 pilots target:** 2026-08-28

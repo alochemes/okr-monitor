@@ -40,7 +40,7 @@ I'm building this in public. The full repo, the OKRs, the daily reports, and the
 
 If you're a Chief of Staff or Head of Operations at a Series A–C SaaS company and you've ever spent a Monday morning DM'ing five people to ask "are we on track?", I'd love a 30-minute conversation. We have 5 design partner slots open.
 
-andrew@skinmap.com · skinmap.com (previous company, currently building OKR Monitor full-time)
+alochemes@gmail.com · skinmap.com (previous company, currently building OKR Monitor full-time)
 ```
 
 ### Profile photo + cover
@@ -172,7 +172,7 @@ This is the founder essay. The structure I'd write to:
 - **The pattern:** Why this happens — OKR doc and work-in-tools are two different documents.
 - **The product:** What we built — the Friday brief.
 - **The dogfood:** We're our own first customer; here's the GitHub repo.
-- **The ask:** "5 design partner slots open. If you've ever played telephone on a Monday to find out if your OKRs are real, I'd love a 30-min conversation. andrew@skinmap.com or apply at okrmonitor.com."
+- **The ask:** "5 design partner slots open. If you've ever played telephone on a Monday to find out if your OKRs are real, I'd love a 30-min conversation. alochemes@gmail.com or apply at okrmonitor.com."
 
 ### Post 2 — Twitter thread (8–10 tweets)
 
