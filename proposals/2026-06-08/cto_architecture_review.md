@@ -1,14 +1,32 @@
-# Architecture check — 3 risks flagged
+# Architecture review — SQLite + ephemeral cloud sandbox will break at 25 pilots
 
-Stack choice is sound. Three risks: integration auth scope, LLM cost on long-tail accounts, and ingestion idempotency.
+The SQLite-in-ephemeral-sandbox architecture (§7: Sunday routine DB is ephemeral) means every cloud run starts with no historical data, making signals_analyst rolling windows and forecasting verdicts permanently wrong for any real customer. The second critical gap is zero webhook infrastructure for the five integrations claimed in Engineering pod KRs — there is no queue, no idempotency layer beyond the schema UNIQUE constraint, and no retry/backoff, meaning the p95 ≤2 min ingestion KR has no implementation path.
 
 ## Risks
-- **[?]** `integrations` — DRY_RUN: GitHub App scopes default too broad  
-  → _Mitigation:_ request only repo:read + metadata (`?`)
-- **[?]** `cost` — DRY_RUN: large customers may 10x token spend  
-  → _Mitigation:_ cap re-mapping frequency and use Haiku for relinks (`?`)
-- **[?]** `data` — DRY_RUN: webhook retries could double-insert events  
-  → _Mitigation:_ idempotency key on (source, source_event_id) (`?`)
+- **[HIGH]** `data` — SQLite DB is ephemeral in the cloud sandbox (§7 2026-04-29 Sunday routine decision explicitly states 'SQLite DB in the cloud sandbox is ephemeral') — every GitHub Actions run starts cold, so all rolling 7d/30d windows in signals_analyst are always zero for real customer accounts.  
+  → _Mitigation:_ Migrate persistence to Supabase (already in the stack per §6 Sprint 0 entry checklist) — one table-creation migration + swap store.py connection string. SQLite stays for local dev only. (`2d`)
+- **[HIGH]** `architecture` — No webhook receiver exists for GitHub, Linear, Jira, Slack, or Notion — Engineering pod KR 'Integrations live (0/5)' and the p95 ≤2 min ingestion latency KR have no implementation path; there is no queue, no worker, and no inbound HTTP surface.  
+  → _Mitigation:_ Stand up a single Vercel Edge Function as webhook receiver that writes raw payloads to a Supabase queue table; a cron worker drains it into work_events. This is the minimum viable ingestion path and reuses existing Supabase connection. (`2d`)
+- **[HIGH]** `integrations` — OAuth token storage is unspecified — no decision in §7 covers where GitHub/Linear/Jira/Slack/Notion access tokens are stored, rotated, or scoped per customer, meaning the first real integration will store secrets in plaintext or not at all.  
+  → _Mitigation:_ Store OAuth tokens encrypted in Supabase (pgcrypto or Supabase Vault); one row per (account_id, integration_type); add token_expires_at + refresh_token columns now before any integration ships. (`1d`)
+- **[HIGH]** `security` — §9 flags Slack ingestion privacy risk with 'DPA template by 2026-05-12' — it is now 2026-06-08, that date has passed with no evidence of completion, and the first design partners (KR1.2 target was 2026-05-19) may already be onboarded without a DPA.  
+  → _Mitigation:_ Block any Slack integration activation behind a per-account DPA acceptance flag in the DB; ship a one-page DPA using a standard template (Bonterms or equivalent) — legal review is not required to ship the gate, only to finalize the text. (`1d`)
+- **[HIGH]** `cost` — LLM cost scales with number of pilot accounts — the narrative agent runs per account per week, and at 300 pilots the weekly narrative batch alone could exceed the $100/day circuit breaker, silently producing no narratives for most accounts with no customer-visible error.  
+  → _Mitigation:_ Add per-account cost attribution to the audit log now; add a narrative batch scheduler that spreads runs across the week and alerts when projected weekly narrative cost exceeds $50; do not wait until 50 pilots to discover this. (`2d`)
+- **[MED]** `architecture` — The UNIQUE(source, source_event_id) idempotency constraint (§7) only prevents exact duplicate source_event_ids — GitHub webhook retries with the same delivery ID are safe, but re-deliveries with new delivery IDs (GitHub's retry behavior on 5xx) will double-count events.  
+  → _Mitigation:_ Add a content_hash column (SHA-256 of source + repo + event_type + actor + timestamp) with a UNIQUE constraint as a second idempotency key; check both on upsert. (`1d`)
+- **[MED]** `observability` — KPI K6 (GitHub Actions workflow success rate) is 'n/a — just enabled' as of the last tracker update, and there is no alerting path if the Sunday or daily workflow silently fails — the operator would only notice on Monday when there is no brief.  
+  → _Mitigation:_ Add a GitHub Actions step that POSTs a heartbeat to a free Healthchecks.io endpoint on success; configure a 25-hour alert window so a missed Sunday run pages within one hour of expected completion. (`1d`)
+- **[MED]** `security` — SOC2-readiness checklist shows 0/45 items closed (Engineering pod KR) with no mitigation row in §9 and no sprint assignment — at 25+ pilots, a single enterprise prospect will ask for SOC2 and the answer will block the deal.  
+  → _Mitigation:_ Tech-debt: assign the security agent's security_review output to produce the SOC2 gap list by Sprint 1 close; prioritize the top 10 items (audit logging, access control, encryption at rest) which are already partially implemented. (`tech-debt`)
+- **[MED]** `data` — The OKR-Mapper eval set is 50 events (§6 Day 5) against a KR1.3 target of 200 events by 2026-05-12 — that date has passed and the eval set is still at 50, meaning the precision/recall claim of ≥85%P@≥70%R is unmeasured against the stated target size.  
+  → _Mitigation:_ Run the eval framework against the live LLM today to get a real precision number at 50 events; if precision <85%, fix the prompt before growing to 200 — growing a failing eval set is wasted effort. (`1d`)
+- **[LOW]** `architecture` — kr_signals.json is written to web/public/ by the daily script (§6 Day 5), meaning any unauthenticated user who knows the URL can read all KR data for all accounts — this is a single-tenant assumption that breaks the moment a second customer exists.  
+  → _Mitigation:_ Move kr_signals.json to a Supabase row-level-security table served via an authenticated API route; the static file approach is acceptable only for the single dogfood account. (`1d`)
 
-_Confidence: 0.75_
-_Reasoning: DRY_RUN: stub._
+## Decisions needed from operator
+- [ ] Has a DPA been signed with any design partner who has Slack connected, and if not, should Slack integration be gated until one is in place?
+- [ ] Should the persistence layer migrate to Supabase now (before the first external pilot) or is the operator willing to accept that all historical signal data resets on every cloud run until that migration happens?
+
+_Confidence: 0.82_
+_Reasoning: The tracker is unusually detailed for this stage, which gives high confidence in the findings — the ephemeral DB admission is explicit in §7, the 0/5 integrations status is explicit in §3, and the missed DPA deadline is verifiable by date comparison. Confidence is not 0.9+ because the actual codebase is not visible — it is possible that some mitigations (e.g., Supabase wiring, webhook receiver) were shipped after the last tracker update on 2026-05-02 but not yet recorded; the tracker's 'last updated' date is over a month before today's review date of 2026-06-08, which is itself a process risk._
