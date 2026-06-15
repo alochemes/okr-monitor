@@ -1,14 +1,26 @@
-# Architecture check — 3 risks flagged
+# Architecture review — six silent killers before 300 pilots
 
-Stack choice is sound. Three risks: integration auth scope, LLM cost on long-tail accounts, and ingestion idempotency.
+The SQLite-on-ephemeral-sandbox architecture will corrupt production data the moment GitHub Actions redeploys, and there is no webhook idempotency layer for the five live integrations beyond the schema UNIQUE constraint. Both will manifest at the first real pilot and are fixable in under two days each.
 
 ## Risks
-- **[?]** `integrations` — DRY_RUN: GitHub App scopes default too broad  
-  → _Mitigation:_ request only repo:read + metadata (`?`)
-- **[?]** `cost` — DRY_RUN: large customers may 10x token spend  
-  → _Mitigation:_ cap re-mapping frequency and use Haiku for relinks (`?`)
-- **[?]** `data` — DRY_RUN: webhook retries could double-insert events  
-  → _Mitigation:_ idempotency key on (source, source_event_id) (`?`)
+- **[HIGH]** `data` — SQLite DB lives in the GitHub Actions sandbox (ephemeral); every workflow run starts with `scripts/init_db.py` on a blank DB, meaning all historical signals, mappings, and narratives are wiped on every Sunday and daily run — the dogfood loop has no durable state.  
+  → _Mitigation:_ Replace SQLite with a Supabase Postgres connection (already in the stack per §6 Sprint 0 entry checklist); swap `core/store.py` connection string to `DATABASE_URL` env var, keep the same schema, add `IF NOT EXISTS` guards to init — SQLite stays for local dev only. (`2d`)
+- **[HIGH]** `integrations` — The UNIQUE(source, source_event_id) idempotency guard (§7 2026-04-29 schema decision) only works if the integration layer actually passes a stable `source_event_id`; GitHub, Linear, Jira, and Slack webhooks are not yet wired (Engineering pod KR: 0/5 integrations live), so there is no tested path from webhook payload → stable ID → upsert, meaning the first real integration will likely double-count on retries.  
+  → _Mitigation:_ Before wiring any integration, write a 10-line `normalize_event_id(source, payload) -> str` function that extracts the canonical stable ID per source (GitHub: `delivery` header; Linear: `data.id`; Jira: `webhookEvent + issue.id`; Slack: `event_ts`), add one unit test per source, and enforce it at the ingestion boundary. (`1d`)
+- **[HIGH]** `security` — §9 flags Slack ingestion privacy as High with 'DPA template by 2026-05-12' — today is 2026-06-15, that date has passed with no mitigation row closed, and the Engineering pod SOC2-readiness KR shows 0/45 items closed; any pilot onboarded with Slack connected has no signed data-processing agreement.  
+  → _Mitigation:_ Block Slack integration activation in code behind a feature flag that requires `slack_dpa_signed=true` on the account row; ship a one-page DPA using a Bonterms or Docusign template (operator signs, not legal review) — this is a config + one DB column, not an architecture change. (`1d`)
+- **[HIGH]** `cost` — The narrative agent runs over ALL mappings in a rolling window (§7 2026-04-29 AI/Data decision); at 300 pilots each with 7 days of GitHub + Linear + Slack events, a single weekly narrative sweep could pass 50k–200k tokens per account to Claude Sonnet, blowing the $100/day circuit breaker and silently skipping narratives for accounts processed after the cap trips.  
+  → _Mitigation:_ Add a per-account token budget cap (e.g., top-N events by recency + confidence score, hard ceiling 4k tokens of event context per narrative call) in `agents/narrative/` before onboarding pilot #1; log truncation events to the audit log so the operator can see which accounts were capped. (`1d`)
+- **[MED]** `observability` — §9 flags integration health ('per-source health check + pager on stale-data >2h') as a mitigation but no Engineering pod KR tracks it and no implementation is mentioned in any sprint log; at 300 pilots a silently-stalled GitHub webhook means the narrative reads 'no activity this week' with no alert to the operator or the customer.  
+  → _Mitigation:_ Add a `source_last_event_at` column to an `integration_health` table, write a cron check (can reuse the daily_evening.py run) that emits an audit alert if any active integration has `last_event_at > 2h ago`, and surface it in the KPI dashboard as K11. (`1d`)
+- **[MED]** `architecture` — The OKR-Mapper eval set is 50 events (§6 Day 5) against a KR1.3 target of 200 events by 2026-05-05 — that date passed 40 days ago and the eval has never run against a live LLM (dry-run only), so the claimed ≥85% precision target has no measured baseline and the narrative quality guarantee is unverified.  
+  → _Mitigation:_ Run `python -m tests.eval.run_eval` with `OKR_MONITOR_DRY_RUN=false` immediately and publish the REPORT.md result; if precision <85%, treat it as a P0 before any new pilot is onboarded — do not grow the eval set further until the existing 50 events pass threshold. (`1d`)
+- **[MED]** `security` — OAuth tokens for GitHub, Linear, Jira, Slack, and Notion will be stored somewhere (Nango or direct) but no decision in §7 specifies token storage, rotation policy, or what happens when a token is revoked mid-ingestion — a revoked token silently stops data flow with no customer-visible error.  
+  → _Mitigation:_ Tech-debt: before pilot #6, document token storage location (Nango vault vs Supabase encrypted column), add a `token_valid` check to the per-source health check above, and surface token-expired as a named error state in the dashboard. (`tech-debt`)
 
-_Confidence: 0.75_
-_Reasoning: DRY_RUN: stub._
+## Decisions needed from operator
+- [ ] Has the Supabase project been created (it's in the Sprint 0 entry checklist but no §7 decision confirms it was done) — or is SQLite still the intended persistence layer for production?
+- [ ] Should Slack integration be hard-blocked until a DPA is signed per account, or is the operator willing to accept the legal exposure for the first 5 design partners in exchange for speed?
+
+_Confidence: 0.82_
+_Reasoning: The risks are derived directly from gaps between §7 decisions (idempotency, ephemeral DB, narrative token scope) and the current date (2026-06-15) relative to missed mitigation deadlines in §9. The SQLite/ephemeral finding is the highest-confidence call because the Decision Log explicitly states 'the SQLite DB in the cloud sandbox is ephemeral' and no subsequent decision records a migration. LLM cost at scale is estimated from the narrative agent's described behavior; the exact token counts at 300 pilots are uncertain but the direction of risk is not._
