@@ -39,7 +39,7 @@ _7pm cutover · spend $0.0000 · 6 green | 2 yellow | 2 unknown · 1/17 KRs on t
 
 | KPI | Status | Value | Target |
 |---|---|---|---|
-| **K1** Daily LLM cost cap respected | [OK] | $0.2806 of $100.00 (0.3%) | 0 days breached/cycle |
+| **K1** Daily LLM cost cap respected | [OK] | $0.0647 of $100.00 (0.1%) | 0 days breached/cycle |
 | **K2** Daily 7pm OWNER/FINANCE report sent | [WARN] | no commit yet today; yesterday's present | ≥99% of days |
 | **K3** Friday weekly narrative generated | [OK] | 1 narrative file(s) in last 8 days | 100% of Fridays |
 | **K4** Math tests passing | [OK] | 30 test functions present (last verified: 9/9) | all green |
@@ -78,26 +78,28 @@ _7pm cutover · spend $0.0000 · 6 green | 2 yellow | 2 unknown · 1/17 KRs on t
 
 # Daily status — 2026-07-11
 
-Zero activity today — no events, no mappings, no proposals, no spend. The company produced nothing measurable on a day that falls deep inside the M2 pilot-ramp window.
+Complete blackout day — zero events, zero mappings, zero proposals, zero spend. The company produced nothing measurable today.
 
 ## Expected today (per sprint plan)
-- Sprint 1 ('Design partner love') closed 2026-05-26 — by 2026-07-11 we should be well into the post-Sprint-1 execution phase: 75 cumulative pilots by 2026-07-09 (M2 milestone passed 2 days ago), active outbound at ~600 touches/business day, weekly narratives auto-generating for live design partners, and KR1.2/KR1.5 (design partner NPS ≥50) measured and reported
-- M2 milestone (75 pilots cumulative) was due 2026-07-09 — status should have been confirmed or escalated today
-- Daily 7pm report pipeline (KPI K2) should have fired with real signal data, not zeros
+- Sprint 0 closed 2026-05-12; by 2026-07-11 we should be deep in pilot acquisition — cumulative pilot target is 75 by 2026-07-09 (M2 milestone, now 2 days past due)
+- GTM pod should be running ~600 outbound touches/business day toward KR2.1 (300 pilots by 2026-08-28)
+- Weekly narrative auto-generated from real agent output (KR4.2) should be firing every Friday
+- At least 1 design-partner NPS data point should exist (KR1.5 due 2026-05-26 — now 46 days overdue)
+- Product Hunt launch should have fired 2026-06-15 (26 days ago) — no evidence it did
 
 ## Gap analysis
-Every tracked metric is zero: no work events ingested, no KR mappings, no proposals — meaning the agent pipeline did not run or produced nothing committable today. The M2 milestone (75 cumulative pilots by 2026-07-09) passed two days ago with no evidence it was hit; KR2.1 current is still 0 per the last known scoreboard. A complete zero-activity day at this stage of the cycle is not a slow day — it is a signal that either the pipeline is broken or execution has stalled entirely.
+Every KR in the tracker remains at its Sprint 0 baseline — no pilots, no design partners, no live integrations, no narrative output, no GTM activity. The M2 milestone of 75 cumulative pilots (due 2026-07-09) has been missed with zero pipeline to show for it. At this pace the 300-pilot cycle target is mathematically unreachable in the 48 days remaining.
 
 ## Blockers
-- Pipeline appears non-functional — zero events ingested suggests daily_evening.py did not run or integrations are returning nothing (TRACKER.md §9: integration breakage risk, Med severity)
-- M2 milestone (75 pilots, due 2026-07-09) unconfirmed — no GTM activity visible to confirm or deny (TRACKER.md §9: 600 outbound touches/day sustainability risk, High severity)
-- Anthropic balance / dry-run state unknown — if OKR_MONITOR_DRY_RUN is still true or balance lapsed, all agent runs silently produce nothing (TRACKER.md §9: API key / balance risk, previously High)
+- Anthropic balance / dry-run default: if OKR_MONITOR_DRY_RUN is still true and no real LLM calls are firing, the entire agent pipeline is producing nothing (TRACKER.md §9 — High risk, unmitigated)
+- Zero outbound GTM activity: 0 of the required ~600 daily touches executed; KR2.1 has no pipeline (TRACKER.md §9 — High risk, demand-gen agents held in draft)
+- OKR-Mapper eval set never grew to 200 events (KR1.3 milestone was 2026-05-05 — now 67 days overdue); precision number still unknown
 
 **Spend today:** $0.0000
-**Next-milestone verdict:** 🔴 `off` — M2 (75 pilots, 2026-07-09) is already past with no confirmed progress, and M3 (175 pilots, 2026-08-09) is unreachable at current zero-activity pace without immediate intervention.
+**Next-milestone verdict:** 🔴 `off` — M2 (75 pilots) missed as of 2026-07-09; next hard stop is 300 pilots by 2026-08-28 — off track, requires immediate scope and execution reset to have any chance.
 
-_Confidence: 0.35_
-_Reasoning: No activity data means we cannot distinguish between a broken pipeline (no real work happened and wasn't captured) and a genuinely idle day — both look identical in this feed. KR scoreboard values from TRACKER.md are stale (last updated 2026-05-02) so actual pilot counts, NPS, and mapper precision are unknown._
+_Confidence: 0.40_
+_Reasoning: Activity data is unambiguous — nothing shipped today — but the tracker has not been updated since 2026-05-02, so it is possible work occurred outside the monitored pipeline (manual outreach, offline calls, unreported commits). Confidence would rise to 0.85+ if TRACKER.md §8 customer pipeline and §2 KR current values were refreshed._
 
 ---
 
@@ -109,95 +111,90 @@ _(unparsed)_
 ```json
 {
   "title": "Product roadmap — 2026-07-11",
-  "summary": "MVP status is critically unknown: TRACKER.md shows KR1.1 at ~25% completion as of 2026-05-02 with no subsequent sprint log entries, and today's activity block shows zero events, mappings, or proposals — suggesting the daily pipeline has not been running. The product is 60 days past the MVP-live milestone (2026-05-12) with no confirmed ship date and zero design partners logged.",
+  "summary": "MVP status is critically unknown: TRACKER.md shows KR1.1 at ~25% completion as of 2026-05-02 with no subsequent sprint log entries, and today's activity block shows zero events, mappings, or proposals — suggesting the daily pipeline has not been running. The product is 74 days into a 122-day cycle with no confirmed design partners, no live integrations, and no evidence of a shipped MVP.",
   "current_state": {
     "agents_live_count": 30,
     "agents_total": 30,
     "mvp_completion_pct_estimate": 25,
-    "active_sprint": "Unknown — Sprint 0 closed 2026-05-12; no Sprint 1+ log entries in TRACKER.md",
-    "sprint_window": "2026-05-13 → 2026-05-26 (Sprint 1 per calendar; current sprint unlogged)"
+    "active_sprint": "Sprint 1 (or later — no sprint log entries after Sprint 0)",
+    "sprint_window": "2026-05-13 → 2026-05-26 (Sprint 1 per §5; current sprint undefined in log)"
   },
   "features_shipped_this_week": [
-    "No §6 sprint log entries exist beyond Day 5 (2026-05-02). Zero events/mappings/proposals in today's activity block. No features confirmed shipped this week."
+    "No §6 sprint log entries exist beyond Day 5 (2026-05-02). Zero proposals, events, or mappings recorded today. Cannot confirm any feature shipped this week."
   ],
   "features_in_progress": [
     {
-      "feature": "MVP Vercel deploy + Supabase auth wiring (KR1.1 — critical path item identified 2026-05-02)",
+      "feature": "Vercel deploy + Supabase auth wiring (KR1.1 critical path)",
       "owner_pod": "Engineering",
-      "blocker_if_any": "No sprint log update since 2026-05-02; unknown if work has progressed. Last known state: auth + integrations + Vercel deploy still ahead."
+      "blocker_if_any": "No sprint log evidence this was completed; KR1.1 last recorded at ~25% on 2026-05-02"
     },
     {
-      "feature": "First integration — GitHub (KR1.1 critical path, 0/5 integrations live per §3 Engineering pod KR)",
+      "feature": "First live integration — GitHub (KR1.1 critical path)",
       "owner_pod": "Engineering / Integrations",
-      "blocker_if_any": "No confirmed progress. Integration health-check mechanism (§9 risk) not yet confirmed shipped."
+      "blocker_if_any": "No sprint log evidence of completion; 0 of 5 integrations confirmed live per §3 Engineering pod KR"
     },
     {
-      "feature": "OKR-Mapper eval set grow-out to 200 events (KR1.3 — ≥85% P @ ≥70% R target, due 2026-05-12)",
+      "feature": "OKR-Mapper eval set grow-out to 200 events (KR1.3)",
       "owner_pod": "AI/Data",
-      "blocker_if_any": "Eval framework shipped 2026-05-02 with 50 labeled events; 200-event target was due 2026-05-05. No precision number confirmed — dry-run only as of last log entry. Milestone is 66 days overdue."
+      "blocker_if_any": "Eval framework wired as of 2026-05-02 with 50 events; live-LLM precision number never recorded; KR1.3 still 🔴 Not started in §2"
     },
     {
-      "feature": "Weekly auto-narrative (KR4.2 — 100% of Fridays, in progress as of 2026-05-02)",
+      "feature": "Weekly auto-narrative from live LLM (KR4.2)",
       "owner_pod": "AI/Data",
-      "blocker_if_any": "Today's activity shows 0 proposals/mappings — pipeline appears not running. KPI K3 (Friday narrative) status unknown."
+      "blocker_if_any": "Dry-run only as of last log entry; today's 0-event/0-mapping activity suggests pipeline is not running live"
     }
   ],
   "features_blocked": [
     {
-      "feature": "Daily 7pm OWNER/FINANCE report pipeline (KPI K2)",
-      "blocker": "Today's activity block shows 0 events, 0 mappings, 0 proposals — the daily_evening.py orchestrator does not appear to be running or producing output. KPI K2 requires ≥99% of days.",
-      "unblock_action": "Operator must verify GitHub Actions daily workflow (trig_01BMMoRNTGDwuVshakfmapS6) is firing and ANTHROPIC_API_KEY secret is injected. Check Actions UI for workflow success rate (KPI K6)."
+      "feature": "All live agent runs / real LLM output",
+      "blocker": "Zero events and zero proposals today indicates the daily pipeline (scripts/daily_evening.py) is either not firing or running in dry-run mode with no real API calls reaching Anthropic. §9 risk: Anthropic account was at $0 balance as of 2026-04-29 — unknown if ever topped up.",
+      "unblock_action": "Operator must confirm: (1) Anthropic balance > $0 at console.anthropic.com, (2) OKR_MONITOR_DRY_RUN=false in cloud env, (3) daily routine trig_01BMMoRNTGDwuVshakfmapS6 is still firing and committing output."
     },
     {
-      "feature": "Design partner onboarding — 5 partners (KR1.2, due 2026-05-19)",
-      "blocker": "KR1.2 current = 0. §8 Customer Pipeline shows no named design partners. Milestone was due 52 days ago.",
-      "unblock_action": "Operator must execute discovery calls using the gtm/ kit shipped 2026-05-02. This is operator-time-to-dial, not a tooling gap per the sprint log."
+      "feature": "Design partner onboarding (KR1.2 — 5 partners by 2026-05-19)",
+      "blocker": "KR1.2 target date was 2026-05-19 — 53 days ago. §8 customer pipeline shows zero named design partners. Milestone is past-due with no recorded progress.",
+      "unblock_action": "Operator must confirm whether any design partners were onboarded post-2026-05-02 and update TRACKER.md §8. If zero, this is a P0 GTM failure requiring immediate escalation."
     },
     {
-      "feature": "Live integrations: GitHub, Linear, Jira, Slack, Notion (0/5 live)",
-      "blocker": "No sprint log evidence of any integration shipping. Without at least one live integration, the product cannot ingest real customer work events — the entire value proposition is blocked.",
-      "unblock_action": "Prioritize GitHub integration as the single unblocking integration for the MVP. Integrations engineer agent has shipped design artifacts; operator must confirm if real code has been written."
+      "feature": "MVP live on Vercel (KR1.1 — due 2026-05-12)",
+      "blocker": "KR1.1 due date was 2026-05-12 — 60 days ago. Last recorded state was ~25% complete on 2026-05-02. No sprint log entry confirms deployment. Status in §2 still shows 🔴 Not started.",
+      "unblock_action": "Operator must confirm whether MVP was deployed and update KR1.1 status in TRACKER.md. If not deployed, this is the single highest-priority engineering action."
     },
     {
-      "feature": "Pricing model lock (§9 risk — 'fuzzy pilot→paid intent KR without a price')",
-      "blocker": "Due 2026-05-19 per §9. No decision log entry confirms this was resolved. KR2.3 (≥25% pilot→paid intent) is unmeasurable without a price.",
-      "unblock_action": "CFO agent should produce a pricing proposal this week for operator approval. Required before any pilot conversion conversation."
-    },
-    {
-      "feature": "DPA template / Slack privacy policy (§9 High risk)",
-      "blocker": "Due 2026-05-12 per §9. No decision log entry confirms resolution. Blocks Slack integration and any enterprise pilot.",
-      "unblock_action": "Security agent to produce DPA template draft for operator review. Cannot onboard pilots with Slack integration without this."
+      "feature": "Product Hunt launch (KR3.4 — due 2026-06-15)",
+      "blocker": "Launch date was 2026-06-15 — 26 days ago. No sprint log entry or decision log entry references this milestone. Status unknown.",
+      "unblock_action": "Operator must confirm whether launch occurred and record outcome. If missed, reschedule with community_pr agent and update §5 milestone calendar."
     }
   ],
   "next_2_weeks_milestones": [
     {
       "date": "2026-07-09",
-      "milestone": "75 pilots cumulative (M2 target, KR2.1)",
+      "milestone": "75 pilots cumulative (M2 target per §5)",
       "at_risk": true,
-      "why_at_risk": "M2 target was due 2 days ago. KR2.1 current = 0 pilots. MVP is not confirmed live. This milestone is missed."
+      "why_at_risk": "This milestone was due 2 days ago. KR2.1 current = 0 pilots as of last TRACKER update. No GTM activity recorded. Almost certainly missed."
     },
     {
       "date": "2026-07-25",
-      "milestone": "No formal milestone in §5 calendar between 2026-07-09 and 2026-08-09. Implied: sustain pilot acquisition pace toward 175 cumulative by 2026-08-09 (M3).",
+      "milestone": "No formal milestone in §5 calendar for this date — mid-M3 ramp period toward 175 pilots by 2026-08-09",
       "at_risk": true,
-      "why_at_risk": "With 0 pilots today and MVP unconfirmed, reaching 175 cumulative by 2026-08-09 (29 days away) would require ~6 new pilots per day — not achievable without an immediately live product and active GTM motion."
+      "why_at_risk": "With 0 pilots confirmed and M2 target (75) already missed, the M3 target of 175 pilots by 2026-08-09 is unreachable without immediate GTM acceleration and a live product."
     },
     {
       "date": "2026-08-09",
-      "milestone": "175 pilots cumulative (M3 target, KR2.1)",
+      "milestone": "175 pilots cumulative (M3 target per §5)",
       "at_risk": true,
-      "why_at_risk": "29 days away. Current = 0 pilots. Requires MVP live, integrations working, and GTM at full pace immediately. Extremely high risk of miss."
+      "why_at_risk": "29 days away. Starting from 0 confirmed pilots with no live product confirmed. Would require ~6 new pilots per day from today — not achievable without MVP live, design partners providing social proof, and all GTM channels active."
     },
     {
       "date": "2026-08-28",
-      "milestone": "300 pilots cumulative; cycle review (KR2.1 final target)",
+      "milestone": "300 pilots cumulative + cycle review (KR2.1, end of 4-month cycle)",
       "at_risk": true,
-      "why_at_risk": "48 days away. Current = 0 pilots. The entire O2 objective is at risk of complete failure this cycle. MVP must ship within days, not weeks, for any meaningful pilot count to be achievable."
+      "why_at_risk": "48 days away. 300 pilots from 0 in 48 days requires ~6.25 pilots/day. Requires MVP live, integrations working, design partner NPS measured, and 3 acquisition channels each producing ≥30/mo. None of these are confirmed complete."
     }
   ],
-  "scope_recommendation": "Cut the Product Hunt launch (2026-06-15, already missed) and defer all GTM content/podcast/benchmark post KRs (O3) to the next cycle — the product is not live and there is nothing to launch or write credibly about. The single non-negotiable scope item is: ship the MVP with one working integration (GitHub) to Vercel with Supabase auth this week, then immediately onboard the first design partner — everything else is noise until those two things are true.",
-  "confidence": 0.35,
-  "reasoning": "Confidence is low because TRACKER.md has no sprint log entries after 2026-05-02 (Day 5 of Sprint 0), today's activity shows zero pipeline output, and it is impossible to determine from available data whether the MVP shipped, integrations were built,
+  "scope_recommendation": "The entire O2 pilot ramp (300 pilots, KR2.1–2.5) should be formally deferred or retargeted until KR1.1 (MVP live) and KR1.2 (5 design partners) are confirmed complete — pursuing pilot volume without a shipped product wastes GTM budget and founder credibility. Immediate operator action: update TRACKER.md with actual current state of KR1.1, KR1.2, and KR1.3, then run a scope triage to determine whether the 2026-08-28 cycle end date is still viable or needs to be extended.",
+  "confidence": 0.25,
+  "reasoning": "Confidence is low because the TRACKER.md sprint log has no entries after 2026-05-02 (Day 5 of Sprint 0), today's activity shows zero events/mappings/proposals, and multiple milestone due dates (KR1.1 2026-05-12, KR1.2 2026-05-19, Product Hunt 2026-06-15, M2 pilots 2026-07-09) have passed with no recorded outcomes — the actual product state could be significantly better or worse than the last recorded snapshot, and this report cannot distinguish between 
 ```
 
 ---
@@ -206,7 +203,7 @@ _(unparsed)_
 
 # Cost & token projection — next 14 days
 
-No historical spend data is available; projecting from the Sprint 0–1 plan baseline of ~$90/14d LLM spend. At that rate, the next 14 days ($90.0000 projected) represent 0.30% of the $30,000 cycle budget, well within cap.
+No historical spend data is available; projecting from the Sprint 0–1 plan baseline of ~$6.43/day (=$90/14d LLM forecast). At that rate the next 14 days totals ~$90.00, well within the $30K cycle budget and the $50/day circuit-breaker cap.
 
 ## Spend snapshot
 - Today: **$0.0000**
@@ -224,10 +221,10 @@ No historical spend data is available; projecting from the Sprint 0–1 plan bas
 **Circuit breaker:** 🟢 `under_cap`
 **Cycle budget:** 🟢 `under`
 
-**Recommended action:** No action. Once real kpi_daily rows exist, re-run this projection against actuals to confirm the $6.4286/day baseline holds before pilot-count growth (KR2.1) drives call volume higher.
+**Recommended action:** No action. Resume historical data collection via kpi_daily writes so the next report can project from actuals rather than the plan baseline.
 
 _Confidence: 0.25_
-_Reasoning: Zero historical rows means the $90/14d figure is the CFO plan baseline from proposals/2026-04-29/cfo_budget_overview.md, not an observed trend. Confidence is low (0.25) because by 2026-07-11 the system should be well into Sprint 2+ with 30 agents active and pilot-driven call volume — actual spend could be materially higher than the Sprint 0–1 forecast._
+_Reasoning: Zero rows in both input blocks means the projection is derived entirely from the CFO budget overview baseline (~$90/14d LLM, Sprint 0–1 rate); confidence is low because no observed run-rate exists to validate or contradict that figure._
 
 ---
 
@@ -256,14 +253,14 @@ _Reasoning: Zero historical rows means the $90/14d figure is the CFO plan baseli
 - meetings_booked: 0
 
 ## Flagged issues
-- KR2.1 critical: 0 of 300 pilots acquired with 48 days left; M2 target (75 pilots by 2026-07-09) and M3 target (175 pilots by 2026-08-09) are both missed per TRACKER.md §5 milestone calendar.
-- Zero outreach activity today — GTM pod KR target of 600 outbound touches/business day (TRACKER.md §3 GTM Pod) is at 0; no pipeline is being built.
-- No growth spend recorded YTD despite cycle start 2026-04-28 — operator budget approval for GTM ($20.9K of $30K plan) remains deferred per 2026-04-29 decision log entry; this deferral is now a critical blocker.
+- KR2.1 critical: 0 of 300 pilots acquired with 48 days left; M3 milestone (175 pilots by 2026-08-09) already missed per TRACKER.md §5 milestone calendar.
+- Zero outreach activity today — GTM pod target is 600 outbound touches/business day per TRACKER.md §3 GTM pod KRs; actual is 0.
+- No growth spend recorded YTD despite cycle start 2026-04-28 — operator budget approval for GTM ($20.9K of $30K plan) was deferred per TRACKER.md §7 decision log 2026-04-29; that deferral is now a critical blocker.
 
-**Recommended action:** Operator must unblock GTM budget and activate outreach immediately — at 0 pilots with 48 days remaining, the 300-pilot KR2.1 target is unachievable without same-day pipeline action.
+**Recommended action:** Operator must unblock GTM budget and activate outreach immediately — at 0 pilots on 2026-07-11, the 300-pilot cycle target is unachievable without a step-change in acquisition activity.
 
-_Confidence: 0.95_
-_Reasoning: All figures sourced directly from the Growth data block provided; zero values are confirmed, not estimated. Milestone slippage flags are derived from TRACKER.md §5 milestone calendar cross-referenced against today's date (2026-07-11) and KR2.1 current value of 0._
+_Confidence: 0.97_
+_Reasoning: All figures sourced directly from the growth data block provided; zero values are confirmed, not missing. Severity of KR2.1 miss is computed from TRACKER.md §5 (M3 milestone 175 pilots due 2026-08-09, now past) and §2 KR2.1 target of 300 by 2026-08-28._
 
 
 ---
