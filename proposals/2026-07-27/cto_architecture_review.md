@@ -1,0 +1,28 @@
+# Architecture review — SQLite + Vercel at 175 pilots: six concrete failure modes
+
+SQLite as the production database is the highest-severity risk: concurrent webhook ingestion from 175+ pilot accounts will produce lock contention and silent data loss before the cycle ends. Three additional high-severity gaps — no webhook idempotency enforcement at the HTTP layer, no OAuth token refresh/rotation, and uncapped LLM cost on long-tail accounts — will compound into customer-visible failures within 30 days.
+
+## Risks
+- **[HIGH]** `data` — SQLite cannot handle concurrent writes from multiple webhook sources at 175+ pilots; WAL mode helps but does not eliminate lock timeouts under parallel ingestion, and the file lives in an ephemeral Vercel/cloud sandbox (Decision Log 2026-04-29: 'SQLite DB in the cloud sandbox is ephemeral').  
+  → _Mitigation:_ Provision a Supabase Postgres instance (already referenced in §6 Sprint 0 entry checklist) and swap store.py connection string; schema is already FK-normalized and will migrate cleanly. Keep SQLite for local dev only. (`2d`)
+- **[HIGH]** `integrations` — Idempotency is enforced at the schema layer (UNIQUE source+source_event_id) but webhook retries that arrive before the first write commits will race past the constraint and produce duplicate ingestion or a 500 that kills the webhook subscription.  
+  → _Mitigation:_ Add a Redis or Postgres-backed deduplication key with a 60-second TTL at the HTTP handler entry point, before any DB write; return 200 immediately on duplicate key hit. (`1d`)
+- **[HIGH]** `integrations` — OAuth tokens for GitHub, Linear, Jira, Slack, Notion have no refresh or rotation logic visible in the decision log; at 175 pilots, token expiry will silently stall ingestion for individual accounts with no alert (§9 risk row covers scope changes but not expiry).  
+  → _Mitigation:_ Add a per-account token health check to the existing per-source health check (§9 mitigation row); emit a 'token_expired' audit event and trigger the §9 stale-data >2h pager when a refresh attempt fails. (`1d`)
+- **[HIGH]** `cost` — The $50/$100 daily circuit breaker (core/limits.py) is a single global cap; at 175 pilots each triggering OKR-Mapper + Narrative runs, a single large account with 500 events/day can exhaust the cap and block all other accounts' ingestion for the rest of the UTC day.  
+  → _Mitigation:_ Add a per-account daily LLM budget (e.g., $0.50 default, configurable) enforced before the global cap check; accounts that hit their per-account limit get a 'budget_exhausted' audit event, not a global circuit-breaker trip. (`2d`)
+- **[HIGH]** `security` — §9 flags Slack ingestion privacy but the DPA template was due 2026-05-12 and there is no evidence of completion in the decision log; at 175 pilots ingesting Slack data, a single GDPR/CCPA inquiry without a signed DPA exposes the company to regulatory liability.  
+  → _Mitigation:_ Treat DPA as a hard gate before any new pilot is onboarded past the current cohort; use a standard mutual DPA template (Bonterms or equivalent, 0 legal cost) and add a 'dpa_signed' boolean to the pilot intake record. (`1d`)
+- **[MED]** `observability` — The audit log (core/audit.py) writes to the same SQLite file as the application data; if the DB is locked or the file path is wrong, audit writes fail silently to stderr (K8 alert) but there is no replay mechanism, so compliance and debugging lose the event permanently.  
+  → _Mitigation:_ Write audit events to an append-only flat file (one JSON line per event) as the primary store, with DB write as secondary; the flat file survives DB migrations and is trivially shippable to any log aggregator. (`1d`)
+- **[MED]** `architecture` — kr_signals.json is written by daily_evening.py and read by the Next.js dashboard at request time with no cache invalidation or schema version enforcement beyond a 'schema versioned' comment; a Python-side schema change will silently break the dashboard for all users until the next deploy.  
+  → _Mitigation:_ Add a top-level 'schema_version' integer to kr_signals.json and a version check in the dashboard loader that renders a degraded 'data refresh in progress' state rather than a broken table when versions mismatch. (`1d`)
+- **[MED]** `data` — OKR-Mapper confidence floor (≥0.5) is enforced in pipeline code but the eval set is 50 events against dry-run mocks; KR1.3 target (≥85% P @ ≥70% R) has no confirmed live-LLM number as of the last sprint log entry, and the 200-event grow-out deadline was 2026-05-05 — now 83 days overdue.  
+  → _Mitigation:_ Run the eval framework against live LLM immediately (one script invocation: 'python -m tests.eval.run_eval' with DRY_RUN=false); if precision <85%, freeze new pilot onboarding until the prompt is tuned — a bad mapper at 175 pilots produces 175 bad narratives. (`1d`)
+
+## Decisions needed from operator
+- [ ] Has the DPA template been signed with existing pilots, and is it a hard gate for new pilot onboarding — yes or no?
+- [ ] Is Supabase Postgres approved as the production database now (replacing SQLite), given the milestone calendar shows 175 pilots cumulative by 2026-08-09?
+
+_Confidence: 0.82_
+_Reasoning: The decision log is detailed through 2026-04-29 but has no entries for the subsequent 89 days, so several mitigations flagged in §9 (DPA, per-source health check, pricing lock) have unknown completion status. The SQLite-as-production-DB risk is structural and visible from the decision log alone. Confidence is not 0.9+ because the actual integration code for GitHub/Linear/Jira/Slack is not visible — the webhook idempotency and OAuth refresh risks are inferred from the absence of any decision log entry addressing them, not from reading the implementation._
